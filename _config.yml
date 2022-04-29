@@ -1,0 +1,256 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title:  码农学技术
+subtitle: 学习技术，思考人生
+name: 码农学技术 
+email: 953103022@qq.com
+description: 本站是我的技术分享博客。内容涵盖 Java后端技术、Spring Boot、Spring Cloud、微服务架构、大数据演进、高可用架构、中间件使用、系统监控等相关的研究与知识分享
+keywords: Java,Jvm,Spring,Spring Boot,Spring Cloud,Redis,Mq,MongoDB,FastDFS,Docker,架构,大数据,Python
+encoding: "utf-8"
+favicon: favicon.ico 
+
+repository: wdsheng0i/wdsheng0i.github.io
+github_url: https://github.com/wdsheng0i
+url: http://www.wdsheng0i.github.io
+
+## Gem
+plugins:
+  - jekyll-paginate
+  - jekyll-geo-pattern
+  - rouge
+  - kramdown
+  - jekyll-github-metadata
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+lsi:         false
+excerpt_separator: "\n\n"
+
+source:      .
+destination: ./_site
+
+quiet:    false
+defaults: []
+
+kramdown:
+  input: GFM
+  enable_coderay: true
+  syntax_highlighter: rouge
+
+syntax_highlighter_opts:
+   coderay_line_numbers:  nil
+
+# Pagination
+paginate: 12
+paginate_path: 'page:num'
+
+# Navigation. top menu list
+menus:
+
+  - href: /life.html
+    label: 静坐
+    target: _self
+
+  -
+    href: /link.html
+    label: 推荐
+    target: _self
+
+  -
+    href: /about.html
+    label: 关于
+    target: _self
+
+  -
+    href: https://github.com/wdsheng0i
+    label: Github
+    target: _self 
+
+  -
+    href: /archives.html
+    label: Archives
+    target: _self
+
+# Navigation. main menu list
+navs:
+
+  -
+    href: /database.html
+    label: 计算机基础
+    target: _self
+    subnav:
+
+      -
+        subHref: /database.html
+        subLabel: 数据库
+        target: _self
+
+      - subHref: /operate-system.html
+        subLabel: 操作系统
+        target: _self
+
+      - subHref: /net.html
+        subLabel: 网络
+        target: _self
+
+      - subHref: /data-struct.html
+        subLabel: 数据结构
+        target: _self
+
+      - subHref: /algorithm.html
+        subLabel: 算法
+        target: _self
+
+      - subHref: /computer-compose.html
+        subLabel: 计算机组成原理
+        target: _self
+
+      - subHref: /compile.html
+        subLabel: 编译原理
+        target: _self
+
+      - subHref: /office.html
+        subLabel: Office
+        target: _self
+
+  -
+    href: /java.html
+    label: Java开发
+    target: _self
+    subnav:
+
+      -
+        subHref: /java.html
+        subLabel: Java基础
+        target: _self
+
+      -
+        subHref: /jvm.html
+        subLabel: Jvm原理
+        target: _self
+
+      -
+        subHref: /juc.html
+        subLabel: Java并发
+        target: _self
+
+      -
+        subHref: /design-patterns.html
+        subLabel: 设计原则&设计模式
+        target: _self
+
+      - subHref: /mybatis.html
+        subLabel: mybatis
+        target: _self
+
+      -
+        subHref: /spring.html
+        subLabel: Spring & SpringMVC
+        target: _self
+
+      -
+        subHref: /spring-boot.html
+        subLabel: Spring Boot
+        target: _self
+
+      -
+        subHref: /spring-cloud.html
+        subLabel: Spring Cloud
+        target: _self
+
+      -
+        subHref: /component.html
+        subLabel: 组件
+        target: _self
+
+      -
+        subHref: /arch.html
+        subLabel: 架构&设计&性能
+        target: _self
+
+      -
+        subHref: /dev-ops.html
+        subLabel: Dev&Ops
+        target: _self
+
+  -
+    href: /web.html
+    label: 前端开发
+    target: _self
+
+  - href: /ai.html
+    label: ACIDE
+    target: _self
+    subnav:
+
+      - subHref: /ai.html
+        subLabel: AI&机器学习
+        target: _self
+
+      - subHref: /cloud.html
+        subLabel: 云计算
+        target: _self
+
+      - subHref: /iot.html
+        subLabel: 物联网
+        target: _self
+
+      - subHref: /big-data.html
+        subLabel: 大数据
+        target: _self
+
+      - subHref: /edge.html
+        subLabel: 边缘计算
+        target: _self
+
+      - subHref: /block.html
+        subLabel: 区块链&以太坊
+        target: _self
+
+  -
+    href: /dev-manage.html
+    label: 研发管理
+    target: _self
+
+# labels. my blog key words
+#labels:
+
+# selected articles
+classes:
+
+  -
+    href: /spring-boot.html
+    name: spring-boot
+    describe: just do java
+
+
+
+
+# ---------------- #
+#       RSS        #
+# ---------------- #
+subscribe_rss: /feed.xml
+
+# Sidebar to show popular repo
+side_bar_repo_limit: 6 # Number of repos to show
+
+# Google Analytics
+# analytics :
+# provider : google
+#   google :
+#     tracking_id : ''  # ex. UA-72165600-X
+
+
+# For about.html. Fell free to create your own!
+skill_software_keywords: [Java, MySQL, Oracle, Design Patterns]
+skill_j2ee_keywords: [Spring, Struct, Hibernet, MyBatis, JSP]
+skill_web_keywords: [HTML, CSS, JS, JQuery, Ajax, NodeJS, ExpressJS, MongoDB, Redis, PHP,  Boostrap]
+skill_mobile_app_keywords: [vuejs, hyhird app]
+
