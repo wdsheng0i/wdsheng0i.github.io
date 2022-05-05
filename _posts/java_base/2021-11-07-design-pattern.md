@@ -21,30 +21,30 @@ tags: [java]
 ### 1.1 UML图示例
 - 依赖(use a)  
 对象间最弱的一种关系，临时性的关联。代码中一般指由局部变量、函数参数、返回值建立的对于其他对象的调用关系  
-![](../../assets/images/2021/java/d1.jpeg)  
+![](https://wdsheng0i.github.io/assets/images/2021/java/d1.jpeg)  
 
 - 关联(1..1    1..N    n ..1)(has a)   
 对象间的一种引用关系，代码中指一个对象中长期引用另一个类的对象  
 关联关系中的两个类完全相互独立。可以是一对一、一对多、多对一。  
 比如：厨师和刀的关系，厨师切菜其实是刀切菜，厨师可以使用多把刀，每把刀也可以给多个厨师使用。  
-![](../../assets/images/2021/java/d2.jpeg) 
+![](https://wdsheng0i.github.io/assets/images/2021/java/d2.jpeg) 
 
 - 聚合（owns a）  
 聚合是关联关系的一种。聚合表述的是整体和个之间的关系。个体可以单独存在  
 比如：厨师组与厨师，厨师组由多个厨师组成，厨师组、每一个厨师也可以单独存在。  
-![](../../assets/images/2021/java/d3.jpeg) 
+![](https://wdsheng0i.github.io/assets/images/2021/java/d3.jpeg) 
 
 - 组合（is a part of）  
 组合也是关联关系的一种。它是比聚合关系更强的关系，表述个体和局部之间的关系。局部不能单独存在；  
 组合关系代表一种“is-a”的关系。不仅强调整体与部分之间的关系，而且代表整体的对象也要对部分的生命周期负责，组合关系不能共享，如果代表整体的对象被销毁，那么部分也会被销毁。
 举例如：人体和器官  
-![](../../assets/images/2021/java/d4.jpeg) 
+![](https://wdsheng0i.github.io/assets/images/2021/java/d4.jpeg) 
 
 - 实现（implement）    
-![](../../assets/images/2021/java/d5.jpeg) 
+![](https://wdsheng0i.github.io/assets/images/2021/java/d5.jpeg) 
 
 - 继承(泛化)    
-![](../../assets/images/2021/java/d6.jpeg) 
+![](https://wdsheng0i.github.io/assets/images/2021/java/d6.jpeg) 
 
 ### 1.2 代码示例
 ``` 
@@ -135,18 +135,18 @@ tags: [java]
     - 责任链模式：将请求的发送者和接收者解耦，使的多个对象都有处理这个请求的机会。
     - 迭代器模式：一种遍历访问聚合对象中各个元素的方法，不暴露该对象的内部结构
  
-![](../../assets/images/2021/java/d-fl.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/java/d-fl.png)  
 
-![](../../assets/images/2021/java/d-fl2.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/java/d-fl2.png)  
 
-![](../../assets/images/2021/java/d-fl3.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/java/d-fl3.png)  
 
-![](../../assets/images/2021/java/d-fl4.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/java/d-fl4.png)  
 
 ## 三、设计模式之禅-总结
-![](../../assets/images/2021/java/dp-c.png)
+![](https://wdsheng0i.github.io/assets/images/2021/java/dp-c.png)
 
-![](../../assets/images/2021/java/dp-s.png)
+![](https://wdsheng0i.github.io/assets/images/2021/java/dp-s.png)
 
 ## 设计模式学习心得  
 - 1、刚接触设计模式学习的话一阶段一定先理解设计模式的概念以及应用场景、优缺点、和UML、实现简单Demo入手。

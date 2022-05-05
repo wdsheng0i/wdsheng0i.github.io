@@ -16,7 +16,7 @@ tags: [component]
 - 使业务系统专注于业务研发；
 - 解决项目数据共享问题；
 
-### 1 系统基础功能（含UIM）
+### 1 系统基础功能（含统一身份认证服务uim-server）
 - 组织机构管理（公司、部门）
 - 角色管理
 - 用户管理
@@ -41,11 +41,14 @@ tags: [component]
 - https://blog.csdn.net/qq1031893936/article/details/81190463
 - https://blog.csdn.net/netsec_steven/article/details/106230338
 
-### 3 存储服务 Minio（fastdfs也满足实际使用） 对比下seaweedfs
+### 3 存储服务 Minio 
+fastdfs也满足实际使用，对比下seaweedfs、oss
 
 ### 4 文件转换服务 （word excel pdf html 预览 编辑 及文件转换）
 根据需求是否需要，部分在线编辑功能可能需要付费插件支持
 
 ### 5 短信服务
+短信公告、短信通知
 
-### 6 
+### 6 消息推送服务
+门户公告

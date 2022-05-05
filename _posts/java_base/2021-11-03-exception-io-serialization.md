@@ -11,7 +11,7 @@ tags: [java]
  
 
 ## 一、异常继承关系 
-![](../../assets/images/2021/java/exc.png)
+![](https://wdsheng0i.github.io/assets/images/2021/java/exc.png)
 
 ### 1.RuntimeException示例
 ```
