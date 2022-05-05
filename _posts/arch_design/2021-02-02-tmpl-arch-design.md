@@ -176,35 +176,35 @@ https://s.tencent.com/research
 #### 7.4.1 签名
 
 #### 7.4.2 摘要算法
-    MD5算法  
-    SHA算法  
+- MD5算法  
+- SHA算法  
 
 #### 7.4.3 编码和解码
-    Base64编码
-    Hex编码
+- Base64编码
+- Hex编码
 
 #### 7.4.4 对称加密
-    DES算法  
-    AES算法  
+- DES算法  
+- AES算法  
 
 #### 7.4.5 非对称加密
-    RSA算法
-    SM4
+- RSA算法
+- SM4
 
 ### 7.4.6 认证与授权
-    用户密码
-    万能key
-    特殊令牌
-    Token验证
-    JWT：Json Web Token
-    SSO：单点登录
-    OAth认证
-    权限验证
+- 用户密码
+- 万能key
+- 特殊令牌
+- Token验证
+- JWT：Json Web Token
+- SSO：单点登录
+- OAth认证
+- 权限验证
 
 ### 7.5 防攻击
-    防恶意请求
-    防sql注入
-    防跨站请求伪造
+- 防恶意请求
+- 防sql注入
+- 防跨站请求伪造
     
 
 ## 八、高可用性设计

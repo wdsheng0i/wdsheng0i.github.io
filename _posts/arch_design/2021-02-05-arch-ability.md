@@ -10,21 +10,20 @@ tags: [arch]
 ## 一. 架构基本理论
 ### 1.1 架构设计方法
 ![](https://wdsheng0i.github.io/assets/images/2021/micro/5v.png)  
-- 4+1视图法
 - 5视图法
     - "逻辑架构"（业务架构、应用架构）
     - "开发架构"（技术架构）
-    - "数据架构"
+    - "数据架构"（数据分类、存储）
     - "物理架构"（部署架构）
-    - "运行架构"
-- TOGAF
-- DODAF
-- 架构风格： 数据流风格、复制风格、分层风格、移动代码风格、点对点风格、分布式风格
+    - "运行架构"（系统对接、数据流转）
+- [TOGAF](https://zhuanlan.zhihu.com/p/152088490)：(The Open Group Architecture Framework) 开放组织架构框架
+- [DODAF](http://www.uml.org.cn/modeler/202108172.asp)：(Department of Defense Architecture Framework ) (美国)国防部体系结构框架
+- 架构风格： 数据流风格、复制风格、分层风格、移动代码风格、点对点风格、分布式风格、管道和过滤器风格
 	
 
 ### 1.2 数据一致性[设计](https://www.jianshu.com/p/ac0a8363c23d)  
 
-####  CAP定理
+#### CAP定理
 一致性Consistency、可用性Availability、分区容错性Partition tolerance
 ```
 CAP定理（CAP theorem）
@@ -58,26 +57,30 @@ Eventual Consistency -- 最终一致性， 也是是 ACID 的最终目的。
 - PreCommit(undo和redo信息记录到事务日志中)、
 - DoCommit
 
-#### 事务ACID：原子性、一致性、隔离性、持久性
+#### 事务
+- ACID特性：原子性、一致性、隔离性、持久性
+- 隔离级别：读未提交（Read Uncommitted）、读已提交（Read Committed）、可重复读（Read Repeatable）、串行化（Serializable）
+- 传播行为：同一事务、新启事务、抛异常...
 
-### 1.3 可用性设计
-- MTBF
-- MTTR
+### 1.3 可用性设计：[高可用](https://zhuanlan.zhihu.com/p/375847349)
+减少停工时间，保证服务的持续可用。  
+- MTBF：平均无故障工作时间，英文全称是“Mean Time Between Failure”
+- MTTR：平均修理时间(Mean Time to Repair);
 - 主从、热备、灾备
 
-### 1.4 可靠性设计：高性能
-- 集群、
+### 1.4 可靠性设计：[高性能、高并发](https://zhuanlan.zhihu.com/p/375847349)
+处理速度快、耗能少、支撑并发量大  
+- 集群、多节点
 - 分布式
 
-### 1.5 扩展性设计
-
-### 架构设计其他属性
+### 1.5 架构设计其他属性
+- 扩展性
 - 可伸缩
 - 简单性
 - 可修改性 
 - 可移植性 
 
-### 架构设计的关注点
+### 1.6 架构设计的关注点
 - "结构"
     - 子系统
     - 子系统模块
@@ -163,7 +166,7 @@ Eventual Consistency -- 最终一致性， 也是是 ACID 的最终目的。
     - SpringSecurity
     - Shiro
 - 加密算法
-    - 签名：
+    - 签名：DSA
     - 摘要算法：MD5算法、SHA算法
     - 编码和解码：Base64编码、Hex十六进制编码
     - 对称加密：DES算法、AES算法
@@ -183,13 +186,14 @@ Eventual Consistency -- 最终一致性， 也是是 ACID 的最终目的。
 
 ### 2.6 高并发、高可用方案设计
 集群、分布式、微服务架构设计  
-- 1.高可用部署方案：LVS + Keepalived + Nginx实现 **动静分离、反向代理、集群、负载均衡、主从热备、双机主备** 
-- 2.高可用redis缓存方案：主从复制、Redis集群、哨兵监控
-- 3.高可用DB数据库方案：Mycat配置实现-mysql集群、主从复制、读写分离、负载均衡、分库分表
-- 4.高并发下服务降级、限流方案
-- 5.CND加速静态文件访问
-- 6.应用容灾及机房规划
-- 7.系统扩容机制
+- 1).高可用部署方案：LVS + Keepalived + Nginx实现 **动静分离、反向代理、集群、负载均衡、主从热备、双机主备** 
+- 2).高可用redis缓存方案：主从复制、Redis集群、哨兵监控
+- 3).高可用DB数据库方案：Mycat配置实现-mysql集群、主从复制、读写分离、负载均衡、分库分表
+- 4).高并发下解耦、削峰、异步方案：消息队列kafka
+- 5).高并发下服务降级、限流方案
+- 6).CND加速静态文件访问
+- 7).应用容灾及机房规划
+- 8).系统扩容机制
  
 
 ## 三. 设计文档
@@ -303,9 +307,9 @@ Eventual Consistency -- 最终一致性， 也是是 ACID 的最终目的。
 - 服务部署发布
     - 发布机制：蓝绿/金丝雀/灰度
 
-### 5.2 微服务架构实践-框架
-- springboot集成通用功能组件 
-- springcloud组件集成 
+### 5.2 微服务架构实践-springcloud
+- springboot 集成通用功能组件 
+- springcloud 组件集成 
 	- Eureka注册中心
 	- Ribbon集成Rest试下负载均衡
 	- Feign声明式服务调用
@@ -314,8 +318,12 @@ Eventual Consistency -- 最终一致性， 也是是 ACID 的最终目的。
 	- Config分布式统一配置中心
 	- actuator服务监控组件
 	- Sieuth调用链路跟踪
-	- BUS消息总线  
-- docker & kubemetes
+	- BUS消息总线
+- [spring-cloud-alibaba-ability](https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md) 
+    - spring cloud alibaba Sentinel 流量控制、熔断降级、系统负载保护
+    - spring cloud alibaba nacos 配置中心、服务注册、发现
+    - Spring Cloud Alibaba Seata 处理分布式事务  
+- Docker & K8s
 - 服务网格（Service Mesh）
 
 ## 六.并发编程 && JVM

@@ -216,18 +216,36 @@
 ### 9.服务消息总线：BUS 
 
 ## 六、spring-cloud-alibaba-ability 微服务能力总结
-### spring cloud alibaba：Sentinel流量控制、熔断降级
+https://blog.csdn.net/weixin_42453582/article/details/113697878  
 
-### spring cloud alibaba：nacos配置中心、服务注册、发现
+官网：https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md
+
+主要功能：  
+- 服务限流降级：默认支持 WebServlet、WebFlux、OpenFeign、RestTemplate、Spring Cloud Gateway、Zuul、Dubbo 和 RocketMQ 限流降级功能的接入，可以在运行时通过控制台实时修改限流降级规则，还支持查看限流降级 Metrics 监控。
+- 服务注册与发现：适配 Spring Cloud 服务注册与发现标准，默认集成了 Ribbon 的支持。
+- 分布式配置管理：支持分布式系统中的外部化配置，配置更改时自动刷新。
+- 消息驱动能力：基于 Spring Cloud Stream 为微服务应用构建消息驱动能力。
+- 分布式事务：使用 @GlobalTransactional 注解， 高效并且对业务零侵入地解决分布式事务问题。
+- 阿里云对象存储：阿里云提供的海量、安全、低成本、高可靠的云存储服务。支持在任何应用、任何时间、任何地点存储和访问任意类型的数据。
+- 分布式任务调度：提供秒级、精准、高可靠、高可用的定时（基于 Cron 表达式）任务调度服务。同时提供分布式的任务执行模型，如网格任务。网格任务支持海量子任务均匀分配到所有 Worker（schedulerx-client）上执行。
+- 阿里云短信服务：覆盖全球的短信服务，友好、高效、智能的互联化通讯能力，帮助企业迅速搭建客户触达通道。
+
+### 1.spring cloud alibaba Sentinel流量控制、熔断降级、系统负载保护
+
+### 2.spring cloud alibaba nacos配置中心、服务注册、发现
+
+### 3.Spring Cloud Alibaba Seata处理分布式事务
 
 ## 七、bigdata-ability大数据能力总结
 
 ## 八、高并发、高可用方案设计总结
+集群、分布式、微服务架构设计  
 - 1.高可用部署方案：LVS + Keepalived + Nginx实现 **动静分离、反向代理、集群、负载均衡、主从热备、双机主备** 
 - 2.高可用redis缓存方案：主从复制、Redis集群、哨兵监控
 - 3.高可用DB数据库方案：Mycat配置实现-mysql集群、主从复制、读写分离、负载均衡、分库分表
-- 4.高并发下服务降级、限流方案
-- 5.CND加速静态文件访问
-- 6.应用容灾及机房规划
-- 7.系统扩容机制
+- 4.高并发下解耦、削峰、异步方案：消息队列kafka
+- 5.高并发下服务降级、限流方案
+- 6.CND加速静态文件访问
+- 7.应用容灾及机房规划
+- 8.系统扩容机制
 

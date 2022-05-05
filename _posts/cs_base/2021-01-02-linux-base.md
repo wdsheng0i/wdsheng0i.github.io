@@ -7,6 +7,7 @@ tags: [operate-system]
 
 Linux基础操作命令
 
+## 参考资料
 
 ## 一、装机
 ### 1.1 做raid   
@@ -669,3 +670,5 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
      
     以上是linux查看硬件信息的所有命令，可以查看CPU、硬盘、网卡、磁盘等硬件的信息
     
+附图：  
+![](../../assets/images/2021/os/Linux-1.png)
