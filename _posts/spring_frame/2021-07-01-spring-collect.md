@@ -175,6 +175,7 @@ SpringMVC中的Servlet一共有三个层次，分别是HttpServletBean、Framewo
 - DispatcherServlet初始化了自身的9个组件。
 
 
+DispatcherServlet的九个组件
 - 【1. HandlerMapping】
 	- 是用来查找Handler的。收到请求后用哪个Handler进行处理就是HandlerMapping需要做的事。
 - 【2. HandlerAdapter】
@@ -317,46 +318,56 @@ public String login(){
 ```
 
 ## 五、spring常见问题
-### spring程序是如何启动的？
+### 5.1 spring程序是如何启动的？
 
-### spring是如何加载配置文件到应用程序的？
+### 5.2 spring是如何加载配置文件到应用程序的？
 
-### bean的初始化都经历了什么
+### 5.3 bean的初始化都经历了什么
 
-### Spring解析，加载及实例化Bean的顺序（零配置）
+### 5.4 Spring解析，加载及实例化Bean的顺序（零配置）
 https://mp.weixin.qq.com/s/MaDYRtR8ROWl63noWCkkJA
 
-### Spring Boot条件化Bean 根据配置文件加载对应Bean
+### 5.5 Spring Boot条件化Bean 根据配置文件加载对应Bean
 https://blog.csdn.net/Applying/article/details/106952021
 
-### Spring Bean有没有必要实现Aware接口
+### 5.6 Spring Bean有没有必要实现Aware接口
 
-### 彻底理解bean的生命周期
+### 5.7 彻底理解bean的生命周期
 
-### 掌握核心接口BeanDefinitionReader
+### 5.8 掌握核心接口BeanDefinitionReader
 
-### 掌握核心接口BeanFactory
+### 5.9 掌握核心接口BeanFactory
 
-### BeanFactory与ApplicationContext的区别
+### 5.10 BeanFactory与ApplicationContext的区别
 
-### BeanFactory和FactoryBean的区别
+### 5.11 BeanFactory和FactoryBean的区别
 
-### 彻底搞懂Spring的refresh方法
+### 5.12 彻底搞懂Spring的refresh方法
 
-### BeanPostProcessor接口的作用及实现
+### 5.13 BeanPostProcessor接口的作用及实现
 
-### BeanFactoryPostProcessor接口的作用及实现
+### 5.14 BeanFactoryPostProcessor接口的作用及实现
 
-### 循环依赖问题
+### 5.15 循环依赖问题
 
-### factoryBean接口的作用
+### 5.16 factoryBean接口的作用
 
-### cglib和jdk动态代理的机制
+### 5.17 cglib和jdk动态代理的机制
 
-### aop是如何处理的  
+### 5.18 aop是如何处理的  
 
-### Spring 中经典的 9 种设计模式
+### 5.19 Spring 中经典的 9 种设计模式
 https://mp.weixin.qq.com/s/kwgV7Rhxv7wV7DOWmS9NzQ
+- 1.简单工厂模式
+- 2.工厂方法
+- 3.单例设计模式
+- 4.代理模式
+- 5.模板方法
+- 6.观察者模式
+- 7.适配器模式
+- 8.装饰者模式
+- 9.策略模式
+
 
 ## 其他
 ### @Autowired和@Resource的区别

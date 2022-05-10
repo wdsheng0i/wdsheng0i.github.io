@@ -76,7 +76,7 @@ nameserver 223.5.5.5
 永久设置 vi /etc/hostname，填写 bigdata01 
 ```
 
-### hosts文件修改（ip和主机名的映射关系）
+### hosts文件修改 
 ```
 vi /etc/hosts
 ip1 hostname1
@@ -292,16 +292,24 @@ npm -v
 
 ## 四、系统、硬件监控命令
 ### 查看内存
-```free -m ```
+```
+free -m 
+```
 
 ### 查看磁盘
-```df -h ```
+```
+df -h 
+```
 
 ### 查看进程、cpu
-```top ```
+```
+top 
+```
 
-### 整体查看系统 内存 cpu 进程 io 使用情况
-```vmstat```
+### 查看 内存 cpu 进程 io 使用情况
+```
+vmstat
+```
 
 ### 查看系统中文件的使用情况
 ```
@@ -309,14 +317,22 @@ df -h
 ```
 
 ### 查看当前目录下各个文件及目录占用空间大小
-```du -sh * ```  
-```du -lh --max-depth=1 ```
+```
+du -sh * 
+```  
+```
+du -lh --max-depth=1 
+```
 
 ### 网络是否连通
-```ping ip ```
+```
+ping ip 
+```
 
 ### 端口是否可通 
-```telnet ip port ```
+```
+telnet ip port 
+```
 
 ### linux查看某个服务具体启动时间:
 ```
@@ -324,17 +340,23 @@ ps -p PID -o lstart,  其中，PID为某个进程的进程ID号
 ```
 
 ### DNS：
-    linux下好像没有专门的DNS查看命令。
-    用ifconfig命令也是看不到DNS的信息。 
-    本机的DNS配置信息是在：/etc/resolv.conf  
+```
+linux下好像没有专门的DNS查看命令。
+用ifconfig命令也是看不到DNS的信息。 
+本机的DNS配置信息是在：/etc/resolv.conf  
+```
 
 ### 查、杀进程：
-    1、ps 命令用于查看当前正在运行的进程。 grep 是搜索例如： ps -ef | grep java  //表示查看所有进程里 CMD 是 java 的进程信息`
-    2、ps -aux | grep java          //-aux 显示所有状态 `  
-    3. kill 命令用于终止进程例如： kill -9 [PID]   //-9 表示强迫进程立即停止通常用 ps 查看进程 PID ，用 kill 命令终止进程 
+``` 
+1、ps 命令用于查看当前正在运行的进程。 grep 是搜索例如： ps -ef | grep java  //表示查看所有进程里 CMD 是 java 的进程信息`
+2、ps -aux | grep java          //-aux 显示所有状态 `  
+3. kill 命令用于终止进程例如： kill -9 [PID]   //-9 表示强迫进程立即停止通常用 ps 查看进程 PID ，用 kill 命令终止进程
+```     
 
 ### 查看ip
-```ifconfig```
+```
+ifconfig
+```
 
 ### 查看占用端口进程（2种方式）
 ```
@@ -347,7 +369,7 @@ netstat -nap | grep 27404
 
 ## 五、文件操作
 ### 新建目录：
-mkdir     opt/wenjianjia1   
+mkdir opt/wenjianjia1   
 
 ### 移动文件： 
 mv apache-tomcat-7.0.81.tar.gz       /usr
