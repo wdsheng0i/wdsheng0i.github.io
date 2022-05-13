@@ -368,9 +368,7 @@ https://mp.weixin.qq.com/s/kwgV7Rhxv7wV7DOWmS9NzQ
 - 8.装饰者模式
 - 9.策略模式
 
-
-## 其他
-### @Autowired和@Resource的区别
+### 5.20 @Autowired和@Resource的区别
 spring2.5提供了基于注解（Annotation-based）的配置，我们可以通过注解的方式来完成注入依赖。在Java代码中可以使用  
 @Resource或者@Autowired注解方式来经行注入。虽然@Resource和@Autowired都可以来完成注入依赖，但它们之间是有区 别的。首先来看一下：  
 - a.@Resource默认是按照名称来装配注入的，只有当找不到与名称匹配的bean才会按照类型来装配注入；
@@ -378,20 +376,76 @@ spring2.5提供了基于注解（Annotation-based）的配置，我们可以通�
 - c.@Resource注解是由JDK提供，而@Autowired是由Spring提供；
 - d. @Resource和@Autowired都可以书写标注在字段或者该字段的setter方法之上 
 
-### Spring [@Autowired Map 和 List](https://blog.csdn.net/qq_32867467/article/details/82944196)
-当注入一个Map的时候 ，value泛型为MaoService，则注入后Spring会将实例化后的bean放入value ，key则为注入后bean的名字
+### 5.21 Spring [@Autowired Map 和 List](https://blog.csdn.net/qq_32867467/article/details/82944196)
+- 当注入一个Map的时候 ，value泛型为MaoService，则注入后Spring会将实例化后的bean放入value ，key则为注入后bean的名字
+- 当注入一个List的时候，List的泛型为MaoService，则注入后Spring会将实例化的bean放入List中
 
-当注入一个List的时候，List的泛型为MaoService，则注入后Spring会将实例化的bean放入List中
+### 5.22 @Component、@Service、@Bean实例化规则 
+- @Component、@Service注解的类，实例对象默认beanName是： 类名首字母小写
+- @Bean注解的方法，实例对象默认beanName是： 方法名
+- 指定实例beanName：@Service("loginService2")、@Service(value = "redisService")、@Bean("restTemplateNotify")、@Bean(name = "restTemplateCustom")
 
-### 多实现类时的@Autowired注入指定@Qualifier
-@Autowired默认是按类型匹配的方式，在容器查找匹配的bean，当且仅有一个匹配的bean时，Spring将其注入到@Autowired所标注的变量中。  
-如果容器中有一个以上匹配类型的bean时，则可以通过@Qualifier注解限定bean的名称，指定bean名称注入。如：
+### 5.23 单一实例按类型注入、[多实例按beanName注入或者@Qualifier指定beanName注入](http://t.zoukankan.com/linhongwenBlog-p-13160482.html)
+- @Autowired默认是按类型匹配的方式，在容器查找匹配的bean，当且仅有一个匹配的bean时，Spring将其注入到@Autowired所标注的变量中。  
+- 如果容器中有一个以上匹配类型的bean时，则可以通过@Qualifier注解限定bean的名称，指定bean名称注入。
 ```
-@Service(name="loginService")
-public class LoginService {
-    //@Autowired
-    @Qualifier("userDao")
-    private UserDao userDao;  
-    ...
-} 
+1.仅存在一个实现类：默认按类型注入
+@Service
+public class HelloServiceImpl implements HelloService {
+    @Override
+    public void sayHello() {
+        System.out.println("say hello impl");
+    }
+}
+
+//以下两种写法均可，因为只按HelloService类型找实例
+    @Autowired
+    private HelloService helloService;
+      
+    @Autowired
+    private HelloService abc;
+
+2.存在多个实现类、默认按beanName注入实例
+//再增加一个实现类
+@Service
+public class NewHelloServiceImpl implements HelloService {
+    @Override
+    public void sayHello() {
+        System.out.println("new say hello impl");
+    }
+}
+
+    @Autowired
+    private HelloService abc; //注入失败，没有beanName = abc的实例对象
+    
+    @Autowired
+    private HelloService helloServiceImpl; //注入成功，HelloServiceImpl的实例对象，HelloServiceImpl类注解@Service默认beanName = helloServiceImpl
+    
+    @Autowired
+    private HelloService newHelloServiceImpl; //注入成功，NewHelloServiceImpl的实例对象，NewHelloServiceImpl类注解@Service默认beanName = newHelloServiceImpl
+
+3.多实例，按beanName注入实例：指定实例beanName，或者指定注入beanName
+3.1.注入对象不变，指定实例beanName
+@Service("abc")  //修改这个
+public class HelloServiceImpl implements HelloService {
+    @Override
+    public void sayHello() {
+        System.out.println("say hello impl");
+    }
+}
+
+    @Autowired
+    private HelloService abc;  //注入成功，HelloServiceImpl类注解@Service指定 beanName = abc
+
+3.2.实例类不变，指定注入beanName
+@Service
+public class HelloServiceImpl implements HelloService {
+    @Override
+    public void sayHello() {
+        System.out.println("say hello impl");
+    }
+}
+    @Autowired
+    @Qualifier("helloServiceImpl")  //增加这个
+    private HelloService abc;  //注入成功，@Qualifier("helloServiceImpl")指定注入的 beanName = helloServiceImpl
 ```
