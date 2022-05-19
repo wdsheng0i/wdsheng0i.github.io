@@ -62,7 +62,7 @@ Spring中AOP代理由Spring的IOC容器负责生成、管理，其依赖关系�
 [太好了! 总算有人把动态代理、CGlib、AOP都说清楚了](https://s2.uczzd.cn/webview/news?app=uc-iflow&aid=9286449289265789223&cid=1525483516&zzd_from=uc-iflow&uc_param_str=dndsfrvesvntnwpfgicp&recoid=1733089380403571729&rd_type=share&sp_gz=0&pagetype=share&btifl=100&uc_share_depth=1)  
 [Spring AOP的实现原理及应用场景（通过动态代理）](https://mp.weixin.qq.com/s/l_UuzWNmAfvKNUDAVii0tA)  
 - 1、默认使用Java动态代理来创建AOP代理，这样就可以为任何接口实例创建代理了(基于反射实现，实现接口)
-- 2、当需要代理的类不是代理接口的时候，Spring会切换为使用CGLIB代理，也可强制使用CGLIB
+- 2、当需要代理的类不是代理接口的时候，Spring会切换为使用CGLIB代理，也可强制使用CGLIB代理（也叫做子类代理）
 
 **AOP编程** 
 - 1、定义普通业务组件
@@ -449,3 +449,9 @@ public class HelloServiceImpl implements HelloService {
     @Qualifier("helloServiceImpl")  //增加这个
     private HelloService abc;  //注入成功，@Qualifier("helloServiceImpl")指定注入的 beanName = helloServiceImpl
 ```
+
+### 5.24 @Primary、 @ConditionalOnMissingBean、@ConditionOnBean
+- @primary： 当一个接口有两个或多个实现时，@primary和@Qulifier都可以解决实现类的优先实现问题，区别点在于： @Primary：在实现类上标注，标识该实现类优先选择 @Qulifier：在接口上标注，标识选择哪一个实现类
+- @ConditionalOnMissingBean： 应用中不包含某个类时，对应的配置才生效，应用中包含该类的bean，那么二次注册同类型的bean的时候则会报错
+- @ConditionOnBean： 与ConditionalOnMissingBean注解相反，检查应用中是否拥有某个bean，若有，则生效。否则报错
+
