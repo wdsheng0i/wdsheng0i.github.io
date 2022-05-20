@@ -1,6 +1,6 @@
 ---
 layout: post
-title: windows使用总结
+title: Windows使用总结
 category: operate-system
 tags: [operate-system]
 --- 

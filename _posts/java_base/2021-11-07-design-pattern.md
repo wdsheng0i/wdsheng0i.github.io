@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 设计模式介绍
-category: java
-tags: [java]
+category: design-patterns
+tags: [design-patterns]
 ---
 
 设计模式介绍
@@ -10,6 +10,7 @@ tags: [java]
 ## 参考资料
 - [Java开发中的23种设计模式详解(转)](http://www.cnblogs.com/maowang1991/archive/2013/04/15/3023236.html)
 - https://www.cnblogs.com/MJyc/p/10410327.html
+- ["乔"话设计模式——设计模式（前篇）-咚咚锵嘿哈](https://mp.weixin.qq.com/s/RmpASQlsOHcuGGD2MODjtg)
 
 ## 一、对象间关系
 接触设计模式之前一定先清楚类之间的关系和设计，也就是我们常说的UML类图和类设计。    
@@ -147,13 +148,16 @@ tags: [java]
 ## 三、设计模式学习（spring经典9种设计模式）
 ### 3.1 简单工厂模式
 
-### 3.2 工厂方法
+### 3.2 工厂方法(Factory Method)
 
-### 3.3 单例设计模式
+### 3.3 单例模式(Singleton) 
 单例模式定义：  
-- 单例模式确保某个类只有一个实例，而且自行实例化并向整个系统提供这个实例， 单例模式就是为了避免不一致状态。  
+- 单例模式确保某个类只有一个实例，而且自行实例化并向整个系统提供这个实例， 单例模式就是为了避免不一致状态。
 
-使用场景：  
+单例模式UML类图：  
+![](https://wdsheng0i.github.io/assets/images/2021/design-pattern/singleton.png)    
+
+单例模式使用场景：  
 - 在计算机系统中，线程池、缓存、日志对象、对话框、打印机、显卡的驱动程序对象常被设计成单例.  
 - ES、redis、ftp连接  都可设计成单例模式  
 - springMVC的bean注入单例对象
@@ -249,6 +253,9 @@ public class Singleton1 {
 ### 3.4 代理模式(Proxy) 
 代理模式的定义：    
 - 代理模式提供了对目标对象另外的一种访问方式， 即通过【代理对象】访问【目标对象】；并由代理对象控制对原对象的引用。通俗的来讲代理模式就是我们生活中常见的中介。
+
+代理模式UML类图：  
+![](https://wdsheng0i.github.io/assets/images/2021/design-pattern/proxy.png)
 
 代理模式优点：
 - 中介隔离作用：一个客户对象不想或者不能直接引用一个委托对象，而代理类对象可以在客户对象和委托对象之间起到中介的作用，其特征是代理类和委托类实现相同的接口。
@@ -486,15 +493,15 @@ public class CglibProxyTest {
 CGLIB代理总结：  
 CGLIB创建的动态代理对象比JDK创建的动态代理对象的性能更高，但是CGLIB创建代理对象时所花费的时间却比JDK多得多。所以对于单例的对象，因为无需频繁创建对象，用CGLIB合适，反之使用JDK方式要更为合适一些
 
-### 3.5 模板方法
+### 3.5 模板方法(Template Method)
 
-### 3.6 观察者模式
+### 3.6 观察者模式(Observer)
 
-### 3.7 适配器模式
+### 3.7 适配器模式(Adapter)
 
-### 3.8 装饰者模式
+### 3.8 装饰者模式(Decorator)
 
-### 3.9 策略模式
+### 3.9 策略模式(Strategy)
 策略模式定义：  
 - 策略模式定义了一系列的算法（一般会用一个抽象的策略类来定义），并将每一个算法实现封装起来（每种算法实现则对应于一个具体策略类），使每个算法可以相互替代，使算法本身和使用算法的客户端分割开来，相互独立。
 
@@ -503,8 +510,8 @@ CGLIB创建的动态代理对象比JDK创建的动态代理对象的性能更高
 - 策略实现角色 ConcreteStrategy: 具体的策略实现，即具体的算法实现。
 - 策略上下文角色 StrategyContext: 策略上下文，负责和具体的策略实现交互，通常策略上下文对象会持有一个真正的策略实现对象，策略上下文还可以让具体的策略实现从其中获取相关数据，回调策略上下文对象的方法。
 
-UML类图：
-![](../../assets/images/2021/design-pattern/strategy.png)  
+策略模式UML类图：
+![](https://wdsheng0i.github.io/assets/images/2021/design-pattern/strategy.png)  
 
 #### 3.9.2 策略模式的优、缺点
 策略模式的优点：  
@@ -524,10 +531,74 @@ UML类图：
 
 #### 3.9.3 策略模式示例
 ``` 
+/**
+ * 策略角色(抽象/接口)类： Strategy
+ * 用来约束一系列具体的策略算法
+ * 也可以是abstract抽象父类，策略实现子类对其继承
+ */
+public interface IStrategy {
+    /**
+     * 必要方法：抽象算法接口，策略实现类中进行多态实现
+     */
+    void algorithm();
+}
 
+/**
+ * @Description 具体策略实现类A： ConcreteStrategy
+ **/
+public class ConcreteStrategyA implements IStrategy {
+    @Override
+    public void algorithm() {
+        System.out.println("Strategy A");
+    }
+}
+
+/**
+ * @Description 具体策略实现类B： ConcreteStrategy
+ **/
+public class ConcreteStrategyB implements IStrategy {
+    @Override
+    public void algorithm() {
+        System.out.println("Strategy B");
+    }
+}
+
+/**
+ * @Description 策略上下文
+ * 负责和具体的策略实现交互，通常策略上下文对象会持有一个真正的策略实现对象，策略上下文还可以让具体的策略实现从其中获取相关数据，回调策略上下文对象的方法
+ **/
+public class StrategyContext {
+    private IStrategy mStrategy;
+
+    public StrategyContext(IStrategy strategy) {
+        this.mStrategy = strategy;
+    }
+
+    public void algorithm() {
+        this.mStrategy.algorithm();
+    }
+}
+
+/**
+ * 测试StrategyContext 
+ **/
+public class StrategyTest {
+    public static void main2(String[] args) {
+        //选择一个具体策略
+        IStrategy strategyA = new ConcreteStrategyA();
+        //来一个上下文环境
+        StrategyContext context = new StrategyContext(strategyA);
+        //客户端直接让上下文环境执行算法
+        context.algorithm();
+
+        IStrategy strategyB = new ConcreteStrategyB();
+        context = new StrategyContext(strategyB);
+        context.algorithm();
+    }
+}
 ```
 
-### 原型模式（Prototype Pattern）
+### 原型模式（Prototype）
 是用于创建重复的对象，同时又能保证性能。这种类型的设计模式属于创建型模式，它提供了一种**创建对象的最佳方式**。
 
 **原型模式的本质就是clone**，可以解决构建复杂对象的资源消耗问题，能再某些场景中提升构建对象的效率；还有一个重要的用途就是保护性拷贝，可以通过返回一个拷贝对象的形式，实现只读限制

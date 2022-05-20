@@ -1,6 +1,6 @@
 ---
 layout: post
-title: seaweedfs 安装、配置、使用 
+title: Seaweedfs 安装、配置、使用 
 category: component
 tags: [component]
 ---

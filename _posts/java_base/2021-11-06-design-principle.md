@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 设计原则
-category: java
-tags: [java]
+category: design-patterns
+tags: [design-patterns]
 ---
 
 设计原则
@@ -290,7 +290,7 @@ Java中实现高内聚低耦合的常用方式：
 
 **讳疾忌医的典故**
 
-![扁鹊三连](../../assets/images/2021/java/bqsl.png)
+![扁鹊三连](https://wdsheng0i.github.io/assets/images/2021/java/bqsl.png)
 
 《扁鹊见蔡桓公》的故事，我们从小就学习了，告诉我们不能盲目相信自己，不能讳疾忌医。但想想我们自己代码的坏味道和bug，也是如出一辙。
 

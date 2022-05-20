@@ -193,5 +193,5 @@ public class TaskConfig {
 [XXL-JOB的使用(详细教程)](https://blog.csdn.net/f2315895270/article/details/104714692/)
 
 ## 六、定时任务框架[quartz、elastic-job和xxl-job的分析对比](https://blog.csdn.net/LWS826528071/article/details/94394249)
-![](../../assets/images/2021/job/comp.png)
+![](https://wdsheng0i.github.io/assets/images/2021/job/comp.png)
 

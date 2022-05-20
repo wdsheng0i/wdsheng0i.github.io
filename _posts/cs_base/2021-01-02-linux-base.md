@@ -564,6 +564,7 @@ swapon /swapfile
 echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
 ```
  
+
 ### 查看内存硬件信息
 ```
     dmidecode -t memory
@@ -587,6 +588,7 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
     我的主板有4个槽位，只用了一个槽位，上面插了一条4096MB的内存。
 ```
  
+
 ### 查看硬盘和分区分
     # lsblk
     NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -598,6 +600,7 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
     ├—sda5   8:5    0 111.8G  0 part /home
     └—sda6   8:6    0 269.2G  0 part
  
+
 ### 如果要看硬盘和分区的详细信息
     # fdisk -l
     Disk /dev/sda: 500.1 GB, 500107862016 bytes
@@ -613,10 +616,12 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
     /dev/sda4       177932286   976771071   399419393    5  Extended/dev/sda5       177932288   412305407   117186560   83  Linux
     /dev/sda6       412307456   976771071   282231808   83  Linux
  
+
 ### 查看网卡硬件信息
     # lspci | grep -i 'eth'
     02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168B PCI Express Gigabit Ethernet controller (rev 06)
  
+
 ### 查看系统的所有网络接口
     # ifconfig -a
     eth0      Link encap:以太网  硬件地址 b8:97:5a:17:b3:8f
@@ -652,6 +657,7 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
      .....
     Link detected: yes    #表示有网线连接，和路由是通的
  
+
 ### 查看pci信息，即主板所有硬件槽信息。
     Lspci
      
@@ -674,6 +680,7 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
     如果要更详细的信息:lspci -v 或者 lspci -vv
     如果要看设备树:lscpi –t
  
+
 ### 查看bios信息
     # dmidecode -t bios
     ......
@@ -687,6 +694,7 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
      
     dmidecode以一种可读的方式dump出机器的DMI(Desktop Management Interface)信息。这些信息包括了硬件以及BIOS，既可以得到当前的配置，也可以得到系统支持的配置，比如说支持的内存数等。
  
+
 ### 如果要查看所有有用信息
     dmidecode –q
      
