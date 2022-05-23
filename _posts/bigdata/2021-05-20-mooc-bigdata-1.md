@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 《大数据开发工程师》阶段一：走进大数据Hadoop 
-category: big-data
-tags: [big-data]
+category: acide
+tags: [acide]
 ---
 
 ## 参考资料

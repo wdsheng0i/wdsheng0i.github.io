@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 云计算介绍 
-category: cloud
-tags: [cloud]
+category: acide
+tags: [acide]
 ---
 
  

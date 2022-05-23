@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 大数据之CDH安装与部署
-category: big-data
-tags: [big-data]
+category: acide
+tags: [acide]
 ---
 
 ## 参考资料

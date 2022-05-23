@@ -1,8 +1,8 @@
 ---
 layout: post
 title: WVP + ZLMediaKit + MediaServerUI实现摄像头GB28181推流播放录制
-category: iot
-tags: [iot]
+category: acide
+tags: [acide]
 ---
 
 ## 参考资料

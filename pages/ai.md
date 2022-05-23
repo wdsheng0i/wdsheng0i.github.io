@@ -1,11 +1,11 @@
 ---
 layout: page
-title: AI 
-titlebar: ai
-subtitle: AI &nbsp;&nbsp; 机器学习 ...
-menu: ai
+title: ACIDE 
+titlebar: acide
+subtitle: AI &nbsp;&nbsp; 机器学习 &nbsp;&nbsp; 云计算 &nbsp;&nbsp;物联网 &nbsp;&nbsp;大数据 &nbsp;&nbsp;边缘计算 &nbsp;&nbsp;区块链 &nbsp;&nbsp;以太坊 ... 
+menu: acide
 css: ['blog-page.css']
-permalink: /ai
+permalink: /acide
 ---
 
 <div class="row">

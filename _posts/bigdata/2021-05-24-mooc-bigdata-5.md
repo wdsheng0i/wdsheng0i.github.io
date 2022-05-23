@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 《大数据开发工程师》阶段五：推荐系统 + 数据中台 
-category: big-data
-tags: [big-data]
+category: acide
+tags: [acide]
 ---
 
 综合项目：三度关系推荐系统+数据中台 

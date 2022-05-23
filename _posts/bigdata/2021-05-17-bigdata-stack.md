@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 大数据技术栈介绍
-category: big-data
-tags: [big-data]
+category: acide
+tags: [acide]
 ---
 
 大数据技术栈介绍

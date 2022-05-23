@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 《大数据开发工程师》阶段二：Flume + Hive + PB级离线数据计算分析方案 
-category: big-data
-tags: [big-data]
+category: acide
+tags: [acide]
 ---
 
 Flume + Hive + PB级离线数据计算分析方案 

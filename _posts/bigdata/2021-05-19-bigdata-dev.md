@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 大数据之本地开发环境
-category: big-data
-tags: [big-data]
+category: acide
+tags: [acide]
 ---
 
 本地开发模式: 开发、调试mapreduce代码

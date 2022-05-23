@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 《大数据开发工程师》阶段四：Flink + 高频实时数据处理方案 
-category: big-data
-tags: [big-data]
+category: acide
+tags: [acide]
 ---
 
 Flink + 高频实时数据处理方案 

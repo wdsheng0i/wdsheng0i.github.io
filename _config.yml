@@ -188,31 +188,6 @@ navs:
   - href: /ai.html
     label: ACIDE
     target: _self
-    subnav:
-
-      - subHref: /ai.html
-        subLabel: AI&机器学习
-        target: _self
-
-      - subHref: /cloud.html
-        subLabel: 云计算
-        target: _self
-
-      - subHref: /iot.html
-        subLabel: 物联网
-        target: _self
-
-      - subHref: /big-data.html
-        subLabel: 大数据
-        target: _self
-
-      - subHref: /edge.html
-        subLabel: 边缘计算
-        target: _self
-
-      - subHref: /block.html
-        subLabel: 区块链&以太坊
-        target: _self
 
   -
     href: /dev-manage.html
