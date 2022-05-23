@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 服务网关 spring cloud zuul（待梳理）
+title: 服务网关 spring cloud zuul 
 category: springcloud
 tags: [springcloud]
 ---

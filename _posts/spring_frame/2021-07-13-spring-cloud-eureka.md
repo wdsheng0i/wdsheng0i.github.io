@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 服务注册发现 spring cloud eureka（待梳理）
+title: 服务注册发现 spring cloud eureka 
 category: springcloud
 tags: [springcloud]
 ---

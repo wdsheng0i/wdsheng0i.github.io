@@ -21,7 +21,7 @@ tags: [design-patterns]
 
 ### 1.1 UML图示例
 分析下方这个图：  
-![](../../assets/images/2021/design-pattern/pr.png)   
+![](https://wdsheng0i.github.io/assets/images/2021/design-pattern/pr.png)   
 - 大黑是一只【实现】了大雁接口的大雁，具有大雁的一切特征，
 - 它呼吸的时候【依赖】于空气，
 - 大黑由两个翅膀和其他的器官【组合】而成。

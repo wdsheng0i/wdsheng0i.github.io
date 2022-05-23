@@ -31,7 +31,7 @@ http://www.123.com/index.html 调用 https://www.123.com/server.php （协议不
 同时满足三个条件才有可能产生跨域问题。  
 
 
-## 2.解决跨域问题方案。
+## 二、解决跨域问题方案。
 ### 2.1.从浏览器出发，允许浏览器跨域。
 
 ### 2.2.从XHR（XMLHttpRequest）出发避免发生跨域
