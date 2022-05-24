@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  常用工具软件：安装、破解
+title:  常用工具软件：安装、激活
 category: dev-manage
 tags: [dev-manage]
 ---

@@ -28,12 +28,20 @@ ACID特性： 原子性(Atomicity)、一致性(Correspondence)、隔离性(Isola
 ## 三、事务隔离级别
 https://blog.csdn.net/qq_27185561/article/details/112619232
 
-隔离级别：读未提交（Read Uncommitted）、读已提交（Read Committed）、可重复读（Read Repeatable）、串行化（Serializable）。
+事务并发问题      
+- 脏读：事务1读到了事务2未commit数据，事务2可能回滚
+- 不可重复读：事务1读取了两次事务2次commit
+- 幻读：事务2的数据操作仅是插入和删除，未修改数据，事务1读取的记录数量前后不一致
+
+隔离级别：  
+读未提交（Read Uncommitted）、读已提交（Read Committed）、可重复读（Read Repeatable）、串行化（Serializable）。
 
 - Read Uncommitted：在A、B事务共同进行时，B事务修改后但未提交的内容能被A事务读到，这就会导致脏读，因为B事务有可能会回滚。
 - Read Committed：在A事务先查询数值结果为1，B事务修改数值为2然后提交，接下来A事务再次查询数值结果为2，导致数据不可重复读。
 - Read Repeatable：在A事务先查询数值结果为1，B事务修改数值为2然后提交，接下来A事务再次查询数值结果还是为1。
 - Serializable：Read Uncommitted、Read Committed和Read Repeatable都会有一个问题：幻读，Read Committed和Read Repeatable都是针对两个事务同时对某条数据修改，但是幻读针对的是插入，例如A事务先把所有行的某个字段都修改为了2，然后B事务插入了一条数据，那个字段的值是1。A事务再查询数据时会发现包含一条1的数据。想要把幻读解决，那就需要采取Serializable，所有事务都串行执行，不允许多个事务并行操作。
+
+默认：Default，使用数据库默认事务级别，mysql默认RR
 
 ## 四、事务传播行为
 事务的第一个方面是传播行为（propagation behavior）。当事务方法被另一个事务方法调用时，必须指定事务应该如何传播。 
@@ -74,8 +82,8 @@ http://blog.csdn.net/trigl/article/details/50968079
 - 2 让unchecked例外不回滚： @Transactional(notRollbackFor=RunTimeException.class)
 - 3 不需要事务管理的(只查询的)方法:@Transactional(propagation=Propagation.NOT_SUPPORTED
 
-## 六、Mysql下的MVCC
-MVCC，Multi-Version Concurrency Control，多版本并发控制。MVCC 是一种并发控制的方法，一般在数据库管理系统中，实现对数据库的并发访问，在编程语言中实现事务内存。
+## 六、事务并发问题解决方案：Mysql下的MVCC
+MVCC，Multi-Version Concurrency Control，多版本并发控制，通过时间戳、事务id标识数据版本。MVCC 是一种并发控制的方法，一般在数据库管理系统中，实现对数据库的并发访问，在编程语言中实现事务内存。
 
 基于innodb引擎下，会在表中添加三个隐藏字段：
 - DB_TRX_ID：数据创建的事务id（6 个字节，可以通过“show engine innodb status”查找）
@@ -103,5 +111,13 @@ RC隔离级别下：在每个查询语句开始的时候，会将当前系统中
 ## 八、问题
 - 为什么不加@EnableTransactionManagement，也能使用@Transaction  
 META-INF/spring.factories 默认自动配置
+
+事务失效场景  
+- 数据库引擎不支持、
+- 异常被捕获处理
+- 嵌套调用
+- 非public方法(AOP只代理了public方法)、
+- rollbackFor指定错误、noRollbackFor设置错误
+- proPagation传播属性设置错误，如不支持not_supported/never、REQUIRES_NEW 新开启一个事务
 
 

@@ -8,9 +8,11 @@ tags: [design-patterns]
 设计原则
 
 ## 参考资料
-- https://blog.csdn.net/itcodexy/article/details/121724813
-- http://www.cnblogs.com/lanxuezaipiao/archive/2013/06/09/3128665.html
-- https://www.iteye.com/blog/zz563143188-1847029
+- [《设计模式之禅》]()
+- [《重学java设计模式》]()
+- [程序员必懂的程序设计原则](https://blog.csdn.net/itcodexy/article/details/121724813)
+- [程序员该有的艺术气质—SOLID原则](http://www.cnblogs.com/lanxuezaipiao/archive/2013/06/09/3128665.html)
+- [Java中的23种设计模式详解](https://www.iteye.com/blog/zz563143188-1847029)
 
 ## 一、前言
 

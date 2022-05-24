@@ -383,7 +383,7 @@ Eventual Consistency -- 最终一致性， 也是是 ACID 的最终目的。
 - Gitlab 部署、Gitflow、CI/CD 配置
 - jenkins部署、配置项目自动化构建
 - Sonar部署、配置项目git、配置静态代码检查规则
-- IDEA破解、设置、使用、常用插件
+- IDEA激活、设置、使用、常用插件
 - Yapi搭建、接口维护
 - JIRA搭建、缺陷管理
 - Docker & k8s部署、使用
