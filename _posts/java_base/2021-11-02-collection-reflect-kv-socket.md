@@ -13,7 +13,13 @@ tags: [java]
  
 ### 1.1 泛型概念
 即“参数化类型”。那么参数化类型怎么理解呢？顾名思义，就是将类型由原来的具体的类型参数化，类似于方法中的变量参数，此时类型也定义成参数形式（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）。  
+
 Java语言引入泛型的好处是安全简单  https://www.cnblogs.com/lwbqqyumidi/p/3837629.html
+
+- 声明在类、构造方法上  
+- 方法返回值  
+- 方法参数  
+
 
 ### 1.2 泛型特性
 1.常见的如T、E、K、V等形式的参数常用于表示泛型形参 
@@ -115,10 +121,10 @@ public interface List<E> extends Collection<E> {...}
 
 ### 2.4.操作类的属性和方法
 ```
-//1.取类信息
-Class<Student> clazz = Student.class  //取Class类信息 
-Class<?> clazz = Class.forName("com.test.Student"); //获取Class信息
-Class<?> cls = student1.getClass(); // 通过对象实例取得类信息
+//1.反射取类信息：三种方式
+通过加载全路径： Class<?> clazz = Class.forName("com.test.Student"); //获取Class信息
+通过实例对象方法： Class<Student> clazz = Student.class  //取Class类信息 
+通过类属性： Class<?> cls = student1.getClass(); // 通过对象实例取得类信息
 
 Class<?> parentClass = clazz.getSuperclass(); // 取得父类
 Class<?> intes[] = clazz.getInterfaces(); // 获取所有的接口
@@ -192,10 +198,12 @@ public static void main(String[] args) throws Exception {
     - java.util.HashTable  //线程安全（方法有synchronized修饰），key还是value都不能为null
 - java.util.Iterator      //迭代器 -- 用于遍历集合
 - java.util.Comparator    // （外）比较器 -- 用于比较 -- 实现排序
-- java.util.Collections      //容器工具类    sort（）方法
 - java.lang.Comparable   // （内）比较器 -- 用于比较 -- 实现排序  java Lang包中
+- java.util.Collections      //容器工具类    sort（）方法
+- java.util.Arrays  数组工具类
 
 ![](https://wdsheng0i.github.io/assets/images/2021/java/c1.png)   
+
 ![](https://wdsheng0i.github.io/assets/images/2021/java/c2.png) 
  
 集合（Collection、List、Set、Map、Comparator、Iterator ）  
@@ -426,5 +434,12 @@ Collections.sort(plist, new Comparator<Person>(){  //Person无默认比较器实
 });
 ```
 
-四、网络编程
+## 四、网络编程
+### 4.1 socket  
+![](https://wdsheng0i.github.io/assets/images/2021/java/s1.png)   
 
+![](https://wdsheng0i.github.io/assets/images/2021/java/s2.png)   
+
+![](https://wdsheng0i.github.io/assets/images/2021/java/s3.png)   
+
+### 4.2 RMI
