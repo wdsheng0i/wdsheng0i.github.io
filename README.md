@@ -115,6 +115,7 @@
 - 3.请求重试切面: RetryAspect
 - 4.[数据库配置加解密: propertycrypt](https://blog.csdn.net/sinat_40294534/article/details/78019858)
 - 5.[DB业务字段存储脱敏处理fieldcrypt：数据出入库字段mybatis拦截器加解密](https://www.jianshu.com/p/1673344f9b58)
+- 5.[Spring Boot接口参数、接口返回、加密解密：](https://mp.weixin.qq.com/s/YDR4DxSz0KFbIewQkmwxpw)
 - 6.各种常用加解密算法security: SHA、RSA、AES、DES、SM4、MD5、Base64、Hex、签名
 - 7.自定义业务异常统一处理exception: ServiceException + ServiceExceptionHandler
 - 8.使用配置属性properties: 

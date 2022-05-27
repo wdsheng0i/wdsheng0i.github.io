@@ -79,7 +79,7 @@ tags: [arch]
 ``` 
 -XX:+UseSerialGC： 使用串行回收器进行回收，新生代和老年代都使用串行回收器，新生代使用复制算法，老年代使用标记-整理算法。Serial收集器是最基本、历史最悠久的收集器，它是一个单线程收集器。一旦回收器开始运行时，整个系统都要停止
 -XX:+UseParNewGC： ParNew收集器是Serial收集器的多线程版本，在新生代进行并行回收，老年代仍旧使用串行回收。新生代S区使用复制算法。操作系统是多核CPU上效果明显，单核CPU建议使用串行回收器。打印GC详情时有ParNew标识。默认关闭
--XX:+UseParallelGC： 代表新生代使用Parallel收集器，老年代使用串行收集器
+-XX:+UseParallelGC： 代表新生代使用Parallel收集器，老年代使用并行收集器
 -XX:+UseParallelOldGC： 新生代和老年代都使用并行收集器。打印出的GC日志会带PSYoungGen、ParOldGen关键字
 -XX:+UseConcMarkSweepGC： 并发标记清除，老年代 即使用CMS收集器。它是和应用程序线程一起执行，相对于Stop The World来说虚拟机停顿时间较少，新生代使用ParNew收集算法。默认关闭
 -XX:+ UseCMSCompactAtFullCollection： Full GC后，进行一次整理，整理过程是独占的，会引起停顿时间变长。仅在使用CMS收集器时生效。

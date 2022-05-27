@@ -114,9 +114,8 @@ public List<TreeBeen<Area>> getAeraTree(){
 ```
  
 
-## 二、IO
-
-![](https://wdsheng0i.github.io/assets/images/2021/java/io.png) 
+## 二、IO  
+![](https://wdsheng0i.github.io/assets/images/2021/java/io.png)   
 
 字节流读取的时候，读到一个字节就返回一个字节；  
   

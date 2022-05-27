@@ -5,28 +5,35 @@ category: springboot
 tags: [springboot]
 ---
 
-## 收集 Spring Boot 相关的学习资料
-官网  
+## 参考资料
 - [Spring boot 官网](http://projects.spring.io/spring-boot/)  
 - [Spring Boot 参考指南- 英文版](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)  
 - [网易云课堂Spring Boot视频](http://study.163.com/courses-search?keyword=Spring%20Boot)   
 - [慕课网Spring Boot视频](https://www.imooc.com/search/?words=spring%20boot)   
 - [开源书籍-微服务：从设计到部署](https://github.com/oopsguy/microservices-from-design-to-deployment-chinese)  
 
-收集    
-- [Spring Boot 注解大全：](https://mp.weixin.qq.com/s/gVP0BCWK58UFk9aLGyLzjQ)  
-- [SpringBoot 常用注解：](https://mp.weixin.qq.com/s/Yxb6xnWGN5Vm1Tls053Z_Q)   
-- [SpringBoot 启动原理：](https://mp.weixin.qq.com/s/Yr-RKHeR9PFEd_wtYkvLmg)   
-- [Spring Boot 启动时，让方法自动执行的 4 种方法：](https://mp.weixin.qq.com/s/QLC2YY00-p28pTkOKiK2Gw) 
-- [Spring Boot 接口参数加密解密？：](https://mp.weixin.qq.com/s/YDR4DxSz0KFbIewQkmwxpw) 
-
-## 推荐博客
 
 - [纯洁的微笑-Spring Boot系列文章](http://www.ityouknow.com/spring-boot.html)  
 - [方志朋-SpringBoot 非官方教程](http://blog.csdn.net/column/details/15397.html)   
 - [死牛胖子的技术随笔-SpringBoot2.0实战](https://blog.csdn.net/gongm24/category_7413266.html)
 
-## 开源项目
+## 1.问题总结  
+### springboot是什么？产生的意义?
+简化配置、编码、部署、监控  
+
+### @SpringBootApplication复合注解分析
+
+### 启动流程分析
+- [SpringBoot 启动原理：](https://mp.weixin.qq.com/s/Yr-RKHeR9PFEd_wtYkvLmg)   
+- [Spring Boot 启动时，让方法自动执行的 4 种方法：](https://mp.weixin.qq.com/s/QLC2YY00-p28pTkOKiK2Gw) 
+
+### 自动装配原理分析
+
+### spring.factories
+
+### 内嵌tomcat实现
+
+## 2.开源项目
 - [纯洁的微笑 Spring Boot 示例](https://github.com/ityouknow/spring-boot-examples)
 - [Spring Boot 官方示例](https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples)  
 - [Docker+SpringBoot+Mybatis+thymeleaf等技术实现的Java博客系统](https://github.com/ZHENFENG13/My-Blog)  
@@ -60,7 +67,7 @@ tags: [springboot]
 - [mall-SpringBoot+MyBatis 电商系统](https://github.com/macrozheng/mall)
 - [基于Spring Boot2.0微服务脚手架](https://github.com/Senssic/sc-whorl)
 
-## Spring Boot application starters 
+## 3.Spring Boot application starters 
 
 |名称|描述|Pom|
 |------|:-----|:-----|

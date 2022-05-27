@@ -58,7 +58,7 @@ AOP技术恰恰相反，它利用一种称为"横切"的技术，剖解开封装
 ### 2.2.spring-aop核心概念
 Spring中AOP代理由Spring的IOC容器负责生成、管理，其依赖关系也由IOC容器负责管理。 
  
-**Spring创建代理的规则为：**  
+**Spring创建代理的原理：**  
 [太好了! 总算有人把动态代理、CGlib、AOP都说清楚了](https://s2.uczzd.cn/webview/news?app=uc-iflow&aid=9286449289265789223&cid=1525483516&zzd_from=uc-iflow&uc_param_str=dndsfrvesvntnwpfgicp&recoid=1733089380403571729&rd_type=share&sp_gz=0&pagetype=share&btifl=100&uc_share_depth=1)  
 [Spring AOP的实现原理及应用场景（通过动态代理）](https://mp.weixin.qq.com/s/l_UuzWNmAfvKNUDAVii0tA)  
 - 1、默认使用Java动态代理来创建AOP代理，这样就可以为任何接口实例创建代理了(基于反射实现，实现接口)
@@ -105,7 +105,7 @@ spring声明式事务，实现原理也是切面注解，上诉原因同样适�
 ## 三、Spring-IOC
 IOC的思想最核心的地方在于，资源不由使用资源的双方管理，而由不使用资源的第三方管理，这可以带来很多好处。第一，资源集中管理，实现资源的可配置和易管理。第二，降低了使用资源双方的依赖程度，也就是我们说的耦合度。 
  
-### 依赖注入(Dependency Injection)和控制反转(Inversion of Control)
+### 3.1 依赖注入(Dependency Injection)和控制反转(Inversion of Control)
  - 所谓的依赖注入，则是，甲方开放接口，在它需要的时候，能够讲乙方传递进来(注入)
  - 所谓的控制反转，甲乙双方不相互依赖，交易活动的进行不依赖于甲乙任何一方，整个活动的进行由第三方负责管理。
  
@@ -127,7 +127,9 @@ IOC的思想最核心的地方在于，资源不由使用资源的双方管理�
 [跟着开涛学SpringMVC](https://www.iteye.com/blog/jinnianshilongnian-1631021)      
 https://pan.baidu.com/s/1-GZsONQxoaFJblv4SvZjog 密码：0yol    
 
-### springMVC常用注解 
+![](https://wdsheng0i.github.io/assets/images/2021/spring/mvc2.png)
+
+### 4.1 springMVC常用注解 
 1.Spring2.5引入注解式处理器支持     
 需通过处理器映射器DefaultAnnotationHandlerMapping和处理器适配器AnnotationMethodHandlerAdapter来开启支持@Controller 和 @RequestMapping注解的处理器。
   
@@ -168,7 +170,7 @@ https://pan.baidu.com/s/1-GZsONQxoaFJblv4SvZjog 密码：0yol
 ... 
   
 
-### SpringMVC[九大组件](https://www.cnblogs.com/chinaifae/articles/10275596.html)
+### 4.2 SpringMVC[九大组件](https://www.cnblogs.com/chinaifae/articles/10275596.html)
 SpringMVC中的Servlet一共有三个层次，分别是HttpServletBean、FrameworkServlet和 DispatcherServlet。
 - HttpServletBean直接继承自java的HttpServlet，其作用是将Servlet中配置的参数设置到相应的属性；
 - FrameworkServlet初始化了WebApplicationContext，
@@ -195,7 +197,7 @@ DispatcherServlet的九个组件
 - 【9. FlashMapManager】
 	- 用来管理FlashMap的，FlashMap主要用在redirect中传递参数。 
 
-### controller接口参数获取和返回值方式总结
+### 4.3 controller接口参数获取和返回值方式总结
 ``` 
 ##############接口获取参数##############
 ## POST:
@@ -318,7 +320,15 @@ public String login(){
 ```
 
 ## 五、spring常见问题
+### 5.0 Bean作用域：
+scope属性，session、request、page、application...
+
 ### 5.1 spring程序是如何启动的？
+ContextLoader    
+SpringMVC中的Servlet一共有三个层次，分别是HttpServletBean、FrameworkServlet和 DispatcherServlet。  
+- HttpServletBean直接继承自java的HttpServlet，其作用是将Servlet中配置的参数设置到相应的属性；
+- FrameworkServlet初始化了WebApplicationContext，
+- DispatcherServlet初始化了自身的9个组件。  
 
 ### 5.2 spring是如何加载配置文件到应用程序的？
 
@@ -333,12 +343,19 @@ https://blog.csdn.net/Applying/article/details/106952021
 ### 5.6 Spring Bean有没有必要实现Aware接口
 
 ### 5.7 彻底理解bean的生命周期
+- 创建
+- 初始化属性值或者添加引用
+- 初始化：init-method
+- 使用
+- 销毁：destroy-method 
 
 ### 5.8 掌握核心接口BeanDefinitionReader
 
-### 5.9 掌握核心接口BeanFactory
+### 5.9 掌握核心接口BeanFactory作用
 
 ### 5.10 BeanFactory与ApplicationContext的区别
+- ApplicationContext在启动容器时完成所有bean初始化
+- BeanFactory 的实现类采用的是 延迟加载，getbean才创建
 
 ### 5.11 BeanFactory和FactoryBean的区别
 
@@ -350,11 +367,24 @@ https://blog.csdn.net/Applying/article/details/106952021
 
 ### 5.15 循环依赖问题
 
-### 5.16 factoryBean接口的作用
+### 5.16  ApplicationContext
+- ClassPathXMLApplicationContext
+- FileSystemXMLApplicationContext
+- XmlWebApplicationContext
+- AnnotationConfigApplicationContext
 
-### 5.17 cglib和jdk动态代理的机制
+### 5.17 IoC容器启动过程
+- 读配置、javaconfig容器的启动阶段
+- Bean 实例化阶段
 
-### 5.18 aop是如何处理的  
+### 5.18 aop是如何处理的 
+cglib和jdk动态代理的机制  
+- JDK动态代理：实现目前对象的相同接口 
+- CGLIB动态代理： 继承目标对象、底层asm块
+- aspectj-autoproxy proxy-target-class="true"
+    - 默认为false，表示使用jdk动态代理织入增强
+    - true时，表示使用CGLib动态代理技术织入增强
+    - 即使proxy-target-class设置false，如目标类没有声明接口，spring将自动使用CGLib动态代理
 
 ### 5.19 Spring 中经典的 9 种设计模式
 https://mp.weixin.qq.com/s/kwgV7Rhxv7wV7DOWmS9NzQ
@@ -455,3 +485,4 @@ public class HelloServiceImpl implements HelloService {
 - @ConditionalOnMissingBean： 应用中不包含某个类时，对应的配置才生效，应用中包含该类的bean，那么二次注册同类型的bean的时候则会报错
 - @ConditionOnBean： 与ConditionalOnMissingBean注解相反，检查应用中是否拥有某个bean，若有，则生效。否则报错
 
+### 5.25 0 配置实现

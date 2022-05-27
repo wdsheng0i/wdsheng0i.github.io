@@ -10,7 +10,6 @@ tags: [java]
 ## 参考资料
 
 ## 一、泛型
- 
 ### 1.1 泛型概念
 即“参数化类型”。那么参数化类型怎么理解呢？顾名思义，就是将类型由原来的具体的类型参数化，类似于方法中的变量参数，此时类型也定义成参数形式（可以称之为类型形参），然后在使用/调用时传入具体的类型（类型实参）。  
 
@@ -19,7 +18,6 @@ Java语言引入泛型的好处是安全简单  https://www.cnblogs.com/lwbqqyum
 - 声明在类、构造方法上  
 - 方法返回值  
 - 方法参数  
-
 
 ### 1.2 泛型特性
 1.常见的如T、E、K、V等形式的参数常用于表示泛型形参 
@@ -93,7 +91,6 @@ public interface List<E> extends Collection<E> {...}
 ```
 
 ## 二、反射
-
 ### 2.1.基础知识
 - 编译时   
 编译时顾名思义就是正在编译的时候。就是编译器帮你把源代码翻译成机器能识别的代码.  
@@ -443,3 +440,22 @@ Collections.sort(plist, new Comparator<Person>(){  //Person无默认比较器实
 ![](https://wdsheng0i.github.io/assets/images/2021/java/s3.png)   
 
 ### 4.2 RMI
+RMI 指的是远程方法调用 (Remote Method Invocation)。它是一种机制，能够让在某个 Java 虚拟机上的对象调用另一个 Java 虚拟机中的对象上的方法。可以用此方法调用的任何对象必须实现该远程接口。
+ 
+- 只要一个类extends了java.rmi.Remote接口，即可成为存在于服务器端的远程对象，供客户端访问并提供一定的服务。JavaDoc描述：Remote 接口用于标识其方法可以从非本地虚拟机上调用的接口。任何远程对象都必须直接或间接实现此接口
+    - extends了Remote接口的类或者其他接口中的方法若是声明抛出了RemoteException异常，则表明该方法可被客户端远程访问调用。 
+- 同时，远程对象必须实现java.rmi.server.UniCastRemoteObject类，这样才能保证客户端访问获得远程对象时，该远程对象将会把自身的一个拷贝以Socket的形式传输给客户端，此时客户端所获得的这个拷贝称为“存根”，而服务器端本身已存在的远程对象则称之为“骨架”。其实此时的存根是客户端的一个代理，用于与服务器端的通信，而骨架也可认为是服务器端的一个代理，用于接收客户端的请求之后调用远程方法来响应客户端的请求。 
+
+RMI 框架的基本原理大概如下图，应用了代理模式来封装了本地存根与真实的远程对象进行通信的细节。  
+
+![](https://wdsheng0i.github.io/assets/images/2021/java/rmi1.jpeg)
+
+下面给出一个简单的RMI 应用，其中类图如下：其中IService接口用于声明服务器端必须提供的服务（即service()方法），ServiceImpl类是具体的服务实现类，而Server类是最终负责注册服务器远程对象，以便在服务器端存在骨架代理对象来对客户端的请求提供处理和响应。
+
+![](https://wdsheng0i.github.io/assets/images/2021/java/rmi2.jpeg)
+
+Java RMI不是什么新技术（在Java1.1的时代都有了），但却是是非常重要的底层技术。
+
+RMI目前使用Java远程消息交换协议JRMP（Java Remote Messaging Protocol）进行通信。JRMP是专为Java的远程对象制定的协议。
+   
+大名鼎鼎的EJB都是建立在rmi基础之上的，现在还有一些开源的远程调用组件，其底层技术也是rmi。 
