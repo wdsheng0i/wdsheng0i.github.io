@@ -54,8 +54,8 @@ paginate_path: 'page:num'
 # Navigation. top menu list
 menus:
 
-  - href: /life.html
-    label: 静坐
+  - href: /interview.html
+    label: 面试
     target: _self
 
   -

@@ -10,7 +10,7 @@ tags: [algorithm]
 ## 参考资料
 - [Leetcode算法](http://www.leetcodecn.com/)  
 - [LeetCode Cookbook](https://books.halfrost.com/leetcode/)
-- [https://github.com/halfrost/LeetCode-Go](https://github.com/halfrost/LeetCode-Go)    
+    - [https://github.com/halfrost/LeetCode-Go](https://github.com/halfrost/LeetCode-Go)    
 
 ## 一、算法复杂度：
 指算法在编写成可执行程序后，运行时所需要的资源，资源包括时间资源和内存资源；

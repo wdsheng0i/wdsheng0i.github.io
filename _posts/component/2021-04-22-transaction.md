@@ -29,7 +29,7 @@ ACID特性： 原子性(Atomicity)、一致性(Correspondence)、隔离性(Isola
 https://blog.csdn.net/qq_27185561/article/details/112619232
 
 事务并发问题      
-- 脏读：事务1读到了事务2未commit数据，事务2可能回滚
+- 脏读（读未提交）：事务1读到了事务2未commit数据，事务2可能回滚
 - 不可重复读：事务1读取了两次事务2次commit
 - 幻读：事务2的数据操作仅是插入和删除，未修改数据，事务1读取的记录数量前后不一致
 

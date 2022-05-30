@@ -10,10 +10,11 @@ permalink: /link
 ## 推荐博客专栏
 - [纯洁的微笑博客](http://www.ityouknow.com/) 
 - [方志朋的专栏](https://www.fangzhipeng.com/) 
-- [方志朋 2018年文章汇总](https://mp.weixin.qq.com/s/uDTvTHM2gJMRsDAOdRDXuA)  
-- [chenshiying博客](https://blog.csdn.net/qq_27384769/article/details/80343511)
+- [方志朋博客2018汇总](https://mp.weixin.qq.com/s/uDTvTHM2gJMRsDAOdRDXuA)  
+- [chenshiying博客2019汇总](https://blog.csdn.net/qq_27384769/article/details/80343511)
 - [慕课网](https://www.imooc.com/)
 - [菜鸟教程](https://www.runoob.com/)
+- [java极客教程](https://www.javajike.com/)
 - [面圈网](https://www.mianshigee.com/)：知识库 教程 文档 面经 题库
 - [我爱学习网 Wiki](https://www.5axxw.com/wiki/)
 - [JAVA1234免费资源汇总](http://www.java1234.com/zy.html)

@@ -48,19 +48,21 @@ Soft-state --软状态/柔性事务。 "Soft state" 可以理解为"无连接"�
 Eventual Consistency -- 最终一致性， 也是是 ACID 的最终目的。
 ```
 
-#### 2PC：
+#### 两阶段提交2PC：
 - 第一阶段：准备阶段(投票阶段)
 - 第二阶段：提交阶段（执行阶段）
 
-#### 3PC：
+#### 三阶段提交3PC：
 - CanCommit、
 - PreCommit(undo和redo信息记录到事务日志中)、
 - DoCommit
 
-#### 事务
+#### 事务ACID
 - ACID特性：原子性、一致性、隔离性、持久性
 - 隔离级别：读未提交（Read Uncommitted）、读已提交（Read Committed）、可重复读（Read Repeatable）、串行化（Serializable）
 - 传播行为：同一事务、新启事务、抛异常...
+
+#### 分布式一致性理论paxos、raft、zab算法
 
 ### 1.3 可用性设计：[高可用](https://zhuanlan.zhihu.com/p/375847349)
 减少停工时间，保证服务的持续可用。  
