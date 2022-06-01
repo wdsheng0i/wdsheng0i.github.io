@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 微服务消息组件：Spring Cloud Stream
+title: 服务消息组件：Spring Cloud Stream
 category: springcloud
 tags: [springcloud]
 ---

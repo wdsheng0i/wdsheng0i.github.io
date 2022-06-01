@@ -65,7 +65,7 @@ Eventual Consistency -- 最终一致性， 也是是 ACID 的最终目的。
 #### 分布式一致性理论paxos、raft、zab算法
 
 ### 1.3 可用性设计：[高可用](https://zhuanlan.zhihu.com/p/375847349)
-减少停工时间，保证服务的持续可用。  
+7 x 24 小时不间断服务，减少停工时间，保证服务的持续可用。  
 - MTBF：平均无故障工作时间，英文全称是“Mean Time Between Failure”
 - MTTR：平均修理时间(Mean Time to Repair);
 - 主从、热备、灾备
