@@ -30,7 +30,7 @@ https://blog.csdn.net/qq_27185561/article/details/112619232
 
 事务并发问题      
 - 脏读（读未提交）：事务1读到了事务2未commit数据，事务2可能回滚
-- 不可重复读：事务1读取了两次事务2次commit
+- 不可重复读：事务1读取了两次，第二次读到事务2commit的数据，导致两次结果不一致
 - 幻读：事务2的数据操作仅是插入和删除，未修改数据，事务1读取的记录数量前后不一致
 
 隔离级别：  
@@ -39,7 +39,8 @@ https://blog.csdn.net/qq_27185561/article/details/112619232
 - Read Uncommitted：在A、B事务共同进行时，B事务修改后但未提交的内容能被A事务读到，这就会导致脏读，因为B事务有可能会回滚。
 - Read Committed：在A事务先查询数值结果为1，B事务修改数值为2然后提交，接下来A事务再次查询数值结果为2，导致数据不可重复读。
 - Read Repeatable：在A事务先查询数值结果为1，B事务修改数值为2然后提交，接下来A事务再次查询数值结果还是为1。
-- Serializable：Read Uncommitted、Read Committed和Read Repeatable都会有一个问题：幻读，Read Committed和Read Repeatable都是针对两个事务同时对某条数据修改，但是幻读针对的是插入，例如A事务先把所有行的某个字段都修改为了2，然后B事务插入了一条数据，那个字段的值是1。A事务再查询数据时会发现包含一条1的数据。想要把幻读解决，那就需要采取Serializable，所有事务都串行执行，不允许多个事务并行操作。
+- Serializable：Read Uncommitted、Read Committed和Read Repeatable都会有一个问题：幻读，
+    - Read Committed和Read Repeatable都是针对两个事务同时对某条数据修改，但是幻读针对的是插入，例如A事务先把所有行的某个字段都修改为了2，然后B事务插入了一条数据，那个字段的值是1。A事务再查询数据时会发现包含一条1的数据。想要把幻读解决，那就需要采取Serializable，所有事务都串行执行，不允许多个事务并行操作。
 
 默认：Default，使用数据库默认事务级别，mysql默认RR
 
