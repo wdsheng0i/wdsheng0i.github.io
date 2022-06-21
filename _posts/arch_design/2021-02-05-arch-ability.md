@@ -329,20 +329,24 @@ Eventual Consistency -- 最终一致性， 也是是 ACID 的最终目的。
 - 服务网格（Service Mesh）
 
 ## 六.并发编程 && JVM
-- JAVA内存模型（JMM）  
+- JVM虚拟机
+    - 运行时数据区域
+    - 类加载机制
+    - 垃圾回收机制、GC算法
+- JVM内存模型（JMM）  
     - java当中的线程通讯和消息传递  
     - 什么是重排序和顺序一致性？
     - Happens-Before？
     - As-If-Serial？
-- Synchronized的概念和分析  
-    - 同步、重量级锁以及Synchronized的原理分析  
-    - 自旋锁、偏向锁、轻量级锁、重量级锁的概念、使用以及如何来优化他们
 - Volatile和DCL的知识  
     - Volatile的使用场景和Volatile实现机制、内存语义、内存模型  
     - DCL的单例模式，什么是DCL？如何来解决DCL的问题
 - 并发基础之AQS的深度分析  
     - AbstractAueuedSynchronizer同步器的概念、CLH同步队列是什么？  
     - 同步状态的获取和释放、线程阻塞和唤醒
+- Synchronized的概念和分析  
+    - 同步、重量级锁以及Synchronized的原理分析  
+    - 自旋锁、偏向锁、轻量级锁、重量级锁的概念、使用以及如何来优化他们
 - Lock和并发常用工具类  
     - 锁：Lock、ReentrantLock、ReentrantReadWriteLock、Condition  
     - 并发工具类CyclicBarrier、CountDownLatch、Semphore  
