@@ -177,7 +177,7 @@ navs:
 
       -
         subHref: /dev-ops.html
-        subLabel: Dev&Ops
+        subLabel: DevOps
         target: _self
 
   -
