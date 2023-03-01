@@ -116,6 +116,11 @@ hosts文件修改（ip和主机名的映射关系,3台主机都要添加）
 ip1 hostname1
 ip2 hostname2
 ip3 hostname3
+
+#生效
+service network restart
+或者
+/etc/init.d/network restart
 ```
 关闭防火墙（临时+永久）  
 ```

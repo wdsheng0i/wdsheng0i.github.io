@@ -17,6 +17,8 @@ tags: [springcloud]
 [分布式部署指南](https://www.apolloconfig.com/#/zh/deployment/distributed-deployment-guide)  
 
 【组件部署】Apollo
+![](../../assets/images/2021/apollo/apollo.png)
+
 ``` 
 安装包：https://github.com/apolloconfig/apollo/releases  
 

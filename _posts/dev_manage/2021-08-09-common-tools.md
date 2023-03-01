@@ -100,3 +100,10 @@ Ctrl+shift+F 在文件夹内查找，与普通编辑器不同的地方是sublime
 
 ### 16.Alt+Shift+2 左右分屏-2列 
 ```
+
+## 6.win截长图工具-FastStoneCapture
+FastStoneCapture9.6：  https://baijiahao.baidu.com/s?id=1741825550252771697&wfr=spider&for=pc
+		
+
+## 7.虚拟屏幕分辨率工具-usbmmidd_v2-（方便远程无屏主机）
+虚拟屏幕分辨率-方便远程主机 usbmmidd_v2： https://www.cnblogs.com/zspace/p/17069763.html

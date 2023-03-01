@@ -10,8 +10,8 @@ title:  码农学技术
 subtitle: 学习技术，思考人生
 name: 码农学技术 
 email: 953103022@qq.com
-description: 本站是我的技术分享博客。内容涵盖 Java后端技术、Spring Boot、Spring Cloud、微服务架构、大数据演进、高可用架构、中间件使用、系统监控等相关的研究与知识分享
-keywords: Java,Jvm,Spring,Spring Boot,Spring Cloud,Redis,Mq,MongoDB,FastDFS,Docker,架构,大数据,Python
+description: 本站是我的技术分享博客。内容涵盖 Java后端技术、Spring Boot、Spring Cloud、微服务架构、大数据演进、高可用架构、云原生架构、中间件使用、系统监控等相关的研究与知识分享
+keywords: Java,Jvm,Spring,Spring Boot,Spring Cloud,Redis,Mq,MongoDB,FastDFS,Docker,架构,高可用,云原生,大数据,Python,go
 encoding: "utf-8"
 favicon: favicon.ico 
 

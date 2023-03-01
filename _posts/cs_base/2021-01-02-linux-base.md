@@ -13,7 +13,10 @@ Linux基础操作命令
 ### 1.1 做raid   
 [图文并茂 RAID 技术全解 – RAID0、RAID1、RAID5、RAID100](https://mp.weixin.qq.com/s/XgHz65Fe5WogTxBp0kqs7w)
 
-### 1.2装系统 
+### 1.2 ssh跳转
+``` 
+ssh -p 22 root@192.168.0.1
+```
 
 ### 1.3 配ip：
 1.虚拟机装centos7后，ifconfig无ip地址  
@@ -54,7 +57,7 @@ DNS1=192.168.182.2
 3.查看出口ip（外网ip）
 ```
 windows：cmd 
-telnet cip.cc
+curl cip.cc
 
 centos:
 curl cip.cc
@@ -82,6 +85,17 @@ vi /etc/hosts
 ip1 hostname1
 ip2 hostname2
 ip3 hostname3
+```
+
+## 修改(ssh端口)[https://blog.csdn.net/qq_41736266/article/details/128486125]
+``` 
+sudo vim /etc/ssh/sshd_config
+sudo systectl restart ssh 
+
+【注意】：
+1、系统默认的ssh端口为22。如果要修改，则直接编辑22端口并将前面的“#”注释符要去掉，然后保存重启ssh服务或者重启主机即可。
+2、如果系统上有设置防火墙，则建议修改增加防火墙规则，在终端输入`sudo firewall-cmd --permanent --zone=public --add-port=1222/tcp`
+命令后回车，再输入当前登录用户的密码，回车，来修改防火墙规则；更改规则后，再输入`sudo firewall-cmd reload`命令重启防火墙让规则生效。或者在终端输入`sudo iptables -F`命令直接关闭防火墙即可。
 ```
 
 ### 防火墙
@@ -115,7 +129,7 @@ ip3 hostname3
     yum install iptables-services 
     设置开机启动：systemctl enable iptable
 
-### 挂载存储
+### 挂载存储mount 
 
 ### 虚拟机克隆
 1.管理-克隆  
@@ -152,7 +166,7 @@ IPADDR=192.168.145.130
 ### 替换yum源 
 `/etc/yum.repos.d/CentOS-Base.repo`
 
-### 下载
+### 下载wget
 `wget http://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz`
 
 ### 安装 git 
@@ -176,6 +190,15 @@ IPADDR=192.168.145.130
 ` yum install unzip`
  
 
+### 下载工具lrzsz
+``` 
+yum install lrzsz
+``` 
+下载命令
+``` 
+sz filename
+```
+
 ### 安装gcc 
 `yum install gcc`
 
@@ -192,13 +215,13 @@ http://www.linuxidc.com/Linux/2016-11/136958.htm
     或者在 etc/profile中添加后执行source etc/profile  //对所有用户有效
 
 3.执行 
-    方法1：
-        让/etc/profile文件修改后立即生效 ,可以使用如下命令:
-        # .  /etc/profile
-        注意: . 和 /etc/profile 有空格
-    方法2：
-        让/etc/profile文件修改后立即生效 ,可以使用如下命令:
-        # source /etc/profile
+方法1：    
+    让/etc/profile文件修改后立即生效 ,可以使用如下命令:  
+    # .  /etc/profile  
+    注意: . 和 /etc/profile 有空格  
+方法2：   
+    让/etc/profile文件修改后立即生效 ,可以使用如下命令:  
+    # source /etc/profile  
 ```
 方式2：
 ```
@@ -290,6 +313,11 @@ node -v
 npm -v
 ```
 
+### whereis查找
+``` 
+whereis nginx  //命令只能用于程序名的搜索
+```
+
 ## 四、系统、硬件监控命令
 ### 查看内存
 ```
@@ -361,29 +389,53 @@ ifconfig
 ### 查看占用端口进程（2种方式）
 ```
 1、lsof -i:端口号  
-2、netstat -tunlp|grep 端口号
+
+2、查看所有端口
+netstat -tnlp
+
+3、查找指定端口
+netstat -tunlp|grep 端口号
 ``` 
 
-### 查看进端口（27404为PID）  
-netstat -nap | grep 27404  
+### 查看进程端口（27404为PID）  
+netstat -nap | grep 27404 
+
+### 排查网络路由traceroute
+```
+1、安装yumdownloader命令
+yum install yum-utils -y
+
+2、查看系统是否安装了traceroute
+rpm -q traceroute
+
+3、下载rpm包
+yum install  traceroute  --downloadonly --downloaddir=/usr/local 
+
+4、拷贝rpm包到离线环境，执行安装命令
+rpm -Uvh --force --nodeps *.rpm 
+
+5.排查
+traceroute 192.168.1.123
+```
 
 ## 五、文件操作
-### 新建目录：
+### 新建目录：mkdir
 mkdir opt/wenjianjia1   
 
-### 移动文件： 
+### 移动文件： mv
 mv apache-tomcat-7.0.81.tar.gz       /usr
 
-### 复制文件：
+### 复制文件：cp
 cp /home/ftp/FTP-linux.zip      /home/
 
-### 删除文件; 
-rm -rf 文件名  -r  
-` 就是向下递归，不管有多少级目录，一并删除  -f 就是直接强行删除，不作任何提示的意思`
+### 删除文件: rm 
+``` 
+rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并删除  -f 就是直接强行删除，不作任何提示的意思
+```
 
-### 编辑文件：
-    1.查看cat  a.txt
-    2.编辑vi a.txt
+### 编辑文件：vi
+    1.查看 cat  a.txt
+    2.编辑 vi a.txt
     3.root编辑 sudo vi a.txt
     4.i 进入编辑模式， esc 进入命令模式 ，q退出，wq保存退出
     5.命令模式下：x删除一个字符，dd删除一行 上下左右键命令模式下有效 
@@ -397,12 +449,12 @@ rm -rf 文件名  -r
     unzip zhparser-master.zip   //解压zip
     tar xvf scws-xxx-xx.tar.bz2   //解压tar.bz2
 
-### 文件权限：
+### 文件权限：chmod
     chmod 777 文件名 //赋权限    
     chmod 777 -R * //文件夹赋权限
     chmod 755 -R * //文件夹赋权限
 
-### 远程拷贝两个主机文件
+### 远程拷贝两个主机文件: scp
     1、拷贝本机/home/administrator/test整个目录至远程主机192.168.1.100的/root目录下 
         scp -r /home/administrator/test/   root@192.168.1.100:/root/
     2、拷贝单个文件至远程主机的/root目录下 
@@ -431,13 +483,19 @@ rm -rf 文件名  -r
 
 ### 查看主机名、添加、修改hostname
     etc/hosts   添加一行 
-    172.23.20.72    wds    //ip   hostname
+    192.23.20.72    wds    //ip   hostname
 
-### 重启：
-reboot  
+### 重启：reboot 
 
 ### 切换root用户：
 su root
+sudo su //获取root权限
+
+### 查看历史操作命令： history
+``` 
+#历史操作搜索
+history|grep 'docker'
+```
 
 ## 七、查看日志
 ### 如何实时查看linux下的日志：  
@@ -519,6 +577,7 @@ grep -i 更新sn为【290200000937】的设备状态为 ./mgmt-info.log
     到这里就设置完成了，我们只需要重启一下我们的服务器，就能看到我们配置的redis服务已经可以开机自动启动了。
 
 ## 九、硬件信息查看
+[lsblk、fdisk、df -h、mount](https://blog.csdn.net/m0_54108654/article/details/126601804)
 
 ### 查看cpu
     lscpu命令，查看的是cpu的统计信息.
@@ -702,3 +761,15 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
     
 附图：  
 ![](https://wdsheng0i.github.io/assets/images/2021/os/Linux-1.png)
+
+## 附：常用命令
+ sudo netstat -tnlp
+ netstat -tunlp | grep 8080
+ whereis nginx
+ find / -iname nginx
+ history
+ curl cip.cc
+ free -m
+ df -h
+ systemctl status firewalld
+ sudo du -h --max-depth=1

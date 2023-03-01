@@ -41,7 +41,7 @@ tags: [component]
 - https://blog.csdn.net/qq1031893936/article/details/81190463
 - https://blog.csdn.net/netsec_steven/article/details/106230338
 
-### 3 存储服务 Minio 
+### 3 存储服务 Minio、sso 
 fastdfs也满足实际使用，对比下seaweedfs、oss
 
 ### 4 文件转换服务 （word excel pdf html 预览 编辑 及文件转换）

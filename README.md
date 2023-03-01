@@ -1,8 +1,18 @@
-## 个人博客
+# 个人博客-内容规划
 
-这是我的个人博客项目，里面会记录技术学习的点滴。 访问地址：[https://wdsheng0i.github.io/](https://wdsheng0i.github.io/)  
+这是我的个人博客项目，里面会记录技术学习的点滴。 访问地址：[https://wdsheng0i.github.io/](https://wdsheng0i.github.io/)
 
-## 规划
+规划内容和项目示例对应说明
+- 一、data-algorithm 数据结构 & 算法总结：project-ability / data-algorithm (https://github.com/wdsheng0i/xxx.git)
+- 二、design-patterns 设计原则 & 设计模式总结：project-ability / design-patterns (https://github.com/wdsheng0i/xxx.git)
+- 三、common-utils 基础编码能力总结：project-ability / common-utils (https://github.com/wdsheng0i/xxx.git)
+- 四、spring-boot-ability 工程能力总结：project-ability / spring-boot-ability (https://github.com/wdsheng0i/xxx.git)
+- 五、spring-cloud-ability 微服务能力总结：spring-cloud-ability (https://github.com/wdsheng0i/xxx.git)
+- 六、spring-cloud-alibaba-ability 微服务能力总结：spring-cloud-alibaba-ability (https://github.com/wdsheng0i/xxx.git)
+- 七、bigdata-ability大数据能力总结：bigdata-ability (https://github.com/wdsheng0i/xxx.git)
+- 八、高并发、高可用方案设计总结(集群、分布式、微服务)
+- 九、云原生架构总结（云、微服务、容器、容器编排、CICD、弹性伸缩、灾备...）
+
 ## 一、data-algorithm 数据结构 & 算法总结
 ### 1、数据结构
 - 1.数组(Arrays)：
@@ -109,6 +119,7 @@
 学习参考博客：
 纯洁的微笑博客系列：http://www.ityouknow.com/spring-boot.html
 死牛胖子的技术随笔：https://blog.csdn.net/gongm24/category_6742927.html?spm=1001.2014.3001.5482
+......
 ```
 - 1.日志切面(接口日志、操作日志): LogAspect
 - 2.防重复提交切面: RepeatSubmitAspect
@@ -153,7 +164,11 @@
 - 9.springBoot集成Shiro实现登录、鉴权、rememberMe
     - [spring-session集成](https://mp.weixin.qq.com/s/A9CJoa55G_NPPIp0IRFJBw)
 - 10.spring-scheduleTask实现定时任务
-- 11.springBoot集成Kafka 
+- 11.springBoot集成消息mq队列 
+    - [Spring Cloud 学习笔记之Spring Cloud Stream](https://blog.csdn.net/weixin_43596905/article/details/105328169)
+    springBoot集成Kafka
+    springBoot集成rabbitmq
+    springBoot集成rocketmq
 - 12.springBoot集成Redis
     - redis缓存使用
     - spring-cache 使用Redis
@@ -173,11 +188,11 @@
 - 23.spring-retry[重试框架集成使用](https://mp.weixin.qq.com/s/tMza3K_qB0OpV36Z-4OqXA)
 - 24.springboot[集成websocket](https://mp.weixin.qq.com/s/3Y4EVaeTUnZed169QZhqgg)
 - 25.springboot[自定义starter](https://mp.weixin.qq.com/s/4XgsuxvqGTCbPPXU72QPzg)  
+- 26.springboot[整合ElasticJob搜索](http://www.wjhsh.net/fswhq-p-13750406.html)  
 - [Spring Boot 启动时，让方法自动执行的 4 种方法](https://mp.weixin.qq.com/s/QLC2YY00-p28pTkOKiK2Gw)
 ---  
 - springBoot集成[任务调度框架Quartz](https://mp.weixin.qq.com/s/iJjAMnt6oPEx2x-jhh-2zA)  
 - springboot邮件发送mail 
-- springboot整合ElasticJob搜索  
 - springBoot整合activiti实现工作流  
 - springBoot登录鉴权：[SpringSecurity + JWT](https://mp.weixin.qq.com/s/9nRyVD2XkOkQHPr8kuE8UA)
 - springboot登录鉴权：oauth2 + JWT  
@@ -231,22 +246,107 @@ https://blog.csdn.net/weixin_42453582/article/details/113697878
 - 分布式任务调度：提供秒级、精准、高可靠、高可用的定时（基于 Cron 表达式）任务调度服务。同时提供分布式的任务执行模型，如网格任务。网格任务支持海量子任务均匀分配到所有 Worker（schedulerx-client）上执行。
 - 阿里云短信服务：覆盖全球的短信服务，友好、高效、智能的互联化通讯能力，帮助企业迅速搭建客户触达通道。
 
-### 1.spring cloud alibaba Sentinel流量控制、熔断降级、系统负载保护
+### 6.1 spring cloud alibaba Sentinel流量控制、熔断降级、系统负载保护
 
-### 2.spring cloud alibaba nacos配置中心、服务注册、发现
+### 6.2 spring cloud alibaba nacos配置中心、服务注册、发现
 
-### 3.Spring Cloud Alibaba Seata处理分布式事务
+### 6.3 Spring Cloud Alibaba Seata处理分布式事务
 
 ## 七、bigdata-ability大数据能力总结
+### 7.1. 数据采集、传输、转换层
+- Flume
+- Sqoop - ETL工具
+- Kettle - ETL工具
+- Logstash
+- Kafka
+- Pulsar
 
-## 八、高并发、高可用方案设计总结
-集群、分布式、微服务架构设计  
-- 1.高可用部署方案：LVS + Keepalived + Nginx实现 **动静分离、反向代理、集群、负载均衡、主从热备、双机主备** 
-- 2.高可用redis缓存方案：主从复制、Redis集群、哨兵监控
-- 3.高可用DB数据库方案：Mycat配置实现-mysql集群、主从复制、读写分离、负载均衡、分库分表
-- 4.高并发下解耦、削峰、异步方案：消息队列kafka
-- 5.高并发下服务降级、限流方案
-- 6.CND加速静态文件访问
-- 7.应用容灾及机房规划
-- 8.系统扩容机制
+### 7.2. 数据存储层
+- Hadoop 
+- HDFS
+- HBase
+- Kudu
+
+### 7.3. 数据分析计算层
+- MapReduce-数据计算引擎1.0-离线计算引擎
+- Spark-数据计算引擎3.0-内存计算引擎
+- Flink-数据计算引擎4.0-实时计算引擎
+- Tez 
+- Storm
+- Mahout
+- Phoenix
+
+### 7.4. OLAP分析引擎
+- Hive
+- Impala
+- Pig
+- Druid
+- Kylin
+- Presto
+
+### 7.5. 资源管理层
+- Yarn
+- Kubernetes
+- Mesos
+
+### 7.6. 工作流调度器
+- Oozie
+- Azkaban
+
+### 7.7. CDH
+- CDH & CM
+
+## 八、高并发、高可用方案设计总结(集群、分布式、微服务)
+### 8.1 高可用、高性能DB数据库方案设计（主从复制，读写分离，集群、负载均衡，分库分表）
+- [主从复制，读写分离，负载均衡，分库分表概念](https://www.zhihu.com/question/64597252?sort=created)    
+- [集群和主从复制有什么关系和区别](https://www.zhihu.com/question/34366991)    
+
+对于mysql来说，按实例区分，1主1从（主读写从只读），或1主2从（主读写一备只读二备延时冷备），组成的整体一般视为一个节点，大于等于2个节点开始，视为一个集群。  
+
+严格来说，1主2从的方式才算合理的完整节点，发生故障的时候主从可以切换，还有一个冷备是做延时同步，保证大部分数据冗余不会完全丢失。  
+
+主备主要是保障单点的系统数据可靠性和提升写io性能，集群是为了应对单点无法存储的大数据量，和单点无法及时处理的高并发。  
+
+所以从架构和集群的上层角度看，主备可以认为是同一个实例同一个库，集群一般就结合分库分表，数据就有可能不同（并发请求更高或者数据可靠性要求更高的，节点也可以做冗余处理）。  
+当然这种说法并不是严格的定义，只是大家比较认可的一种最佳实践 
+
+#### 主从复制（备份）、读写分离
+- https://blog.csdn.net/starlh35/article/details/78735510  
+- https://blog.csdn.net/qq_15092079/article/details/81672920  
+- https://www.cnblogs.com/liluxiang/p/9679279.html  
+- https://www.cnblogs.com/skfa/articles/11603072.html  
+
+#### 数据库集群、负载均衡
+- https://zhuanlan.zhihu.com/p/143362878  
+
+#### 水平、垂直分库分表策略     
+- https://www.cnblogs.com/butterfly100/p/9034281.html    
+- https://blog.csdn.net/qq_39940205/article/details/80536666    
+- https://blog.csdn.net/azhuyangjun/article/details/86976514    
+
+#### Mycat部署（部署、配置主从、分库分表）  
+- Mycat安装与配置详解：https://blog.csdn.net/yu342107056/article/details/88326540  
+- MyCat介绍与配置（精）https://blog.csdn.net/linuxlsq/article/details/52606225  
+- Linux下Mycat安装配置和使用 https://blog.csdn.net/jaysonhu/article/details/52858535  
+- mycat的安装及使用 https://www.cnblogs.com/hzcya1995/p/13300562.html?utm_source=tuicool  
+- MySQL以及MyCat的安装和使用  https://www.jianshu.com/p/3932551e0221 
+
+### 8.2 高可用部署方案：LVS + Keepalived + Nginx（动静分离、反向代理、集群、负载均衡、主从热备、双机主备）
+实现 **动静分离、反向代理、集群、负载均衡、主从热备、双机主备** 
+
+### 8.3 高可用redis缓存方案(主从复制、Redis集群、哨兵监控)
+主从复制高可用Redis集群、哨兵监控
+ 
+
+### 8.4 高并发下解耦、削峰、异步方案：消息队列kafka
+
+### 8.5 高并发下服务降级、限流方案：
+
+### 8.6 CDN加速静态文件访问：
+
+### 8.7 应用容灾及机房规划、异地多活：
+
+### 8.8 系统伸缩-扩容机制：
+
+## 九、云原生架构总结（云、微服务、容器、容器编排、CICD、弹性伸缩、扩容、监控、灾备...）
 
