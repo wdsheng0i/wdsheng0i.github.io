@@ -8,6 +8,9 @@ tags: [operate-system]
 Linux基础操作命令
 
 ## 参考资料
+- [鸟哥私房菜-基础学习篇]
+- [鸟哥私房菜-服务器架设篇]
+- [Linux就该这么学]
 
 ## 一、装机
 ### 1.1 做raid   
@@ -25,6 +28,8 @@ ssh -p 22 root@192.168.0.1
 修改/etc/sysconfig/network-scripts/ifcfg-eno16777736  
 ONBOOT=no, 将no  改为yes
 service network restart
+或 systemctl restart network
+或 service NetworkManager restart
 
 //inux 已修改ip地址（ONBOOT=yes）,但是不显示ip地址??
 1.因为你的（VMware DHCP Service）这个服务没有开，进入计算机管理–》服务和应用程序–》服务 找到VMware DHCP Service打开就行了
@@ -46,6 +51,8 @@ GATEWAY=192.168.182.2
 DNS1=192.168.182.2
 
 3.重启网卡服务：service network restart
+或 systemctl restart network
+或 service NetworkManager restart
 ```
 
 2.windows无法ping通服务器  
@@ -90,6 +97,8 @@ ip3 hostname3
 ## 修改(ssh端口)[https://blog.csdn.net/qq_41736266/article/details/128486125]
 ``` 
 sudo vim /etc/ssh/sshd_config
+service sshd restart
+或者
 sudo systectl restart ssh 
 
 【注意】：
@@ -398,7 +407,7 @@ netstat -tunlp|grep 端口号
 ``` 
 
 ### 查看进程端口（27404为PID）  
-netstat -nap | grep 27404 
+    netstat -nap | grep 27404 
 
 ### 排查网络路由traceroute
 ```
@@ -412,6 +421,7 @@ rpm -q traceroute
 yum install  traceroute  --downloadonly --downloaddir=/usr/local 
 
 4、拷贝rpm包到离线环境，执行安装命令
+cd  /usr/local
 rpm -Uvh --force --nodeps *.rpm 
 
 5.排查
@@ -420,13 +430,13 @@ traceroute 192.168.1.123
 
 ## 五、文件操作
 ### 新建目录：mkdir
-mkdir opt/wenjianjia1   
+    mkdir opt/wenjianjia1   
 
 ### 移动文件： mv
-mv apache-tomcat-7.0.81.tar.gz       /usr
+    mv apache-tomcat-7.0.81.tar.gz       /usr
 
 ### 复制文件：cp
-cp /home/ftp/FTP-linux.zip      /home/
+    cp /home/ftp/FTP-linux.zip      /home/
 
 ### 删除文件: rm 
 ``` 
@@ -487,9 +497,12 @@ rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并�
 
 ### 重启：reboot 
 
-### 切换root用户：
+### 切换root权限：
+``` 
 su root
 sudo su //获取root权限
+sudo su - //获取root权限，带 - 会带上环境变量，有些命令没有环境变量执行不了，如kubectl
+```
 
 ### 查看历史操作命令： history
 ``` 

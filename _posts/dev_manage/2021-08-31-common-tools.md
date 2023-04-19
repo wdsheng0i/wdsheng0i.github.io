@@ -105,5 +105,15 @@ Ctrl+shift+F 在文件夹内查找，与普通编辑器不同的地方是sublime
 FastStoneCapture9.6：  https://baijiahao.baidu.com/s?id=1741825550252771697&wfr=spider&for=pc
 		
 
-## 7.虚拟屏幕分辨率工具-usbmmidd_v2-（方便远程无屏主机）
+## 7.虚拟屏幕分辨率工具-usbmmidd_v2-（方便远程无屏幕主机）
 虚拟屏幕分辨率-方便远程主机 usbmmidd_v2： https://www.cnblogs.com/zspace/p/17069763.html
+
+## 8.switchyomega浏览器代理插件
+``` 
+1.安装：Edge浏览器-扩展-获取 Microsoft Edge 扩展-搜索-安装
+2.配置：switchyomega插件选项配置-proxy代理服务器、代理规则
+3.使用：需要启动switchyomega插件
+```
+
+## 9.SecureCRT_SFX双软件
+https://pcedu.pconline.com.cn/1404/14043490.html
