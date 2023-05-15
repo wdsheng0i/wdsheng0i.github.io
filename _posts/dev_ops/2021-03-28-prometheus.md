@@ -9,6 +9,10 @@ tags: [dev-ops]
 
 ## 参考资料
 - ELK：https://github.com/helm/charts/tree/master/stable/elastic-stack
-- Grafana
+- Fluent bit
+- Zabbix
 - Prometheus、Prometheus-Operator
+- Grafana
 - 健康检测预警服务
+
+## 一、

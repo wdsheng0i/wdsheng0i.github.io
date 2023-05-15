@@ -776,13 +776,17 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
 ![](https://wdsheng0i.github.io/assets/images/2021/os/Linux-1.png)
 
 ## 附：常用命令
- sudo netstat -tnlp
- netstat -tunlp | grep 8080
- whereis nginx
- find / -iname nginx
- history
- curl cip.cc
- free -m
- df -h
- systemctl status firewalld
- sudo du -h --max-depth=1
+ - sudo netstat -tnlp
+ - netstat -tunlp | grep 8080
+ - whereis nginx
+ - find / -iname nginx
+ - history
+ - curl cip.cc
+ - free -m
+ - df -h
+ - systemctl status firewalld
+ - sudo du -h --max-depth=1
+ - chown vftp:vftp download/  ##文件夹赋权账号
+ - scp a.txt root@192.168.24.108:/home  # 远程copy
+ - ssh -p 22 root@192.168.0.1 
+ - ln -snf /data/packages/demo-h5/v1.2.1 demo-h5  # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
