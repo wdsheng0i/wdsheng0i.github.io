@@ -94,7 +94,7 @@ ip2 hostname2
 ip3 hostname3
 ```
 
-## 修改(ssh端口)[https://blog.csdn.net/qq_41736266/article/details/128486125]
+### 修改(ssh端口)[https://blog.csdn.net/qq_41736266/article/details/128486125]
 ``` 
 sudo vim /etc/ssh/sshd_config
 service sshd restart
@@ -139,6 +139,7 @@ sudo systectl restart ssh
     设置开机启动：systemctl enable iptable
 
 ### 挂载存储mount 
+[lsblk、fdisk、df -h、mount](https://blog.csdn.net/m0_54108654/article/details/126601804)
 
 ### 虚拟机克隆
 1.管理-克隆  
@@ -480,7 +481,7 @@ rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并�
     第二条指令：clock –w //将日期写入CMOS  
     时间按照上面的格式，操作完毕可以再用
 
-### 查看系统时间：  
+### 查看系统时间
     查看：date  
     修改：date -s '2019-09-09 10:00:00'
 
@@ -488,7 +489,7 @@ rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并�
     lsb_release -a  
     或者cat /etc/centos-release 
 
-### 创建用户、密码、用户主目录：  
+### 创建用户、密码、用户主目录  
     useradd  -d/home/mysqluser -m mysqluser
 
 ### 查看主机名、添加、修改hostname
@@ -497,7 +498,7 @@ rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并�
 
 ### 重启：reboot 
 
-### 切换root权限：
+### 切换root权限sudo
 ``` 
 su root
 sudo su //获取root权限
@@ -508,6 +509,18 @@ sudo su - //获取root权限，带 - 会带上环境变量，有些命令没有�
 ``` 
 #历史操作搜索
 history|grep 'docker'
+```
+
+### 修改用户密码passwd
+``` 
+passwd user1
+
+我们有时候要更改linux账户密码时，有时候会遇到下面这种情况：
+Password has been already used. Choose another.
+passwd: Have exhausted maximum number of retries for service
+ 
+这个意思是你当前设置的密码最近已经使用过，请重新设置。 
+找到linux下的一个文件/etc/security/opasswd， 这个文件记录了历史密码，把它清空，或者相应账号注释，再重新设置密码
 ```
 
 ## 七、查看日志
@@ -590,7 +603,6 @@ grep -i 更新sn为【290200000937】的设备状态为 ./mgmt-info.log
     到这里就设置完成了，我们只需要重启一下我们的服务器，就能看到我们配置的redis服务已经可以开机自动启动了。
 
 ## 九、硬件信息查看
-[lsblk、fdisk、df -h、mount](https://blog.csdn.net/m0_54108654/article/details/126601804)
 
 ### 查看cpu
     lscpu命令，查看的是cpu的统计信息.
@@ -771,22 +783,27 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
     dmidecode –q
      
     以上是linux查看硬件信息的所有命令，可以查看CPU、硬盘、网卡、磁盘等硬件的信息
-    
-附图：  
-![](https://wdsheng0i.github.io/assets/images/2021/os/Linux-1.png)
 
 ## 附：常用命令
- - sudo netstat -tnlp
- - netstat -tunlp | grep 8080
- - whereis nginx
- - find / -iname nginx
- - history
- - curl cip.cc
- - free -m
- - df -h
- - systemctl status firewalld
- - sudo du -h --max-depth=1
- - chown vftp:vftp download/  ##文件夹赋权账号
- - scp a.txt root@192.168.24.108:/home  # 远程copy
- - ssh -p 22 root@192.168.0.1 
- - ln -snf /data/packages/demo-h5/v1.2.1 demo-h5  # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
+ - 1.查看所有端口：netstat -tnlp
+ - 2.查看端口：netstat -tunlp | grep 8080
+ - 3.搜索程序安装位置：whereis nginx
+ - 4.查找文件：find / -iname nginx
+ - 5.历史命令：history
+ - 6.查看出口ip：curl cip.cc
+ - 7.查看内存使用：free -m
+ - 8.查看磁盘使用：df -h
+ - 9.磁盘分区：lsblk
+ - 10.防火墙状态：systemctl status firewalld
+ - 11.查看文件大小：du -h --max-depth=1
+ - 12.查看文件大小：du -hd1
+ - 13.文件夹赋权账号：chown vftp:vftp download/  
+ - 14.远程copy：scp a.txt root@192.168.24.108:/home  
+ - 15.远程链接：ssh -p 22 root@192.168.0.1 
+ - 16.软连接：ln -snf /data/packages/demo-h5/v1.2.1 demo-h5  # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
+ - 17.查看白名单：iptables -nL
+ - 18.修改密码：passwd appUser
+
+## 附图：  
+![](https://wdsheng0i.github.io/assets/images/2021/os/Linux-1.png)
+

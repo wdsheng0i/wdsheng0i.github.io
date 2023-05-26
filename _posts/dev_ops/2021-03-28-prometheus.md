@@ -12,7 +12,6 @@ tags: [dev-ops]
 - Fluent bit
 - Zabbix
 - Prometheus、Prometheus-Operator
-- Grafana
-- 健康检测预警服务
+- Grafana 
 
 ## 一、
