@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Seaweedfs 安装、配置、使用 
-category: component
-tags: [component]
+category: dev-ops
+tags: [dev-ops]
 ---
 
 seaweedfs 安装、配置、使用 

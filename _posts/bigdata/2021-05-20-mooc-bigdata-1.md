@@ -48,7 +48,6 @@ tags: [acide]
 - Value（低价值密度）： 
 
 13、大数据的行业应用  
-  
 
 ### 第2周   大数据起源之初识Hadoop  
 1、什么是[Hadoop](https://baike.baidu.com/item/Hadoop/3526507?fr=aladdin)  
@@ -74,7 +73,6 @@ Hadoop是专为离线和大规模数据分析而设计的，并不适合那种�
 3、Hadoop版本演变历史    
 1.X -> 2.X -> 3.X 
 ![](https://wdsheng0i.github.io/assets/images/2021/big-data/hadoop-v.png)
-
 
 4、Hadoop3.x的细节优化  
 - Java改为支持8及以上
@@ -325,8 +323,6 @@ https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SingleCl
 Hadoop的客户端节点可能会有多个，理论上是我们想要在哪台机器上操作hadoop集群就可以把这台机
 器配置为hadoop集群的客户端节点。
 
-   
-
 ### 第3周   分布式存储HDFS（hadoop distributed file system）  
 1、Hadoop中的分布式存储架构 -- 生活场景引入：”小明租房”案例一步一步引入    
 HDFS是一种允许文件通过网络在多台主机上分享的文件系统，可以让多机器上多用户分享文件和存储空间;  
@@ -441,7 +437,6 @@ private static void delete(FileSystem fileSystem) throws IOException{
 8、HDFS写数据过程分析  
 
 9、HDFS写数据源码分析  
-   
 
 ### 第4周   HDFS核心进程剖析    
 ![](https://wdsheng0i.github.io/assets/images/2021/big-data/hdfs-s.png)   
@@ -536,7 +531,6 @@ Federation可解决单一命名空间的一些问题，提供以下特性，使�
 - HDFS集群扩展性 ：多个NameNode分管一部分目录，使得一个集群可以扩展到更多节点，不再因内存的限制制约文件存储数目。
 - 性能更高效 ：多个NameNode管理不同的数据，且同时对外提供服务，将为用户提供更高的读写吞吐率。
 - 良好的隔离性： 用户可根据需要将不同业务数据交由不同NameNode管理，这样不同业务之间影响很小
-   
 
 ### 第5周   分布式（离线）计算MapReduce 
 ![](https://wdsheng0i.github.io/assets/images/2021/big-data/mobile-cal.png)    
@@ -736,7 +730,6 @@ hadoop序列化机制的特点
 - 快速： 读写数据额外开销小
 - 可扩展：可透明读取老格式数据
 - 互操作：支持多语言的交互
-  
 
 ### 第6周   YARN资源调度（拿来就用的企业级解决方案）
 - Hadoop的HDFS和MapReduce都是针对大数据文件来设计的，在小文件的处理上不但效率低下，而且十分消耗内存资源

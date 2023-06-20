@@ -11,7 +11,8 @@ tags: [dev-ops]
 - ELK：https://github.com/helm/charts/tree/master/stable/elastic-stack
 - Fluent bit
 - Zabbix
-- Prometheus、Prometheus-Operator
+- loki
 - Grafana 
+- Prometheus、Prometheus-Operator
 
 ## 一、

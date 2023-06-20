@@ -77,7 +77,7 @@ nameserver 114.114.114.114
 nameserver 223.5.5.5
 ```
 
-###  hostname设置
+###  1.4hostname设置
 ```
 查看 hostname
 
@@ -86,7 +86,7 @@ nameserver 223.5.5.5
 永久设置 vi /etc/hostname，填写 bigdata01 
 ```
 
-### hosts文件修改 
+### 1.5 hosts文件修改 
 ```
 vi /etc/hosts
 ip1 hostname1
@@ -94,7 +94,7 @@ ip2 hostname2
 ip3 hostname3
 ```
 
-### 修改(ssh端口)[https://blog.csdn.net/qq_41736266/article/details/128486125]
+### 1.6 修改(ssh端口)[https://blog.csdn.net/qq_41736266/article/details/128486125]
 ``` 
 sudo vim /etc/ssh/sshd_config
 service sshd restart
@@ -107,7 +107,7 @@ sudo systectl restart ssh
 命令后回车，再输入当前登录用户的密码，回车，来修改防火墙规则；更改规则后，再输入`sudo firewall-cmd reload`命令重启防火墙让规则生效。或者在终端输入`sudo iptables -F`命令直接关闭防火墙即可。
 ```
 
-### 防火墙
+### 1.7 防火墙
 - 1） 重启后生效 
     
     开启： chkconfig iptables on   
@@ -138,10 +138,10 @@ sudo systectl restart ssh
     yum install iptables-services 
     设置开机启动：systemctl enable iptable
 
-### 挂载存储mount 
+### 1.8 挂载存储mount 
 [lsblk、fdisk、df -h、mount](https://blog.csdn.net/m0_54108654/article/details/126601804)
 
-### 虚拟机克隆
+### 1.9 虚拟机克隆
 1.管理-克隆  
 2.克隆完成后修改配置
 ```
@@ -176,7 +176,7 @@ IPADDR=192.168.145.130
 ### 替换yum源 
 `/etc/yum.repos.d/CentOS-Base.repo`
 
-### 下载wget
+### 下载 wget
 `wget http://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz`
 
 ### 安装 git 
@@ -185,7 +185,7 @@ IPADDR=192.168.145.130
 ### 安装 wget 
 `yum -y install wget`
 
-### 安 装vim  
+### 安装 vim  
 `yum install vim -y`
 
 ### 安装 telnet 
@@ -454,7 +454,7 @@ rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并�
     7.vim编辑器中搜索： /搜索的内容
     8.查找下一个：n
 
-### 解压缩：
+### 解压缩：tar unzip
     tar zxvf ./apache-tomcat-7.0.81.tar.gz   //解压tar.gz
     tar zxvf ./apache-tomcat-7.0.81.tar.gz  -C /opt/tomcat/  指定解压目录
     unzip zhparser-master.zip   //解压zip
@@ -803,6 +803,8 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
  - 16.软连接：ln -snf /data/packages/demo-h5/v1.2.1 demo-h5  # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
  - 17.查看白名单：iptables -nL
  - 18.修改密码：passwd appUser
+ - 19.chage -M 99999 ansible
+ - 20.统计目录下文件数：ls -Rl | grep '.txt' | wc -l
 
 ## 附图：  
 ![](https://wdsheng0i.github.io/assets/images/2021/os/Linux-1.png)

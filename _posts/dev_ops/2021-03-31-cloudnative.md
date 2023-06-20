@@ -5,7 +5,6 @@ category: dev-ops
 tags: [dev-ops]
 ---
 
-
 ## 参考资料
 - [云原生Java架构师的第一课K8s+Docker+KubeSphere+DevOps【尚硅谷】](https://www.bilibili.com/video/BV13Q4y1C7hS?spm_id_from=333.999.0.0&vd_source=fc861ca405c9ae969dbc2f0dac72ba4b)
 
@@ -124,8 +123,8 @@ kustomize 使用 k8s 原生概念帮助创建并复用资源配置(YAML)，允�
 #### 2.4.7 kubelet、kubeadm、kubectl
 - kubeadm是官方社区推出的一个用于快速部署kubernetes集群的工具。
     - 这个工具能通过两条指令完成一个kubernetes集群的部署：　# 创建一个 Master 节点　kubeadm init　# 将一个 Node 节点加入到当前集群中　kubeadm join <Master节点的IP和端口 >　
--  kubectl是Kubernetes集群的命令行工具，通过kubectl能够对集群本身进行管理，并能够在集群上进行容器化应用的安装和部署
--  kubelet　master派到node节点代表，管理本机容器，一个集群中每个节点上运行的代理，它保证容器都运行在Pod中，负责维护容器的生命周期，同时也负责Volume(CSI) 和 网络(CNI)的管理　
+- kubectl是Kubernetes集群的命令行工具，通过kubectl能够对集群本身进行管理，并能够在集群上进行容器化应用的安装和部署
+- kubelet　master派到node节点代表，管理本机容器，一个集群中每个节点上运行的代理，它保证容器都运行在Pod中，负责维护容器的生命周期，同时也负责Volume(CSI) 和 网络(CNI)的管理　
 
 ## 三、容器应用的设计原则 
 12-Factor：https://12factor.net/zh_cn/
@@ -153,7 +152,8 @@ kustomize 使用 k8s 原生概念帮助创建并复用资源配置(YAML)，允�
 研发、测试、生产所有环境都要使用同一个镜像。
 
 ### 3.5. 用完即丢
-所有的容器都是临时的，它随时有可能被其它的容器实例所替代，需要把容器的状态保存在容器之外，并且尽可能快速的启动和终止容器。即容器为无状态的。
+所有的容器都是临时的，它随时有可能被其它的容器实例所替代，需要把容器的状态保存在容器之外，并且尽可能快速的启动和终止容器。即容器为无状态的。  
+挂载日志、配置文件？？
 
 ### 3.6. 自包含
 容器在构建的时候应该包含所有的依赖，也就是所说容器在运行时不应该有任何的外部依赖。

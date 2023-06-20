@@ -9,7 +9,6 @@ tags: [springcloud]
 
 ## 参考资料
 
-
 ## 使用总结
 1.IDEA本地启动服务不注册eureka  
 ````

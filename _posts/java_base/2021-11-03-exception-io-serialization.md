@@ -8,7 +8,6 @@ tags: [java]
 异常 IO 序列化
 
 ## 参考资料
- 
 
 ## 一、异常继承关系 
 ![](https://wdsheng0i.github.io/assets/images/2021/java/exc.png)

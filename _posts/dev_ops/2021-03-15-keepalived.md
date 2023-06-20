@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Keepalived 原理与实战
-category: component
-tags: [component]
+category: dev-ops
+tags: [dev-ops]
 ---
 
 ## 参考资料
@@ -191,8 +191,7 @@ systemctl restart keepalived
 ![](https://wdsheng0i.github.io/assets/images/2021/keepalived/2master.png)  
 
 ## 12 云服务的DNS解析配置与负载均衡 
-用户请求经dns轮询发送给虚拟ip进行处理   
- 
+用户请求经dns轮询发送给虚拟ip进行处理    
 
 ## 13-14 配置实现keepalived双主热备 （2keepalived分别绑两个虚拟ip）
 规则：以一个虚拟ip分组归为同一个路由  

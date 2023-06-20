@@ -1,14 +1,13 @@
 ---
 layout: post
 title: ZooKeeper
-category: component
-tags: [component]
+category: dev-ops
+tags: [dev-ops]
 ---
 
 ZooKeeper
 
 ## 参考资料 
- 
 
 ## 一、简介
 [Zookeeper 3、Zookeeper工作原理（详细）](https://www.cnblogs.com/raphael5200/p/5285583.html)  
@@ -17,7 +16,7 @@ ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服�
 ZooKeeper的目标就是封装好复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。
 
 ZooKeeper是以Fast Paxos算法为基础的，Paxos算法存在活锁的问题，即当有多个proposer交错提交时，有可能互相排斥导致没有一个proposer能提交成功，而FastPaxos做了一些优化，通过选举产生一个leader (领导者)，只有leader才能提交proposer，具体算法可见FastPaxos。因此，要想弄懂ZooKeeper首先得对Fast Paxos有所了解。
-
+********
 ZooKeeper的基本运转流程：
 - 1、选举Leader。
 - 2、同步数据。
@@ -94,6 +93,4 @@ WatchedEvent state:SyncConnected type:None path:null
 
 ### 2.2 Linux环境下集群安装
 [Apache-Zookeeper-3.6.2 的集群安装](https://blog.csdn.net/shufangreal/article/details/108524408)
-
-## 三、使用
 
