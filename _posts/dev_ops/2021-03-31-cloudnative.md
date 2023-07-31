@@ -7,6 +7,7 @@ tags: [dev-ops]
 
 ## 参考资料
 - [云原生Java架构师的第一课K8s+Docker+KubeSphere+DevOps【尚硅谷】](https://www.bilibili.com/video/BV13Q4y1C7hS?spm_id_from=333.999.0.0&vd_source=fc861ca405c9ae969dbc2f0dac72ba4b)
+- [云原生/微服务架构/运维 系列课程](https://blog.csdn.net/luanpeng825485697/category_11735474.html)
 
 ## 一、云原生
 ### 1.1 什么是云原生
@@ -109,7 +110,7 @@ Portainer是一个可视化的容器镜像的图形管理工具，利用Portaine
 - Kind：是Kubernetes In Docker的缩写，顾名思义，看起来是把k8s放到docker的意思。没错，kind创建k8s集群的基本原理就是：提前准备好k8s节点的镜像，通过docker启动容器，来模拟k8s的节点，从而组成完整的k8s集群。需要注意，kind创建的集群仅可用于开发、学习、测试等，不能用于生产环境
 - Kubespray：是Kubernetes incubator 中的项目，目标是提供Production Ready Kubernetes部署方案，该项目基础是通过Ansible Playbook 来定义系统与Kubernetes 集群部署的任务
 
-#### 2.4.5 CNI插件、Cilium、Flannel
+#### 2.4.5 CNI容器网络插件、Cilium、Flannel
 - CNI插件存放位置:# cat /etc/cni/net.d/10-flannel.conflist    插件使用的解决方案如下: 虚拟网桥,虚拟网卡,多个容器共用一个虚拟网卡进行通信
 - Cilium：是一个用于容器网络领域的开源项目，主要是面向容器而使用，用于提供并透明地保护应用程序工作负载（如应用程序容器或进程）之间的网络连接和负载均衡。
 - Rudder 已改名为Flannel，为每个使用 Kubernetes 的机器提供一个子网。也就是说 Kubernetes 集群中的每个主机都有自己一个完整的子网，例如机器 A 和 B 可以有 10.0.1.0/24 和 10.0.2.0/24 子网。该模型的好处就是降低端口映射的复杂度

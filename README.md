@@ -2,7 +2,7 @@
 
 这是我的个人博客项目，里面会记录技术学习的点滴。 访问地址：[https://wdsheng0i.github.io/](https://wdsheng0i.github.io/)
 
-规划内容和项目示例对应说明
+## 规划内容和项目示例对应说明
 - 一、data-algorithm 数据结构 & 算法总结：project-ability / data-algorithm (https://github.com/wdsheng0i/xxx.git)
 - 二、design-patterns 设计原则 & 设计模式总结：project-ability / design-patterns (https://github.com/wdsheng0i/xxx.git)
 - 三、common-utils 基础编码能力总结：project-ability / common-utils (https://github.com/wdsheng0i/xxx.git)
@@ -336,8 +336,7 @@ https://blog.csdn.net/weixin_42453582/article/details/113697878
 实现 **动静分离、反向代理、集群、负载均衡、主从热备、双机主备** 
 
 ### 8.3 高可用redis缓存方案(主从复制、Redis集群、哨兵监控)
-主从复制高可用Redis集群、哨兵监控
- 
+主从复制高可用Redis集群、哨兵监控 
 
 ### 8.4 高并发下解耦、削峰、异步方案：消息队列kafka
 
@@ -352,17 +351,17 @@ https://blog.csdn.net/weixin_42453582/article/details/113697878
 ## 九、云原生架构总结（公/私有云、微服务、镜像、仓库、容器、容器编排、CICD、弹性伸缩、扩容、监控、灾备...）
 
 ## 十、运维技术栈总结
-### 10.0 虚拟化
-### 10.1 Linux服务器基础 
-### 10.2 shell编程
-### 10.3 DBA-灾备、恢复
-### 10.4 数据库/存储中间件
-### 10.5 服务器中间件
-### 10.6 高可用集群架构
-### 10.7 监控告警
-### 10.8 网络 
-### 10.9 信息安全 
-### 10.10 CICD
-### 10.11 云原生devops
-### 10.12 大数据
-### 10.13 自动化运维 & AIops
+- 10.0 虚拟化
+- 10.1 Linux服务器基础 
+- 10.2 shell编程
+- 10.3 DBA-灾备、恢复
+- 10.4 数据库/存储中间件
+- 10.5 服务器中间件
+- 10.6 高可用集群架构
+- 10.7 监控告警
+- 10.8 网络 
+- 10.9 信息安全 
+- 10.10 CICD
+- 10.11 云原生devops
+- 10.12 大数据
+- 10.13 自动化运维 & AIops
