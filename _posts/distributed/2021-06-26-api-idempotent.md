@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 分布式锁接口幂等性
-category: springcloud
-tags: [springcloud]
+category: distribute
+tags: [distribute]
 ---
 
 分布式锁接口幂等性

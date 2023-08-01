@@ -1,11 +1,11 @@
 ---
 layout: page
-title: mybatis 
-titlebar: mybatis
-subtitle: Interceptor &nbsp;&nbsp; MyBatis-Generator &nbsp;&nbsp; PageHelper &nbsp;&nbsp; TK-mybatis  ...
-menu: mybatis
+title: distribute 
+titlebar: distribute
+subtitle: 分部式中间件...
+menu: distribute
 css: ['blog-page.css']
-permalink: /mybatis
+permalink: /distribute
 ---
 
 <div class="row">
@@ -14,7 +14,7 @@ permalink: /mybatis
 
         <ul id="posts-list">
             {% for post in site.posts %}
-                {% if post.category=='mybatis' or post.keywords contains 'mybatis' %}
+                {% if post.category=='distribute' or post.keywords contains 'distribute' %}
                 <li class="posts-list-item">
                     <div class="posts-content">
                         <span class="posts-list-meta">{{ post.date | date: "%Y-%m-%d" }}</span>

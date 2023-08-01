@@ -45,7 +45,6 @@ sessionid是服务器和客户端链接时候随机分配的，一般来说是�
     - (3)session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能，如果主要考虑到减轻服务器性能方面，应当使用COOKIE
     - (4)单个cookie在客户端的限制是3K，就是说一个站点在客户端存放的COOKIE不能3K。
     - (5)所以：将登陆信息等重要信息存放为SESSION;其他信息如果需要保留，可以放在COOKIE中
- 
 
 ## 二、Token
 - [傻傻分不清之 Cookie、Session、Token、JWT](https://juejin.im/post/6844904034181070861) 

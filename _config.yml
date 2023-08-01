@@ -121,24 +121,29 @@ navs:
         target: _self
 
   -
+    href: /web.html
+    label: 前端开发
+    target: _self
+
+  -
     href: /java.html
-    label: Java开发
+    label: JAVA开发
     target: _self
     subnav:
 
       -
         subHref: /java.html
-        subLabel: Java基础
+        subLabel: JAVA基础
         target: _self
 
       -
         subHref: /jvm.html
-        subLabel: Jvm原理
+        subLabel: JVM原理
         target: _self
 
       -
         subHref: /juc.html
-        subLabel: Java并发
+        subLabel: JAVA并发
         target: _self
 
       -
@@ -146,43 +151,28 @@ navs:
         subLabel: 设计原则&设计模式
         target: _self
 
-      - subHref: /mybatis.html
-        subLabel: mybatis
-        target: _self
-
-      -
-        subHref: /spring.html
-        subLabel: Spring & SpringMVC
-        target: _self
-
-      -
-        subHref: /spring-boot.html
-        subLabel: Spring Boot
-        target: _self
-
-      -
-        subHref: /spring-cloud.html
-        subLabel: Spring Cloud
-        target: _self
-
       -
         subHref: /component.html
         subLabel: 组件
         target: _self
 
-      -
-        subHref: /arch.html
-        subLabel: 架构&设计&性能
+      - subHref: /distribute.html
+        subLabel: 分布式中间件
         target: _self
 
       -
-        subHref: /dev-ops.html
-        subLabel: DevOps
+        subHref: /spring-cloud.html
+        subLabel: Spring&微服务
+        target: _self
+
+      -
+        subHref: /arch.html
+        subLabel: 架构设计&性能
         target: _self
 
   -
-    href: /web.html
-    label: 前端开发
+    href: /dev-ops.html
+    label: 运维技术
     target: _self
 
   - href: /acide.html

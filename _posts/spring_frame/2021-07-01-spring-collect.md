@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Spring SpringMVC 学习资料汇总
-category: spring
-tags: [spring]
+category: springcloud
+tags: [springcloud]
 ---
 
 ## 参考资料 

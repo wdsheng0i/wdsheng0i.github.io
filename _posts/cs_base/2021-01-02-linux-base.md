@@ -335,17 +335,17 @@ whereis nginx  //命令只能用于程序名的搜索
 ```
 
 ## 四、系统、硬件监控命令
-### 查看内存
+### 查看内存 free -m
 ```
 free -m
 ```
 
-### 查看磁盘
+### 查看磁盘 df -h
 ```
 df -h
 ```
 
-### 查看进程、cpu
+### 查看进程 top
 ```
 top
 ```
@@ -399,6 +399,8 @@ ps -p PID -o lstart,  其中，PID为某个进程的进程ID号
 ### 查看ip
 ```
 ifconfig
+或
+ip addr
 ```
 
 ### 查看占用端口进程（2种方式）
@@ -445,7 +447,7 @@ traceroute 192.168.1.123
 ### 移动文件： mv
 ```mv apache-tomcat-7.0.81.tar.gz       /usr```
 
-### 重命名
+### 重命名 mv
 ```mv a.txt  b.txt```
 
 ### 复制文件：cp
@@ -476,11 +478,13 @@ unzip zhparser-master.zip   //解压zip
 tar xvf scws-xxx-xx.tar.bz2   //解压tar.bz2
 ```
 
-### 文件权限：chmod
+### 文件权限：chmod、chown
 ``` 
 chmod 777 文件名 //文件改权限
 chmod 777 -R * //文件夹赋权限
 chmod 755 -R * //文件夹赋权限
+
+文件夹赋权账号：chown vftp:vftp download/
 ```
 
 ### 远程拷贝两个主机文件: scp
@@ -495,6 +499,9 @@ scp  /home/administrator/Desktop/old/driver/test/test.txt   root@192.168.1.100:/
 3、远程文件/文件夹下载: 把192.168.62.10上面的/root/文件夹，下载到本地的/home/administrator/Desktop/new/下，使用远程端的root登陆  
 scp -r root@192.168.62.10:/root/  /home/administrator/Desktop/new/
 ```
+
+### 远程链接：ssh -p   
+```ssh -p 22 root@192.168.0.1```  
 
 ## 六、系统操作
 ### CentOS修改服务器系统时间
@@ -533,6 +540,7 @@ vi etc/hosts   添加一行
 su root
 sudo su //获取root权限
 sudo su - //获取root权限，带 - 会带上环境变量，有些命令没有环境变量执行不了，如kubectl
+sudo -i
 ```
 
 ### 查看历史操作命令： history
@@ -841,7 +849,7 @@ dmidecode –q
 - 11.查看文件大小：du -h --max-depth=1
 - 12.查看文件大小：du -hd1
 - 13.文件夹赋权账号：chown vftp:vftp download/
-- 14.远程copy：scp a.txt root@192.168.24.108:/home
+- 14.远程copy：scp a.txt root@192.168.0.1:/home
 - 15.远程链接：ssh -p 22 root@192.168.0.1
 - 16.软连接：ln -snf /data/packages/demo-h5/v1.2.1 demo-h5  # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
 - 17.查看白名单：iptables -nL

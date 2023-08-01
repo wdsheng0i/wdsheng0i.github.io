@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Spring Boot 学习资料汇总
-category: springboot
-tags: [springboot]
+category: springcloud
+tags: [springcloud]
 ---
 
 ## 参考资料
