@@ -23,8 +23,8 @@ tags: [springcloud]
 安装包：https://github.com/apolloconfig/apollo/releases  
 
 主机规划
-192.168.145.195 apollo-portal apollo-config  
-192.168.145.228 apollo-admin apollo-config  
+192.168.145.1 apollo-portal apollo-config  
+192.168.145.2 apollo-admin apollo-config  
 
 1、导入数据库初始化文件（此sql已包含创建数据库的步骤）
 MySQL > source /your_local_path/apolloconfigdb.sql
@@ -32,8 +32,8 @@ MySQL > source /your_local_path/apolloportaldb.sql
 
 2、配置Eureka
 UPDATE `ApolloConfigDB`.`ServerConfig` 
-SET `Value` = 'http://testuser:1qaz@WSX@192.168.145.195:11000/eureka/,
-http://testuser:1qaz@WSX@192.168.145.228:11000/eureka/'
+SET `Value` = 'http://testuser:1qaz@WSX@192.168.145.1:11000/eureka/,
+http://testuser:1qaz@WSX@192.168.145.2:11000/eureka/'
 WHERE `Key` = 'eureka.service.url';
 
 3、配置环境列表与组织名称
@@ -47,13 +47,13 @@ WHERE `Key` = 'organizations';
 4、配置数据库连接文件
 # apollo-adminservice/config/application-github.properties
 # apollo-configservice/config/application-github.properties
-spring.datasource.url = jdbc:mysql://192.168.145.195:3306/apolloconfigdb?
+spring.datasource.url = jdbc:mysql://192.168.145.1:3306/apolloconfigdb?
 characterEncoding=utf8&useLocalSessionState=true
 spring.datasource.username = user
 spring.datasource.password = password
 
 # apollo-portal/config/application-github.properties
-spring.datasource.url = jdbc:mysql://192.168.145.195/apolloportaldb?
+spring.datasource.url = jdbc:mysql://192.168.145.1/apolloportaldb?
 characterEncoding=utf8&useLocalSessionState=true
 spring.datasource.username = user
 spring.datasource.password = password
@@ -61,12 +61,12 @@ spring.datasource.password = password
 5、配置环境的meta server地址
 # apollo-portal/config/apollo-env.properties
 lpt.meta=${lpt_meta}
-pro.meta=http://192.168.145.195:9000,http://192.168.145.228:9000
+pro.meta=http://192.168.145.1:9000,http://192.168.145.2:9000
 
 6、修改apollo-admin、apollo-config的Eureka注册id
 # apollo-config/scripts/startup.sh
 # apollo-admin/scripts/startup.sh
-export JAVA_OPTS="$JAVA_OPTS -Deureka.instance.instance-id=192.168.145.195:$SERVER_PORT ......
+export JAVA_OPTS="$JAVA_OPTS -Deureka.instance.instance-id=192.168.145.1:$SERVER_PORT ......
 
 7、配置日志位置
 # apollo-config/scripts/startup.sh

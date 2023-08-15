@@ -32,7 +32,6 @@ tags: [springcloud]
     - HAProxy
     - Nginx
     - Ribbon
- 
 
 ## 四、Nginx负载均衡的集中方式介绍
 ### 轮询

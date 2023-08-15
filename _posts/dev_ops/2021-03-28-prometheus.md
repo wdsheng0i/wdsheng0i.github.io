@@ -16,5 +16,6 @@ tags: [dev-ops]
 - 监控平台：Zabbix
 - 监控平台：Prometheus + Grafana、Prometheus-Operator
   - [prometheus之记录规则(recording rules)与告警规则(alerting rule)](https://luanpeng.blog.csdn.net/article/details/82730704)
+- Thanos：开源、高可用、具有长期存储能力的 分布式Prometheus监控方案
 
 ## 一、

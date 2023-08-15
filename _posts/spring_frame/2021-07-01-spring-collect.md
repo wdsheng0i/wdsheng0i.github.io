@@ -32,7 +32,6 @@ tags: [springcloud]
 - 18.spring-messaging：用于构建基于消息的应用程序
 - 19.spring-test：spring测试，提供junit与mock测试功能  
 - 20.spring-context-support：spring额外支持包，比如邮件服务、视图解析等 
- 
 
 ## 二、Spring-AOP 
 AOP利用一种称为“横切”的技术，剖解开封装的对象内部，并将那些影响了多个类的行为封装到一个可重用模块，并将其命名为“Aspect”，即方面。所谓“方面”，简单地说，就是将那些与业务无关，却为业务模块所共同调用的逻辑或责任，例如事务处理、日志管理、权限控制等，封装起来，便于减少系统的重复代码，降低模块间的耦合度，并有利于未来的可操作性和可维护性。进而改变这些行为的时候不影响业务逻辑的代码。
@@ -121,7 +120,6 @@ IOC的思想最核心的地方在于，资源不由使用资源的双方管理�
 - 3).Spring会自动创建相应的 BeanDefinition 对象，并注册到 ApplicationContext 中这些类就成了 Spring受管组件 , 单例模式
 - 4).资源不由使用资源的双方管理控制, 而是交给spring创建和注入，就是控制反转 
 - 5).然后就可以在controller中通过 @Autowired使用bean
- 
 
 ## 四、springMVC
 [跟着开涛学SpringMVC](https://www.iteye.com/blog/jinnianshilongnian-1631021)      

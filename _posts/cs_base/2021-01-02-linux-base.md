@@ -348,6 +348,9 @@ df -h
 ### 查看进程 top
 ```
 top
+
+ps -eo pid,ppid,cmd,%cpu,%mem --sort=-%cpu | head
+该命令可以列出当前CPU使用率最高的前几个进程，ps -eo pid,ppid,cmd,%cpu,%mem表示显示进程的PID、PPID、命令行、CPU使用率、内存使用率等信息，--sort=-%cpu表示按照CPU使用率的大小进行降序排列，head表示只显示前几个结果
 ```
 
 ### 查看 内存 cpu 进程 io 使用情况
@@ -476,6 +479,8 @@ tar zxvf ./apache-tomcat-7.0.81.tar.gz   //解压tar.gz
 tar zxvf ./apache-tomcat-7.0.81.tar.gz  -C /opt/tomcat/  指定解压目录
 unzip zhparser-master.zip   //解压zip
 tar xvf scws-xxx-xx.tar.bz2   //解压tar.bz2
+
+tar -cvf folder.tar folder/  //压缩
 ```
 
 ### 文件权限：chmod、chown
@@ -672,9 +677,11 @@ L1i cache:             32K
 L2 cache:              256K
 L3 cache:              6144K
 
-查看/proc/cpuinfo,可以知道每个cpu信息，如每个CPU的型号，主频等。
+```
 
-#cat /proc/cpuinfo
+### 查看/proc/cpuinfo,可以知道每个cpu信息，如每个CPU的型号，主频等。
+```
+# cat /proc/cpuinfo
 processor    : 0
 vendor_id    : GenuineIntel
 cpu family    : 6

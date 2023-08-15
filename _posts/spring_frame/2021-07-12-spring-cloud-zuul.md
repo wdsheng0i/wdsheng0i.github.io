@@ -12,8 +12,6 @@ Zuul 是在云平台上提供动态路由,监控,弹性,安全等边缘服务的
 - http://www.ityouknow.com/springcloud/2018/01/20/spring-cloud-zuul.html  
 - https://www.fangzhipeng.com/springcloud/2017/06/05/sc05-zuul.html
 
-
-
 ## 问题总结
 - [SpringBoot上传文件，经过spingCloud-Zuul，中文文件名乱码解决办法](https://www.cnblogs.com/zincredible/p/9268783.html)
 - [SpringBoot上传文件，经过spingCloud-Zuul，中文文件名乱码解决办法](https://blog.csdn.net/arjg30483/article/details/102325007)
