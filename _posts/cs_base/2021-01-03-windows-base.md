@@ -36,6 +36,7 @@ telnet cip.cc
 
 centos:
 curl cip.cc
+curl ident.me
 ```
 
 问题：curl: (6) Could not resolve host: cip.cc; 未知的错误

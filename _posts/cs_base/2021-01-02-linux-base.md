@@ -175,6 +175,8 @@ IPADDR=192.168.145.130
 `rpm -qa |grep yum `  
 
 ### 替换yum源
+[使用国内Yum源](https://blog.csdn.net/nklinsirui/article/details/80146083)  
+
 `/etc/yum.repos.d/CentOS-Base.repo`  
 
 ### 下载 wget  
@@ -390,6 +392,11 @@ ps -p PID -o lstart,  其中，PID为某个进程的进程ID号
 ### DNS：
 ```
 本机的DNS配置信息是在：/etc/resolv.conf
+nameserver 8.8.8.8 #google域名服务器
+nameserver 8.8.4.4 #google域名服务器
+nameserver 114.114.114.114 #国内第一个、全球第三个开放的全国通用DNS地址,可以为使用者提供高速、稳定、可信的DNS递归解析服务,延迟基本上在10ms以下
+nameserver 223.6.6.6 #阿里DNS,延迟在25ms左右
+nameserver 223.5.5.5 #阿里DNS
 ```
 
 ### 查、杀进程：
