@@ -13,6 +13,11 @@ Linux基础操作命令
 - [Linux就该这么学]
 
 ## 一、装机
+[curl,apt-get,wget,yum的区别](https://blog.csdn.net/xcliang9418/article/details/122081142)  
+一般来说著名的linux系统基本上分两大类：  
+- RedHat系列：Redhat、Centos、Fedora等  
+- Debian系列：Debian、Ubuntu等  
+
 ### 1.1 做raid
 [图文并茂 RAID 技术全解 – RAID0、RAID1、RAID5、RAID100](https://mp.weixin.qq.com/s/XgHz65Fe5WogTxBp0kqs7w)
 

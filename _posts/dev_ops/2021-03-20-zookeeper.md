@@ -8,6 +8,9 @@ tags: [dev-ops]
 ZooKeeper
 
 ## 参考资料 
+- 官网地址：
+- 下载地址：
+- 文档地址：
 
 ## 一、简介
 [Zookeeper 3、Zookeeper工作原理（详细）](https://www.cnblogs.com/raphael5200/p/5285583.html)  

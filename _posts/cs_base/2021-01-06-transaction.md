@@ -109,7 +109,7 @@ RC隔离级别下：在每个查询语句开始的时候，会将当前系统中
     - 数据库自动提交不需要我们做任何处理，同时也不具备回滚性；
     - DDL、DCL语言都是隐式事务操作；
 
-## 八、问题
+## 八、Q & A
 - 为什么不加@EnableTransactionManagement，也能使用@Transaction  
 META-INF/spring.factories 默认自动配置
 

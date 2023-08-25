@@ -199,6 +199,6 @@ b.program argumets添加本地路径参数，run运行
 ![](https://wdsheng0i.github.io/assets/images/2021/big-data/debug-3.png)  
 		
 
-## 问题
+## Q & A
 - 教程：http://kaimingwan.com/post/da-shu-ju/ideazhong-diao-shi-hadoop-mapreducecheng-xu-windows
 - 问题集合：https://blog.csdn.net/congcong68/article/details/42043093
