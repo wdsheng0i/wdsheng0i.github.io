@@ -9,7 +9,7 @@ seaweedfs 安装、配置、使用
 
 ## 参考资料
 - 官网地址：
-- 下载地址：
+- 下载地址：https://github.com/seaweedfs/seaweedfs/releases
 - 文档地址：
 
 ## 一、部署SeaweedFS

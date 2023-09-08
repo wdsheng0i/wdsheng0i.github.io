@@ -73,6 +73,7 @@ curl cip.cc
 
 centos:
 curl cip.cc
+curl -4s https://ipinfo.io
 
 问题：curl: (6) Could not resolve host: cip.cc; 未知的错误
 // 原因：外网使用正常，证明提供服务未出问题。内部访问报错’dns找不到这个网址‘，可能是某dns服务器或dns解析出现了问题。
@@ -88,7 +89,7 @@ service network restart
 ```
 查看 hostname
 临时设置 hostname bigdata01
-永久设置 vi /etc/hostname，填写 bigdata01
+永久设置 vi /etc/hostname，填写 bigdata01，重启生效
 ```
 
 ### 1.5 hosts文件修改
@@ -113,6 +114,7 @@ sudo systectl restart ssh
 ```
 
 ### 1.7 防火墙
+Linux防火墙之——iptables和firewalld：https://blog.csdn.net/Zhaohui_Zhang/article/details/126090994
 ``` 
 - 1） 重启后生效
 开启： chkconfig iptables on
@@ -144,12 +146,32 @@ yum install iptables-services
 设置开机启动：systemctl enable iptable
 ```
 
-### 1.8 挂载存储mount
+### 1.8 磁盘分区、格式化、挂载mount
 [lsblk、fdisk、df -h、mount](https://blog.csdn.net/m0_54108654/article/details/126601804)
+```
+## 首先需要新增磁盘sdb，新增的硬件在dev下
+lsblk 查看磁盘是否添加成功sdb
+
+## 创建待挂载的目录
+mkdir data
+
+## 查看当前磁盘、分区信息
+lsblk -f
+
+## 对dev下的sdb盘进行分区
+fdisk  /dev/sdb
+m 查看命令帮助，n新增分区，p主分区，w写入并保存
+
+## 格式化分区
+mkfs -t ext4 /dev/sdb1
+
+## 挂载分区与目录
+mount /dev/sdb1 /data
+```
 
 ### 1.9 虚拟机克隆
-1.管理-克隆
-2.克隆完成后修改配置
+1.管理-克隆  
+2.克隆完成后修改配置  
 ```
 ipa ddr 查看ip、mac地址
 ...
@@ -345,6 +367,8 @@ whereis nginx  //命令只能用于程序名的搜索
 ### 查看内存 free -m
 ```
 free -m
+
+可用：available = free + buffer/cache - 不可被回收内存(共享内存段、tmpfs、ramfs等)
 ```
 
 ### 查看磁盘 df -h
@@ -455,6 +479,11 @@ traceroute 192.168.1.123
 方式2  
 ```yum install traceroute –y```
 
+### systemd
+systemd服务的启动命令放置在/lib/systemd/system下  
+systemctl enable XXX.service命令会在/etc/systemd/system/multi-user.target.wants下创建指向/lib/systemd/system服务的软连接  
+系统启动时会读取/etc/systemd/system下的服务  
+
 ## 五、文件操作
 ### 新建目录：mkdir
 ```mkdir opt/test```
@@ -473,16 +502,21 @@ traceroute 192.168.1.123
 rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并删除  -f 就是直接强行删除，不作任何提示的意思
 ```
 
-### 编辑文件：vi
+### 编辑文件：cat vi more
 ```
 1.查看 cat  a.txt
-2.编辑 vi a.txt
-3.root编辑 sudo vi a.txt
-4.i 进入编辑模式， esc 进入命令模式 ，q退出，wq保存退出，q!不保存强制推出
-5.命令模式下：x删除一个字符，dd删除一行 上下左右键命令模式下有效
-6.全局搜索：find / -name *minio*
-7.vim编辑器中搜索： /搜索的内容
-8.查找下一个：n
+2.编辑 vi a.txt 
+    i 进入编辑模式， esc 进入命令模式 ，q退出，wq保存退出，q!不保存强制推出
+    命令模式下：x删除一个字符，dd删除一行 上下左右键命令模式下有效
+    全局搜索：find / -name *minio*
+    vim编辑器中搜索： /搜索的内容
+    查找下一个：n
+3.more 按页来查看文件的内容
+    Enter 向下n行，可定义定义。默认为1行
+    空格键 向下滚动一屏
+    Ctrl+B 返回上一屏
+    = 输出当前行的行号
+    q 退出more
 ```
 
 ### 解压缩：tar unzip
@@ -859,7 +893,7 @@ dmidecode –q
 - 3.搜索程序安装位置：whereis nginx
 - 4.查找文件：find / -iname nginx
 - 5.历史命令：history
-- 6.查看出口ip：curl cip.cc
+- 6.查看出口ip：curl cip.cc 或 curl -4s https://ipinfo.io
 - 7.查看内存使用：free -m
 - 8.查看磁盘使用：df -h
 - 8.查看文件大小：ll -lh
@@ -871,7 +905,7 @@ dmidecode –q
 - 14.远程copy：scp a.txt root@192.168.0.1:/home
 - 15.远程链接：ssh -p 22 root@192.168.0.1
 - 16.软连接：ln -snf /data/packages/demo-h5/v1.2.1 demo-h5  # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
-- 17.查看白名单：iptables -nL
+- 17.查看白名单：iptables -nL --line-number
 - 18.修改密码：passwd appUser
 - 19.chage -M 99999 ansible
 - 20.统计目录下文件数：ls -Rl | grep '.txt' | wc -l
@@ -879,6 +913,23 @@ dmidecode –q
 - 22.不删文件，情况内容：cat /dev/null > /data/logs/app.log
 /dev/null 非常等价于一个只写文件，所有写入它的内容都会永远丢失，而尝试从它那儿读取内容则什么也读不到。
 cat /dev/null也就是什么都没有，> 是定向输出到文件,  命令综合起来就是把空内容写入到/var/log/syslog文件中，即清空/var/log/syslog文件的内容。
+- 23.[curl命令查看请求响应时间](https://blog.csdn.net/fang0604631023/article/details/127845928)：curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://www.baidu.com"
+- 24.iptable添加白名单
+
+``` 
+iptables -A INPUT -s 192.168.123.1 -p all -j ACCEPT
+iptables -I INPUT -s 192.168.123.1/24 -p tcp --dport 3306 -j ACCEPT
+iptables -I IN_public_allow -s 192.168.123.1/24 -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT 
+```
+
+- 25.firewall添加白名单
+
+``` 
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192.168.123.1/24" port protocol="tcp" port="3306" accept"
+firewall-cmd --reload
+firewall-cmd --list-all 
+firewall-cmd --permanent --add-rich-rule='rule protocol value="vrrp" accept'  ## 防火墙开启vrrp 虚拟路由冗余协议(Virtual Router Redundancy Protocol，简称VRRP)
+```
 
 ## 附图：
 ![](https://wdsheng0i.github.io/assets/images/2021/os/Linux-1.png)

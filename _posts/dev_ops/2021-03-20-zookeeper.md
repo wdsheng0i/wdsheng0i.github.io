@@ -8,8 +8,8 @@ tags: [dev-ops]
 ZooKeeper
 
 ## 参考资料 
-- 官网地址：
-- 下载地址：
+- 官网地址：https://zookeeper.apache.org/
+- 下载地址：https://zookeeper.apache.org/releases.html#download
 - 文档地址：
 
 ## 一、简介

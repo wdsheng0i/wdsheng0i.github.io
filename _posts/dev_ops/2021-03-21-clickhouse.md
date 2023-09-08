@@ -6,7 +6,7 @@ tags: [dev-ops]
 ---
 
 ## 参考资料
-- 官网地址：
+- 官网地址：https://clickhouse.com/
 - 下载地址：
 - 文档地址：
 

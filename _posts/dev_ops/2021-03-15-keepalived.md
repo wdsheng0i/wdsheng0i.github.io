@@ -6,8 +6,8 @@ tags: [dev-ops]
 ---
 
 ## 参考资料
-- 官网地址：
-- 下载地址：
+- 官网地址：https://www.keepalived.org
+- 下载地址：https://www.keepalived.org/download.html
 - 文档地址：  
 - Keepalived 原理与实战、双机主备、双主热备  
 - [java架构直通车-第6周 LVS+Nginx实现高可用集群](https://class.imooc.com/sale/javaarchitect)
@@ -28,7 +28,13 @@ VRRP广泛应用在边缘网络中，它的设计目标是支持特定情况下I
 ![](https://wdsheng0i.github.io/assets/images/2021/keepalived/kpl.png)  
 ![](https://wdsheng0i.github.io/assets/images/2021/keepalived/vip.png)  
 
-## 2-3 Keepalived安装 
+## 2-2 Keepalived在线安装
+``` 
+yum -y install Keepalived  
+配置  vi /etc/keepalived/keepalived.conf
+```
+
+## 2-3 Keepalived离线安装 
 1.下载[Keepalived](https://www.keepalived.org/download.html)
 https://www.keepalived.org/download.html
 
