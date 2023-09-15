@@ -63,7 +63,6 @@ Spring MVC实现过程：前台使用ajax的get请求，将dataType设为“json
 用nginx的反向代理机制解决前端跨域问题  
 http://www.cnblogs.com/gabrielchen/p/5066120.html
 
-
 #### 2.3.3 spring框架：使用@CrossOrigin注解既可以实现服务端跨域
 ```
 // 允许跨域调用

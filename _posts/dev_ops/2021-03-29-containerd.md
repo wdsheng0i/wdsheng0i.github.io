@@ -18,6 +18,8 @@ containerd是从Docker中分离出来的一个项目，可以作为一个底层�
 ## 2.containerd安装部署
 
 ## 3.containerd基础命令
+crictl ps
+crictl pull
 
 
 

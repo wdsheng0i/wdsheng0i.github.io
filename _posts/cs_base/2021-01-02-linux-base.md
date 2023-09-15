@@ -160,7 +160,7 @@ lsblk -f
 
 ## 对dev下的sdb盘进行分区
 fdisk  /dev/sdb
-m 查看命令帮助，n新增分区，p主分区，w写入并保存
+m 查看命令帮助，n新增分区，p主分区，1，默认 默认 ，w写入并保存
 
 ## 格式化分区
 mkfs -t ext4 /dev/sdb1
