@@ -13,13 +13,13 @@ tags: [dev-ops]
 ## 1.containerd简介
 containerd是一个工业级标准的容器运行时，它强调简单性、健壮性和可移植性。containerd可以在宿主机中管理完整的容器生命周期，包括容器镜像的传输和存储、容器的执行和管理、存储和网络等。
 
-containerd是从Docker中分离出来的一个项目，可以作为一个底层容器运行时，现在它成了Kubernete容器运行时更好的选择。
+containerd是从Docker中分离出来的一个项目，可以作为一个底层容器运行时，现在它成了Kubernete容器运行时更好的选择。k3s新版本的容器运行时已经换成了containerd
 
 ## 2.containerd安装部署
 
 ## 3.containerd基础命令
-crictl ps
-crictl pull
+基本规则：将docker命令中的docker 替换成crictl     
+```crictl ps 、crictl pull.....  ```
 
 
 

@@ -1,17 +1,18 @@
 ---
 layout: post
 title: LVS + keepalived + Nginx实现负载均衡、高可用集群
-category: arch
-tags: [arch]
+category: dev-ops
+tags: [dev-ops]
 ---
 
 LVS + keepalived + Nginx实现负载均衡、高可用集群  
 
 ## 参考资料
-[java架构直通车-第6周 LVS+keepalived+Nginx实现高可用集群](https://class.imooc.com/sale/javaarchitect)  
-keepalived就是为lvs设计的，结合使用，通过keepalived可以配置lvs和nginx关系：实现主备高可用、负载均衡算法、健康检查、持久化链接
+- [java架构直通车-第6周 LVS+keepalived+Nginx实现高可用集群](https://class.imooc.com/sale/javaarchitect)  
+- keepalived就是为lvs设计的，结合使用，通过keepalived可以配置lvs和nginx关系：实现主备高可用、负载均衡算法、健康检查、持久化链接
+- [官方文档](http://www.linuxvirtualserver.org/zh/lvs4.html)
 
-## 1 LVS(Linux Virtual Server)负载均衡器  
+## 一、LVS(Linux Virtual Server)负载均衡器介绍  
 推荐: https://blog.51cto.com/13958408/2312052?source=dra
 
 单个nginx往往是不够的，因为并发量还是有限，所以很多企业会采用LVS，LVS是四层负载，LVS涉及到NAT|TUN|DR这三种模式。    
@@ -26,18 +27,19 @@ keepalived就是为lvs设计的，结合使用，通过keepalived可以配置lvs
 - LVS 是一个实现负载均衡集群的开源软件项目，LVS架构从逻辑上可分为调度层、Server集群层和共享存储。  
 ![](https://wdsheng0i.github.io/assets/images/2021/lvs/lvs.png)   
 
-## 2 为什么要使用 LVS + Nginx？ 
+### 1.1 为什么要使用 LVS + Nginx？ 
 - LVS基于四层，工作效率高
 - 单个Nginx承受不了，需要集群
 - LVS充当Nginx集群的调度者，负载均衡器
 - Nginx接受请求来回，LVS可以只接受不响应 
 
-## 3 LVS的三种模式  
+### 1.2 LVS的三种模式  
 ![NAT-基于网络地址转换](https://wdsheng0i.github.io/assets/images/2021/lvs/nat.png)  
 ![TUN-ip隧道](https://wdsheng0i.github.io/assets/images/2021/lvs/tun.png)
 ![DR-direact router](https://wdsheng0i.github.io/assets/images/2021/lvs/dr.png)  
 
-## 4-5 搭建LVS-DR模式- 配置LVS节点与ipvsadm安装 
+## 二、搭建LVS-DR模式
+### 2.1 搭建LVS-DR模式- 配置LVS节点与ipvsadm安装 
 ![](https://wdsheng0i.github.io/assets/images/2021/lvs/dip.png)   
 1.服务器与ip规划：
 ```
@@ -76,7 +78,7 @@ NETMASK=255.255.255.0
 8.使用ipvsadm
 ```ipvsadm -Ln```
 
-## 6-7 搭建LVS-DR模式- 为两台RealServer配置虚拟IP 
+### 2.2 搭建LVS-DR模式- 为两台RealServer配置虚拟IP 
 构建虚拟ip，仅仅用于返回用户数据  
 1.进入到网卡配置目录，找到lo（本地环回接口，用户构建虚拟网络子接口），拷贝一份新的随后进行修改：
 ```
@@ -98,7 +100,7 @@ NAME=loopback
 
 4.重启后通过ip addr 查看如下，表示ok：
 
-## 8-9 搭建LVS-DR模式- 为两台RealServer配置arp 
+### 2.3 搭建LVS-DR模式- 为两台RealServer配置arp 
 **ARP响应级别与通告行为 的概念**   
 1.arp-ignore：ARP响应级别（处理请求）
 - 0：只要本机配置了ip，就能响应请求
@@ -136,7 +138,7 @@ net.ipv4.conf.lo.arp_announce = 2
 6.加到开机自启  
 ``echo "route add -host 192.168.1.150 dev lo:1" >> /etc/rc.local``  
 
-## 10-11 搭建LVS-DR模式- 使用ipvsadm配置集群规则  
+### 2.4 搭建LVS-DR模式- 使用ipvsadm配置集群规则  
 1.创建LVS节点，用户访问的集群调度者  
 ```
 ipvsadm -A -t 192.168.1.150:80 -s rr -p 5
@@ -187,12 +189,15 @@ ipvsadm -h
 man ipvsadm
 ```
 
-## 12 搭建LVS-DR模式- 验证DR模式，探讨LVS的持久化机制 
+### 2.5 搭建LVS-DR模式- 验证DR模式，探讨LVS的持久化机制 
 [lvs的DR模式详细部署](https://www.linkops.cn/sm/552.html)
 
-## 13 搭建Keepalived+Lvs+Nginx高可用集群负载均衡 - 配置Master  
-![](https://wdsheng0i.github.io/assets/images/2021/lvs/lvs-kp.png)  
+## 三、搭建Keepalived+Lvs+Nginx高可用集群负载均衡
+### 3.1 搭建Keepalived+Lvs+Nginx高可用集群负载均衡 - 配置Master  
+![](https://wdsheng0i.github.io/assets/images/2021/lvs/lvs-kp.png) 
+
 ![](https://wdsheng0i.github.io/assets/images/2021/lvs/lvs-kp-2.png)
+
 1.前置准备：
 ```
 服务器与ip规划：
@@ -275,7 +280,7 @@ systemctl restart keepalived
 ipvsadm -Ln
 ```  
 
-## 14 搭建Keepalived+Lvs+Nginx高可用集群负载均衡 - 配置Backup 
+### 3.2 搭建Keepalived+Lvs+Nginx高可用集群负载均衡 - 配置Backup 
 1.前置准备：
 ```
 安装keepalived、ipvsadm  
@@ -358,7 +363,7 @@ ipvsadm -Ln
 
 ```
 
-## 15 附：LVS的负载均衡算法
+## 附：LVS的负载均衡算法
 静态算法：根据LVS本身自由的固定的算法分发用户请求。  
 - 1.轮询（Round Robin 简写’rr’）：轮询算法假设所有的服务器处理请求的能力都一样的，调度器会把所有的请求平均分配给每个真实服务器。（同Nginx的轮询）
 - 2.加权轮询（Weight Round Robin 简写’wrr’）：安装权重比例分配用户请求。权重越高，被分配到处理的请求越多。（同Nginx的权重）
@@ -378,6 +383,3 @@ C：（1+3）/3=4/3
 - 4.最少队列调度（Never Queue 简写’nq’）：永不使用队列。如果有Real Server的连接数等于0，则直接把这个请求分配过去，不需要在排队等待运算了（s 
 
 总结： LVS在实际使用过程中，负载均衡算法用的较多的分别为wlc或wrr，简单易用。
-
-
-参考文献：[官方文档](http://www.linuxvirtualserver.org/zh/lvs4.html)

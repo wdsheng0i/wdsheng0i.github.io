@@ -193,7 +193,8 @@ export PATH=$PATH:$ZOOKEEPER_HOME/bin
     ```
    修改 /etc/clickhouse-server/metrika.xml 权限  
    `chown clickhouse:clickhouse /etc/clickhouse-server/metrika.xml`  
-   3 user.xml   
+
+3. 3 user.xml   
    user.xml 中已经包含默认用户  default , 此处为方便管理, 增加 test 账号, 以便 使用 jdbc 连接  
    增加位置在  <users></users> 标签内, 与用户 default 的标签 <default></default> 平级。
    ```

@@ -171,6 +171,7 @@ mount /dev/sdb1 /data
 
 ### 1.9 虚拟机克隆
 1.管理-克隆  
+
 2.克隆完成后修改配置  
 ```
 ipa ddr 查看ip、mac地址
@@ -196,7 +197,7 @@ IPADDR=192.168.145.130
 ## 三、软件安装
 ### 安装方式
 `方式1，在线安装：yum install gcc`  
-`方式2，离线安装：rpm -ivh vsftpd.rpm   --https://centos.pkgs.org/`
+`方式2，离线安装：wget xxx.rpm ,  rpm -ivh vsftpd.rpm   --https://centos.pkgs.org/`
 
 ### 查看是否安装
 `rpm -qa |grep yum `  
@@ -683,7 +684,7 @@ touch /var/lock/subsys/local
 脚本第一行 “#!/bin/sh” 告诉系统使用的shell；
 脚本第二行 “#chkconfig: 2345 80 90” 表示在2/3/4/5运行级别启动，启动序号(S80)，关闭序号(K90)；
 脚本第三行 表示的是服务的描述信息
-注意： 第二行和第三行必写，负责会出现如“服务 autostart.sh 不支持 chkconfig”这样的错误。
+注意： 第二行和第三行必写，否则会出现如“服务 autostart.sh 不支持 chkconfig”这样的错误。
 
 2. 将写好的autostart.sh脚本移动到/etc/rc.d/init.d/目录下
 

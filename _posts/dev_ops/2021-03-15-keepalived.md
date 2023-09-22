@@ -12,7 +12,7 @@ tags: [dev-ops]
 - Keepalived 原理与实战、双机主备、双主热备  
 - [java架构直通车-第6周 LVS+Nginx实现高可用集群](https://class.imooc.com/sale/javaarchitect)
 
-## keepalived和Nginx高可用
+## 一、keepalived简介、安装
 ![](https://wdsheng0i.github.io/assets/images/2021/keepalived/ha.png)   
 - Keepalived能够解决单点故障，实现HA高可用机制
 - 只有当主节点宕机，备用节点采用启用；主节点重新可用时，备节点会自动退出(主节点会向备节点发送心跳)。  
@@ -23,18 +23,13 @@ tags: [dev-ops]
 是由IETF提出的解决局域网中配置静态网关出现单点失效现象的路由协议。
 VRRP广泛应用在边缘网络中，它的设计目标是支持特定情况下IP数据流量失败转移不会引起混乱，允许主机使用单路由器，以及即使在实际第一跳路由器使用失败的情形下仍能够维护路由器间的连通性
 
-## 1 高可用集群架构 Keepalived 双机主备原理 
-- 主备节点硬件配置保持相同，才能有相同的抗压能力，保证高可用 
-![](https://wdsheng0i.github.io/assets/images/2021/keepalived/kpl.png)  
-![](https://wdsheng0i.github.io/assets/images/2021/keepalived/vip.png)  
-
-## 2-2 Keepalived在线安装
+### 1.1 Keepalived在线安装
 ``` 
 yum -y install Keepalived  
 配置  vi /etc/keepalived/keepalived.conf
 ```
 
-## 2-3 Keepalived离线安装 
+### 1.2 Keepalived离线安装 
 1.下载[Keepalived](https://www.keepalived.org/download.html)
 https://www.keepalived.org/download.html
 
@@ -53,9 +48,15 @@ https://www.keepalived.org/download.html
 6.问题：缺少libnl  
 ```yum -y install libnl libnl-devel```
 
-## 4 Keepalived核心配置文件 keepalived.conf
+## 二、Keepalived实现双机主备高可用部署架构
+### 2.1 高可用集群架构 Keepalived 双机主备原理
+- 主备节点硬件配置保持相同，才能有相同的抗压能力，保证高可用  
 
-## 5 Keepalived实现双机主备（两keepalived绑同一个vip）高可用-（配置 Keepalived-主） 
+![](https://wdsheng0i.github.io/assets/images/2021/keepalived/kpl.png)    
+
+![](https://wdsheng0i.github.io/assets/images/2021/keepalived/vip.png)  
+
+### 2.2 Keepalived实现双机主备（两keepalived绑同一个vip）高可用-（配置 Keepalived-主） 
 1.通过命令 vim keepalived.conf 打开配置文件  
 ```
 global_defs { 
@@ -90,7 +91,7 @@ vrrp_instance VI_1 {
 ./keepalived
 ```
 
-## 6 把Keepalived 注册为系统服务 
+### 2.3 把Keepalived 注册为系统服务 
 1.拷贝文件
 ```
 #进入目录
@@ -121,7 +122,7 @@ systemctl restart keepalived.service
 ps -ef|grep keepalived  
 ```
 
-## 7-8 Keepalived实现双机主备（两keepalived绑同一个vip）高可用-(配置 Keepalived-备)
+### 2.3 Keepalived实现双机主备（两keepalived绑同一个vip）高可用-(配置 Keepalived-备)
 1.通过命令 vim keepalived.conf 打开配置文件    
 ```
 global_defs { 
@@ -151,7 +152,7 @@ vrrp_instance VI_1 {
 
 ``` 
 
-## 9-10 Keepalived配置Nginx自动重启，实现7x24不间断服务 
+### 2.4 Keepalived配置Nginx自动重启，实现7x24不间断服务 
 为了保证nginx自动重启，提供7x24的不间断服务，需要自行添加脚本使得keepalived对nginx进行检测。
 
 1.增加Nginx重启检测脚本  
@@ -169,6 +170,7 @@ if [ $A -eq 0 ];then
     fi 
 fi
 ```
+
 2.增加运行权限    
 ```
 chmod +x /etc/keepalived/check_nginx_alive_or_not.sh
@@ -195,14 +197,11 @@ track_script {
 systemctl restart keepalived
 ```
 
-## 11 高可用集群架构 Keepalived 双主热备原理 
+## 三、Keepalived实现双主热备高可用部署架构
 互为主备  
-![](https://wdsheng0i.github.io/assets/images/2021/keepalived/2master.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/keepalived/2master.png)
 
-## 12 云服务的DNS解析配置与负载均衡 
-用户请求经dns轮询发送给虚拟ip进行处理    
-
-## 13-14 配置实现keepalived双主热备 （2keepalived分别绑两个虚拟ip）
+### 3.1 配置实现keepalived双主热备 （2keepalived分别绑两个虚拟ip）
 规则：以一个虚拟ip分组归为同一个路由  
 
 **vip1主、vip2备节点配置：**
@@ -276,5 +275,6 @@ vrrp_instance VI_2 {
 }
 ```
 
-
+## 云服务的DNS解析配置与负载均衡
+用户请求经dns轮询发送给虚拟ip进行处理   
 
