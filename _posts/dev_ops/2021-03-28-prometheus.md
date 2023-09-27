@@ -19,10 +19,14 @@ tags: [dev-ops]
   - https://blog.51cto.com/u_64214/5602483
 - Thanos：开源、高可用、具有长期存储能力的 分布式Prometheus监控方案
 
-## 一、Prometheus介绍
+## 一、Prometheus简介
 
 ## 二、Prometheus + Grafana离线部署
 https://blog.51cto.com/u_64214/5602483
 
 ## 三、Prometheus + Grafana集群k8s部署
 https://blog.csdn.net/weixin_49343462/article/details/121839755?spm=1001.2014.3001.5501
+
+## 指标收集、展示、告警
+
+## 问题记录

@@ -7,7 +7,6 @@ tags: [arch]
 
 系统架构（总体）设计文档-模板
 
-
 ## 一、项目概述
 
 ### 1.1 背景说明  
@@ -126,7 +125,6 @@ tags: [arch]
 
 ### 4.4 文件存储：
 - Ftp、Minio 、OSS 、FastDfs
-    
 
 ## 五、运行架构视图：
 
@@ -147,7 +145,6 @@ tags: [arch]
 
 ### 6.2 物理部署视图：
 - 系统、网络、网关、映射、网闸、光闸、前置机 
-    
 
 ## 七、安全设计
 - [腾讯安全:提供最实时的威胁情报](https://v2.s.tencent.com/research/bsafe/list_3_5.html)  
@@ -205,7 +202,6 @@ https://s.tencent.com/research
 - 防恶意请求
 - 防sql注入
 - 防跨站请求伪造
-    
 
 ## 八、高可用性设计
 

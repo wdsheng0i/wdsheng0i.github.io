@@ -224,3 +224,5 @@ export PATH=$PATH:$ZOOKEEPER_HOME/bin
    clickhouse-client -m --host 某集群端口 --port ${config.xml 的 tcp_port}
     使用    select * from system.clusters; 检查集群信息
     ```
+
+## 问题记录

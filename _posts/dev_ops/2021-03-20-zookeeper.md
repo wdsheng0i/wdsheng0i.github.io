@@ -96,3 +96,5 @@ WatchedEvent state:SyncConnected type:None path:null
 
 ### 2.2 Linux环境下集群安装
 [Apache-Zookeeper-3.6.2 的集群安装](https://blog.csdn.net/shufangreal/article/details/108524408)
+
+## 问题记录

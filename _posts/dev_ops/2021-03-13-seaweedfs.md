@@ -34,4 +34,4 @@ nohup /data/file-client/weed volume -dir="/data/fsdata/vol1" -mserver="192.168.0
 
 ## 二、组件集成api使用
 
- 
+## 问题记录 
