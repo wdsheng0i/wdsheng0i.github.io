@@ -13,7 +13,8 @@ Linux基础操作命令
 - [Linux就该这么学]
 
 ## 一、装机
-[curl,apt-get,wget,yum的区别](https://blog.csdn.net/xcliang9418/article/details/122081142)  
+[curl,apt-get,wget,yum的区别](https://blog.csdn.net/xcliang9418/article/details/122081142)   
+
 一般来说著名的linux系统基本上分两大类：  
 - RedHat系列：Redhat、Centos、Fedora等  
 - Debian系列：Debian、Ubuntu等  
@@ -642,6 +643,9 @@ tail -200 mgmt-info.log
 grep -i 更新sn为【290200000937】的设备状态为 ./mgmt-info.log
 ```
 
+## 清空日志
+cat /dev/null > err.log
+
 ### 在Linux系统中，有三个主要的日志子系统
 ``` 
 1.连接时间日志--由多个程序执行，把纪录写入到/var/log/wtmp和/var/run/utmp，login等程序更新wtmp和utmp文件，使系统管理员能够跟踪谁在何时登录到系统。
@@ -902,7 +906,9 @@ dmidecode –q
 - 10.防火墙状态：systemctl status firewalld
 - 11.查看文件大小：du -h --max-depth=1
 - 12.查看文件大小：du -hd1
-- 13.文件夹赋权账号：chown vftp:vftp download/
+- 13.文件夹赋权账号：
+  - chown vftp:vftp download/
+  - chmod 755 file、chmod -R 755 dir
 - 14.远程copy：scp a.txt root@192.168.0.1:/home
 - 15.远程链接：ssh -p 22 root@192.168.0.1
 - 16.软连接：ln -snf /data/packages/demo-h5/v1.2.1 demo-h5  # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
@@ -915,12 +921,20 @@ dmidecode –q
 /dev/null 非常等价于一个只写文件，所有写入它的内容都会永远丢失，而尝试从它那儿读取内容则什么也读不到。
 cat /dev/null也就是什么都没有，> 是定向输出到文件,  命令综合起来就是把空内容写入到/var/log/syslog文件中，即清空/var/log/syslog文件的内容。
 - 23.[curl命令查看请求响应时间](https://blog.csdn.net/fang0604631023/article/details/127845928)：curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://www.baidu.com"
-- 24.iptable添加白名单
+- 24.iptable添加白名单:https://baijiahao.baidu.com/s?id=1765288969345841746&wfr=spider&for=pc
 
 ``` 
-iptables -A INPUT -s 192.168.123.1 -p all -j ACCEPT
-iptables -I INPUT -s 192.168.123.1/24 -p tcp --dport 3306 -j ACCEPT
+# 添加ACCEPT规则
+iptables -A INPUT -s 192.168.123.1 -p all -j ACCEPT   //-A，追加规则，在最后
+iptables -I INPUT -s 192.168.123.1/24 -p tcp --dport 3306 -j ACCEPT  //-I,插入到第一条，accept规则要放在REJECT all 前面
 iptables -I IN_public_allow -s 192.168.123.1/24 -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT 
+
+#添加DROP规则
+
+#添加REJECT规则
+
+#删除规则：先查看规则及序号iptables -nL --line-number，然后删除对应序号那条即可
+iptables -D INPUT 3
 ```
 
 - 25.firewall添加白名单
