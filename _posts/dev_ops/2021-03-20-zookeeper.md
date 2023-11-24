@@ -97,4 +97,50 @@ WatchedEvent state:SyncConnected type:None path:null
 ### 2.2 Linux环境下集群安装
 [Apache-Zookeeper-3.6.2 的集群安装](https://blog.csdn.net/shufangreal/article/details/108524408)
 
+``` 
+部署步骤
+zookeeper 版本 apache-zookeeper-3.6.2-bin.tar.gz
+* 1.下载：wget https://archive.apache.org/dist/zookeeper/zookeeper-3.6.2/zookeeper-3.6.2.tar.gz
+* 2.解压至  /opt/zookeeper/apache-zookeeper-3.6.2-bin
+* 3.新建目录 /opt/zookeeper/zk_data/data   /opt/zookeeper/zk_data/log
+* 4.配置 /opt/zookeeper/apache-zookeeper-3.6.2/conf/zoo.cfg
+tickTime=2000
+initLimit=30000
+syncLimit=10
+maxClientCnxns=2000
+autopurge.snapRetainCount=10
+autopurge.purgeInterval=1
+preAllocSize=131072
+snapCount=3000000
+
+maxSessionTimeout=60000000
+dataDir=/opt/zookeeper/zk_data/data
+dataLogDir=/opt/zookeeper/zk_data/log
+server.1={host1}:2888:3888
+server.2={host2}:2888:3888
+server.3={host3}:2888:3888 
+
+* 5.新建 文件/opt/zookeeper/zk_data/data/myid  值为 server.${num} 中的 num  
+  `echo $num > /opt/zookeeper/zk_data/data/myid`
+
+* 6.环境变量 
+export ZOOKEEPER_HOME=/opt/zookeeper/apache-zookeeper-3.6.2-bin  
+export PATH=$PATH:$ZOOKEEPER_HOME/bin
+
+* 7.依次启动  `zkServer.sh start`
+```
+
+
 ## 问题记录
+### 1.zk集群脑裂的排查思路
+```
+查看进程：ps -ef|grep zookeeper
+客户端链接：./zkCli.sh -server 127.0.0.1:2181
+查看zk节点状态：./zkServer.sh status
+排查防火墙、iptables：2181客户端注册端口，2888服务端口，3888选举端口
+
+数据目录下: version-2有数据及快照snapshot
+
+Cannot open channel to 2 at election address cdh03/192.168.5.148:3888
+解决：https://blog.csdn.net/Tiger_Paul/article/details/125813746
+```

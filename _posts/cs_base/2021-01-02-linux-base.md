@@ -643,8 +643,54 @@ tail -200 mgmt-info.log
 grep -i 更新sn为【290200000937】的设备状态为 ./mgmt-info.log
 ```
 
-## 清空日志
+### 清空日志
 cat /dev/null > err.log
+
+### rsyslog系统日志进程占用内存较高
+https://www.cnblogs.com/gered/p/17519186.html
+```
+1.top查看所有进程，m内存大小排序展示
+
+2.查看rsyslog进程
+systemctl status  rsyslog.service
+
+3.编辑rsyslog.service限制RSS内存使用，还可以限制CPU、stack段大小、data段大小等
+systemctl edit rsyslog.service --full
+
+...
+[Service]
+LimitRSS=1073741824
+...
+
+4.重启服务
+systemctl daemon-reload
+systemctl restart rsyslog.service
+
+5.检查内存占用
+free -m
+
+[root@m1 ~]<20231109 09:26:55># ps -ef|grep rsyslog
+root       1123      1  0 09:20 ?        00:00:00 /usr/sbin/rsyslogd -n
+root       2601 128627  0 09:26 pts/0    00:00:00 grep --color=auto rsyslog 
+[root@m1 ~]<20231109 09:27:05># cat /proc/1123/limits   
+Limit                     Soft Limit           Hard Limit           Units     
+Max cpu time              unlimited            unlimited            seconds   
+Max file size             unlimited            unlimited            bytes     
+Max data size             unlimited            unlimited            bytes     
+Max stack size            8388608              unlimited            bytes     
+Max core file size        0                    unlimited            bytes     
+Max resident set          1073741824           1073741824           bytes     
+Max processes             31127                31127                processes 
+Max open files            1024                 4096                 files     
+Max locked memory         65536                65536                bytes     
+Max address space         unlimited            unlimited            bytes     
+Max file locks            unlimited            unlimited            locks     
+Max pending signals       31127                31127                signals   
+Max msgqueue size         819200               819200               bytes     
+Max nice priority         0                    0                    
+Max realtime priority     0                    0                    
+Max realtime timeout      unlimited            unlimited            us     
+```
 
 ### 在Linux系统中，有三个主要的日志子系统
 ``` 

@@ -11,25 +11,26 @@ Mysql备份恢复方案：mysqldump、percona-xtrabackup
 - percona-xtrabackup官方文档：https://docs.percona.com/percona-xtrabackup/2.4/index.html
 - MySQL备份方案 https://blog.csdn.net/KW__jiaoq/article/details/121878337
 - mysql备份的三种方案 https://blog.51cto.com/u_11027113/6255068 
+- MySQL备份与恢复 https://blog.csdn.net/weixin_49343462/article/details/111603428
 
 ## 1.利用mysqldump工具对数据进行备份和还原-冷备
 ``` 
 ## 备份单库
-$> /opt/mysql-5.7/bin/mysqldump -uroot -p -h localhost --databases test >test.sql
+$> /opt/mysql-5.7/bin/mysqldump -uroot -p123456 -h localhost --databases test >test.sql
 
 ## 备份所有库
-$> /opt/mysql-5.7/bin/mysqldump -h 127.0.0.1 -P 3306 -uroot -p -x --all-databases > alldb.sql
+$> /opt/mysql-5.7/bin/mysqldump -h 127.0.0.1 -P 3306 -uroot -p123456 -x --all-databases > alldb.sql
 
 ## 还原单库方式1
-$> mysql -u root -p test < test.sql  # 指定test库还原
+$> mysql -uroot -p123456 test < test.sql  # 指定test库还原
 
 ## 还原单库方式2
-$>mysql -uroot -p
+$>mysql -uroot -p123456
 mysql> use test  # 执行source命令前需要先选择数据库。
 MYSQL> source test.sql;
 
 ## 还原所有库
-$> mysql -u root -p < alldb.sql 
+$> mysql -u root -p123456 < alldb.sql 
 
 ```
 
@@ -48,8 +49,9 @@ fi
 DB_USER=root
 # host
 HOST_IP=mysql_ip
-# 数据库密码
-DB_PASSWD=pwd
+# 数据库密码, 密码中有特殊字符如$，需要加'',否则shell脚本中密码无法正确识别
+#DB_PASSWD='123$456'
+DB_PASSWD=123456   
 # 数据库名称
 DB_NAME=--all-databases
 
@@ -60,8 +62,8 @@ BACKUP_FILE=mysql_$(date +%Y%m%d%H%M%S).sql
 mkdir -p $BACKUP_DIR
 
 # 备份数据库
-# mysqldump -h $HOST_IP -u $DB_USER -p $DB_PASSWD $DB_NAME > $BACKUP_DIR/$BACKUP_FILE
-mysqldump -h mysql_ip -u root -p pwd --all-databases > $BACKUP_DIR/$BACKUP_FILE
+# mysqldump -h $HOST_IP -u$DB_USER -p$DB_PASSWD $DB_NAME > $BACKUP_DIR/$BACKUP_FILE
+mysqldump -h mysql_ip -uroot -p123456 --all-databases > $BACKUP_DIR/$BACKUP_FILE
 
 # 压缩备份文件
 gzip $BACKUP_DIR/$BACKUP_FILE
@@ -74,7 +76,7 @@ echo "MySQL backup completed: $BACKUP_FILE.gz"
 ``` 
 $chmod +x backup_mysql.sh
 
-$ crontab -e
+$ crontab -e，增加
 0 2 * * * /bin/bash /data/mysql_backup/backup_mysql.sh
 ```
 

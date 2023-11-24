@@ -21,9 +21,21 @@ permalink: /link
 - [java进阶架构师-2020.7.3-Java进阶架构师30大专题,共600篇优质文章合集！](https://mp.weixin.qq.com/s/xartth4HCMgBroIozW29kw)  
 - [ImportNew 史上最全的开发和设计资源大全](https://mp.weixin.qq.com/s/cjaj_-gX6MhqMXSrqchFbg)
 
+## Github 资源收集
+- [程序员技能图谱](https://github.com/TeamStuQ/skill-map/tree/master)
+- [极客时间 IT 20+ 张 各架构 高清技能图谱](https://blog.csdn.net/chenyao1994/article/details/89331952)
+- [后端架构师技术图谱](https://github.com/xingshaocheng/architect-awesome):https://github.com/xingshaocheng/architect-awesome
+- [互联网 Java 工程师进阶知识完全扫盲](https://github.com/doocs/advanced-java)：https://github.com/doocs/advanced-java
+- [Java 技术书籍大全](https://github.com/sorenduan/awesome-java-books)：https://github.com/sorenduan/awesome-java-books
+- [GitHub上的免费书籍](https://github.com/ruanyf/free-books):https://github.com/ruanyf/free-books
+- [数据结构动态演示的网址，有助于理解各种树](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
+- [我会尽力将 LeetCode 上所有的题目都用动画的形式演示出来](https://github.com/MisterBooo/LeetCodeAnimation)
+- [Java学习+面试指南](https://github.com/Snailclimb/JavaGuide)：https://github.com/Snailclimb/JavaGuide
+
 ## 常用工具网站
 - [程序员导航网站](http://tooool.org/) - 程序员的导航网站 
 - [百度网盘超能搜](https://www.chaonengso.com/)
+  - 毕方铺
 - [电影网站]()
 	- [6v电影](http://www.hao6v.com/)
 	- [新6v电影](https://www.66s.cc) 
@@ -59,53 +71,3 @@ permalink: /link
 - [12.paascloud-master](https://github.com/paascloud/paascloud-master)
 - [13.一个基于 Spring Boot 的项目骨架](https://github.com/lihengming/spring-boot-api-project-seed)
 - [hutool：一个Java基础工具类](https://hutool.cn) -https://hutool.cn/docs/#/
-
-## 其他资源收集
-- [我会尽力将 LeetCode 上所有的题目都用动画的形式演示出来](https://github.com/MisterBooo/LeetCodeAnimation)
-- [数据结构动态演示的网址，有助于理解各种树](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html) 
-- [极客时间 IT 20+ 张 各架构 高清技能图谱](https://blog.csdn.net/chenyao1994/article/details/89331952)
-- [后端架构师技术图谱](https://github.com/xingshaocheng/architect-awesome):https://github.com/xingshaocheng/architect-awesome
-- [Java 技术书籍大全](https://github.com/sorenduan/awesome-java-books)：https://github.com/sorenduan/awesome-java-books
-- [GitHub上的免费书籍](https://github.com/ruanyf/free-books):https://github.com/ruanyf/free-books
-- [互联网 Java 工程师进阶知识完全扫盲](https://github.com/doocs/advanced-java)：https://github.com/doocs/advanced-java
-- [Java学习+面试指南](https://github.com/Snailclimb/JavaGuide)：https://github.com/Snailclimb/JavaGuide
-
-## IT官网汇总
-- JDK 下载 - https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
-- Maven 下载  - http://maven.apache.org/download.cgi
-- mysql下载  - https://dev.mysql.com/downloads/mysql/
-- Maven 仓库 - https://mvnrepository.com/
-- Tomcat下载 - https://tomcat.apache.org/download-80.cgi
-- Eclipse下载 - https://www.eclipse.org/downloads/packages/
-- IDEA 下载  - https://www.jetbrains.com/zh-cn/idea/   
-    - [JetBrain](https://www.jetbrains.com/zh-cn/?utm_source=baidu&utm_medium=cpc&utm_campaign=cn-bai-br-brand-ex-pc&utm_content=brand-pure&utm_term=jetbrains)
-- Spring 社区 - https://spring.io/projects  
-    - https://start.spring.io/      
-    - https://www.springcloud.cc/  
-    - https://springboot.io/  
-    - https://spring.io/projects/spring-boot
-- mybatis中文官方 - https://mybatis.org/mybatis-3/zh/index.html   
-    - [深入浅出MyBatis](https://blog.csdn.net/hupanfeng/category_1443955.html)
-- Jquery API 文档 - https://www.jquery123.com/
-- Jquery EasyUI 文档 - http://www.jeasyui.net/
-- VUE.JS 社区 - https://cn.vuejs.org/ 
-- React.JS 中文社区 - http://react.html.cn/   
-- Angular.JS 中文社区 - https://angular.cn/  
-- Elasticsearch 权威指南 - https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html
-- Nginx - http://nginx.org/en/download.html
-- Reids 中文官方 - http://www.redis.cn/   
-    - https://www.redis.com.cn/
-- Mongodb - https://www.mongodb.org.cn/  
-    - MongoDB中文社区：https://mongoing.com/  
-    - MongoDB中文网手册：https://mongodb.net.cn/manual/  
-    - MongoDB中文手册-官方文档中文版: https://docs.mongoing.com/
- - kafka - http://kafka.apache.org/  
-     - https://kafka.apachecn.org/documentation.html
-- zookeeper - https://zookeeper.apache.org/  
-- Echart - https://echarts.apache.org/examples/zh/index.html
-- Dubbo - https://dubbo.apache.org/zh-cn/
-- Docker - https://www.docker.org.cn/
-- Python - https://docs.python.org/zh-cn/3/
-- Hadoop - https://hadoop.apache.org 
- 
-
