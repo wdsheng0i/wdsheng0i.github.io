@@ -8,7 +8,7 @@ tags: [springcloud]
 服务配置中心：apollo
 
 ## 参考资料
-### 1.1 apollo[部署、配置](../dev_ops/2021-03-09-apollo.md)
+### 1.1 apollo[部署、配置](https://wdsheng0i.github.io/dev-ops/2021/03/09/apollo.html)
 
 ### 1.2 springboot集成使用apollo
 - [SpringBoot 整合 apollo](https://www.cnblogs.com/huanchupkblog/p/10509427.html)  
