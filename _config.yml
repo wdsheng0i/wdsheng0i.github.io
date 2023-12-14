@@ -195,9 +195,6 @@ classes:
     name: spring-boot
     describe: just do java
 
-
-
-
 # ---------------- #
 #       RSS        #
 # ---------------- #
@@ -211,7 +208,6 @@ side_bar_repo_limit: 6 # Number of repos to show
 # provider : google
 #   google :
 #     tracking_id : ''  # ex. UA-72165600-X
-
 
 # For about.html. Fell free to create your own!
 skill_software_keywords: [Java, MySQL, Oracle, Design Patterns]

@@ -53,7 +53,7 @@ Prometheus Operator 为 Kubernetes 提供了对 Prometheus 机器相关监控组
 - Prometheus 监控目标配置：基于熟知的 Kubernetes 标签查询自动生成监控目标配置，无需学习 Prometheus 特地的配置。
 
 Prometheus Operator架构图:    
-![](../../assets/images/2021/monitor/PrometheusOperator.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/monitor/PrometheusOperator.png)  
 
 图上的每一个对象都是 Kubernetes 中运行的资源。
 

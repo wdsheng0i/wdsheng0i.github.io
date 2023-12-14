@@ -9,11 +9,11 @@ permalink: /bookmark
 
 ## 社区
 - [GitHub](https://github.com/wdsheng0i)  
-    github资料汇总：https://blog.csdn.net/lycyingO/article/details/102693626
-- [码云Gitee](https://gitee.com/wdsheng0i)  
-- [CSDN](https://blog.csdn.net/ )
-- [processon](https://www.processon.com/diagrams)  
-- [leetcode](https://leetcode-cn.com/u/wdsheng0i/)    
+  - github资料汇总：https://blog.csdn.net/lycyingO/article/details/102693626
+- [码云Gitee](https://gitee.com/wdsheng0i)   
+- [CSDN](https://blog.csdn.net/ ) 
+- [processon](https://www.processon.com/diagrams)   
+- [leetcode](https://leetcode-cn.com/u/wdsheng0i/)  
 - [博客园](https://www.cnblogs.com/)  
 - [阿里云开发者社区 ](https://developer.aliyun.com/)      
     https://www.aliyun.com/  
@@ -45,6 +45,8 @@ permalink: /bookmark
 - 世上无难事，只怕有心人
 - 妻贤夫祸少，子孝父心宽
 - 穷不怪父，孝不比兄，苦不责妻，气不凶子
+- 父爱则母静，母静则子安，子安则家和，家和万事兴
+- 父懒则母苦，母苦则子惧，子惧则家衰，老无德，父无能，妻受罪，子劳苦 
 - 病从口入，祸从口出
 - 与人为善，于已为善
 - 与人方便，于己方便

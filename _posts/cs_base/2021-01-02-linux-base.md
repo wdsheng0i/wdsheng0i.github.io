@@ -196,6 +196,13 @@ IPADDR=192.168.145.130
 - /data: 自建用户数据目录
 
 ## 三、软件安装
+- 1.在线安装：curl https://xx/*.sh 
+  - yum install -y xxx
+  - wget xxx.rpm后, 安装rpm -ivh xxx.rpm
+- 2.离线安装：下载.tar、tar.gz，解压，修改配置、启动服务、注册系统服务
+- 3.docker安装，注意持久化conf和data
+- 4.k8s安装，yml编写、镜像、命名空间，注意持久化conf和data
+
 ### 安装方式
 `方式1，在线安装：yum install gcc`  
 `方式2，离线安装：wget xxx.rpm ,  rpm -ivh vsftpd.rpm   --https://centos.pkgs.org/`
@@ -282,6 +289,14 @@ yum -y install java-1.8.0-openjdk*
 通过yum默认安装的路径为/usr/lib/jvm/java-版本号（如/usr/lib/jvm/java-1.8.0）
 ```
 
+方式3：  
+``` 
+下载jdk-8u281-linux-x64.rpm  
+
+使用rpm -ivh  jdk-8u281-linux-x64.rpm命令安装jdk。等待安装成功，输入java -version查看确认安装完毕。
+rpm -ivh jdk-8u181-linux-x64.rpm 
+```
+
 ### 安装配置tomcat
 ```
 1.下载，移动，解压
@@ -364,6 +379,9 @@ npm -v
 ```
 whereis nginx  //命令只能用于程序名的搜索  
 ```
+
+### 全局搜索：find  
+```find / -name *minio* ``` 
 
 ## 四、系统、硬件监控命令
 ### 查看内存 free -m
@@ -498,6 +516,7 @@ systemctl enable XXX.service命令会在/etc/systemd/system/multi-user.target.wa
 
 ### 复制文件：cp
 ```cp /home/ftp/FTP-linux.zip      /home/```
+```cp -r /home/ftp/      /home/```
 
 ### 删除文件: rm
 ```
@@ -942,7 +961,7 @@ dmidecode –q
 - 1.查看所有端口：netstat -tunlp
 - 2.查看端口：netstat -tunlp | grep 8080
 - 3.搜索程序安装位置：whereis nginx
-- 4.查找文件：find / -iname nginx
+- 4.查找文件：find / -name nginx
 - 5.历史命令：history
 - 6.查看出口ip：curl cip.cc 或 curl -4s https://ipinfo.io
 - 7.查看内存使用：free -m
@@ -950,11 +969,13 @@ dmidecode –q
 - 8.查看文件大小：ll -lh
 - 9.磁盘分区：lsblk
 - 10.防火墙状态：systemctl status firewalld
-- 11.查看文件大小：du -h --max-depth=1
-- 12.查看文件大小：du -hd1
+- 11.查看文件大小：
+  - du -h --max-depth=1 
+  - du -hd1
 - 13.文件夹赋权账号：
   - chown vftp:vftp download/
-  - chmod 755 file、chmod -R 755 dir
+  - chmod 755 file、
+  - chmod -R 755 dir
 - 14.远程copy：scp a.txt root@192.168.0.1:/home
 - 15.远程链接：ssh -p 22 root@192.168.0.1
 - 16.软连接：ln -snf /data/packages/demo-h5/v1.2.1 demo-h5  # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
@@ -963,21 +984,32 @@ dmidecode –q
 - 19.chage -M 99999 ansible
 - 20.统计目录下文件数：ls -Rl | grep '.txt' | wc -l
 - 21.查看定时任务：crontab -l
-- 22.不删文件，情况内容：cat /dev/null > /data/logs/app.log
-/dev/null 非常等价于一个只写文件，所有写入它的内容都会永远丢失，而尝试从它那儿读取内容则什么也读不到。
-cat /dev/null也就是什么都没有，> 是定向输出到文件,  命令综合起来就是把空内容写入到/var/log/syslog文件中，即清空/var/log/syslog文件的内容。
-- 23.[curl命令查看请求响应时间](https://blog.csdn.net/fang0604631023/article/details/127845928)：curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://www.baidu.com"
+- 22.不删文件，清空内容：cat /dev/null > /data/logs/app.log  
+- 23.[curl命令查看请求响应时间](https://blog.csdn.net/fang0604631023/article/details/127845928)：
+  - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://www.baidu.com"
+  - curl -i -v  -X get "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8"
+  - curl -i -v  -X post "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8" -d '{"name":"zhangsan"}'
 - 24.iptable添加白名单:https://baijiahao.baidu.com/s?id=1765288969345841746&wfr=spider&for=pc
 
 ``` 
+https://blog.csdn.net/wejack/article/details/121677438
+
+#查看规则及序号
+iptables -nL --line-number
+
 # 添加ACCEPT规则
 iptables -A INPUT -s 192.168.123.1 -p all -j ACCEPT   //-A，追加规则，在最后
-iptables -I INPUT -s 192.168.123.1/24 -p tcp --dport 3306 -j ACCEPT  //-I,插入到第一条，accept规则要放在REJECT all 前面
+iptables -I INPUT -s 192.168.123.1/24 -p tcp --dport 3306 -j ACCEPT  //-I,插入到第一条，加子网段；accept规则要放在REJECT all 前面
+iptables -I INPUT -m iprange --src-range 192.168.123.100-192.168.123.200 -j ACCEPT   //加ip段
 iptables -I IN_public_allow -s 192.168.123.1/24 -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT 
 
 #添加DROP规则
+iptables -I INPUT -s 192.168.123.1 -j DROP
+iptables -I INPUT -s 121.0.0.0/24 -j DROP
 
 #添加REJECT规则
+iptables -A INPUT -p tcp --dport 22 -j REJECT
+iptables -A INPUT -p all -j REJECT
 
 #删除规则：先查看规则及序号iptables -nL --line-number，然后删除对应序号那条即可
 iptables -D INPUT 3
@@ -986,7 +1018,7 @@ iptables -D INPUT 3
 - 25.firewall添加白名单
 
 ``` 
-firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192.168.123.1/24" port protocol="tcp" port="3306" accept"
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192.168.0.1/24" port protocol="tcp" port="3306" accept"
 firewall-cmd --reload
 firewall-cmd --list-all 
 firewall-cmd --permanent --add-rich-rule='rule protocol value="vrrp" accept'  ## 防火墙开启vrrp 虚拟路由冗余协议(Virtual Router Redundancy Protocol，简称VRRP)

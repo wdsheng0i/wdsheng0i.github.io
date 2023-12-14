@@ -130,7 +130,6 @@ export PATH=$PATH:$ZOOKEEPER_HOME/bin
 * 7.依次启动  `zkServer.sh start`
 ```
 
-
 ## 问题记录
 ### 1.zk集群脑裂的排查思路
 ```
@@ -141,6 +140,6 @@ export PATH=$PATH:$ZOOKEEPER_HOME/bin
 
 数据目录下: version-2有数据及快照snapshot
 
-Cannot open channel to 2 at election address cdh03/192.168.5.148:3888
+Cannot open channel to 2 at election address cdh03/192.168.1.148:3888
 解决：https://blog.csdn.net/Tiger_Paul/article/details/125813746
 ```

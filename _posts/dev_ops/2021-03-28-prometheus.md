@@ -65,7 +65,7 @@ TSDB 作为 Prometheus 的存储引擎完美契合了监控数据的应用场景
 - 高并发的读操作十分常见
 
 ### 1.5 架构 
-![](../../assets/images/2021/devops/Prometheus-arch.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/devops/Prometheus-arch.png)  
 
 整个 Prometheus 可以分为四大部分  
 
@@ -81,14 +81,14 @@ Prometheus 的实现架构并不复杂。其实就是收集数据、处理数据
 
 由于 Prometheus 基于 Pull 模型，当有大量的 Target 需要采样本时，单一 Prometheus 实例在数据抓取时可能会出 现一些性能问题，联邦集群的特性可以让 Prometheus 将样本采集任务划分到不同的 Prometheus 实例中，并且通 过一个统一的中心节点进行聚合，从而可以使 Prometheuse 可以根据规模进行扩展。
 
-![](../../assets/images/2021/monitor/prometheus-ha.png)    
+![](https://wdsheng0i.github.io/assets/images/2021/monitor/prometheus-ha.png)    
 
 如上图所示，在每个数据中心部署单独的 Prometheus Server，用于采集当前数据中心监控数据。并由一个中 心的 Prometheus Server 负责聚合多个数据中心的监控数据。这一特性在 Promthues 中称为联邦集群。
 
 ### 1.7 告警
 通过在 Prometheus 中定义 AlertRule（告警规则），Prometheus 会周期性的对告警规则进行计算，如果满足告警 触发条件就会向 Alertmanager 发送告警信息    
 
-![](../../assets/images/2021/monitor/prometheus-alert.png)
+![](https://wdsheng0i.github.io/assets/images/2021/monitor/prometheus-alert.png)
 
 在 Prometheus 中一条告警规则主要由以下几部分组成：    
 - 告警名称：用户需要为告警规则命名，当然对于命名而言，需要能够直接表达出该告警的主要内容
@@ -96,7 +96,7 @@ Prometheus 的实现架构并不复杂。其实就是收集数据、处理数据
   
 Alertmanager 特性:    
 
-![](../../assets/images/2021/monitor/prometheus-alertmanager.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/monitor/prometheus-alertmanager.png)  
 
 - 分组：分组机制可以将详细的告警信息合并成一个通知。在某些情况下，比如由于系统宕机导致大量的告警被同时触 发，在这种情况下分组机制可以将这些被触发的告警合并为一个告警通知，避免一次性接受大量的告警通知，而无 法对问题进行快速定位。
 - 抑制：抑制是指当某一告警发出后，可以停止重复发送由此告警引发的其它告警的机制。 例如，当集群不可访问时触发了一次告警，通过配置 Alertmanager 可以忽略与该集群有关的其它所有告警。 这样可以避免接收到大量与实际问题无关的告警通知。抑制机制同样通过 Alertmanager 的配置文件进行设置。
