@@ -101,7 +101,7 @@ ip2 hostname2
 ip3 hostname3
 ```
 
-### 1.6 修改(ssh端口)[https://blog.csdn.net/qq_41736266/article/details/128486125]
+### 1.6 修改[ssh端口](https://blog.csdn.net/qq_41736266/article/details/128486125)
 ```
 sudo vim /etc/ssh/sshd_config
 service sshd restart
@@ -987,6 +987,9 @@ dmidecode –q
 - 22.不删文件，清空内容：cat /dev/null > /data/logs/app.log  
 - 23.[curl命令查看请求响应时间](https://blog.csdn.net/fang0604631023/article/details/127845928)：
   - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://www.baidu.com"
+  - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://baidu.com"
+  - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://blog.csdn.net"
+  - curl -o /dev/null -s -w "time_connect: %{time_connect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" "https://blog.csdn.net/"
   - curl -i -v  -X get "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8"
   - curl -i -v  -X post "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8" -d '{"name":"zhangsan"}'
 - 24.iptable添加白名单:https://baijiahao.baidu.com/s?id=1765288969345841746&wfr=spider&for=pc

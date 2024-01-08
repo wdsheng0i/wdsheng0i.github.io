@@ -77,6 +77,7 @@ server {
 ```
 ## 5).在~/docker-compose 目录下 使用docker-compose 启动容器  
 docker-compose pull
+docker-compose -f ./docker-compose.yml down
 docker-compose -f ./docker-compose.yml up -d --remove-orphans
 # docker-compose  up -d --remove-orphans
 ```

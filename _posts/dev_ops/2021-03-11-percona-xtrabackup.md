@@ -14,6 +14,7 @@ Mysql备份恢复方案：mysqldump、percona-xtrabackup
 - MySQL备份与恢复 https://blog.csdn.net/weixin_49343462/article/details/111603428
 
 ## 1.利用mysqldump工具对数据进行备份和还原-冷备
+
 ``` 
 ## 备份单库
 $> /opt/mysql-5.7/bin/mysqldump -uroot -p123456 -h localhost --databases test >test.sql
@@ -35,7 +36,9 @@ $> mysql -u root -p123456 < alldb.sql
 ```
 
 ## 2.利用mysqldump工具对数据进行备份和还原-定时任务sh脚本每日备份
+
 1. 编写备份脚本backup_mysql.sh  
+
 ``` 
 #!/bin/bash
 # 备份目录
@@ -72,7 +75,8 @@ gzip $BACKUP_DIR/$BACKUP_FILE
 echo "MySQL backup completed: $BACKUP_FILE.gz"
 ```
 
-2. 添加定时任务    
+2. 添加定时任务  
+
 ``` 
 $chmod +x backup_mysql.sh
 
@@ -81,6 +85,7 @@ $ crontab -e，增加
 ```
 
 ## 3.[Mysql使用percona-xtrabackup进行数据备份还原](https://zhuanlan.zhihu.com/p/323722709)
+
 - percona-xtrabackup-24-2.4.7-1.el6.x86_64.rpm下载：https://www.percona.com/downloads
 - libev依赖下载：https://rpmfind.net/linux/centos/8-stream/AppStream/x86_64/os/Packages/libev-4.24-6.el8.x86_64.rpm
 
@@ -92,6 +97,7 @@ $ crontab -e，增加
 - MySQL之Xtrabackup备份与恢复 https://blog.csdn.net/Richardlygo/article/details/100163556
 
 ### 3.1安装
+
 ``` 
 直接执行安装命令，可能会提示缺少相关的依赖包，如 libev.so.4()(64bit)、perl-DBD-MySQL、perl-Digest-MD5等，可以先通过yum命令安装相关依赖
 yum install cmake gcc gcc-c++ libaio libaio-devel automake autoconf bzr
