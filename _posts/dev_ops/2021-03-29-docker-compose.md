@@ -30,7 +30,7 @@ docker-compose -version
 rm /usr/local/bin/docker-compose
 ```
 
-## 3、 使用docker compose编排nginx+springboot项目
+## 3、使用docker compose编排nginx+springboot项目
 
 ```
 ## 1).创建docker-compose目录
@@ -78,8 +78,7 @@ server {
 ## 5).在~/docker-compose 目录下 使用docker-compose 启动容器  
 docker-compose pull
 docker-compose -f ./docker-compose.yml down
-docker-compose -f ./docker-compose.yml up -d --remove-orphans
-# docker-compose  up -d --remove-orphans
+docker-compose -f ./docker-compose.yml up -d --remove-orphans  ## --remove-orphans: 删除没有在compose.yml文件中定义的容器服务
 ```
 
 ```

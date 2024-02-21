@@ -7,30 +7,13 @@ menu: bookmark
 permalink: /bookmark
 ---
 
-## 社区
-- [GitHub](https://github.com/wdsheng0i)  
-  - github资料汇总：https://blog.csdn.net/lycyingO/article/details/102693626
-- [码云Gitee](https://gitee.com/wdsheng0i)   
-- [CSDN](https://blog.csdn.net/ ) 
-- [processon](https://www.processon.com/diagrams)   
-- [leetcode](https://leetcode-cn.com/u/wdsheng0i/)  
-- [博客园](https://www.cnblogs.com/)  
-- [阿里云开发者社区 ](https://developer.aliyun.com/)      
-    https://www.aliyun.com/  
-- [腾讯云社区](https://cloud.tencent.com/developer/articles/105?q=hot)    
-- [微信开发社区](https://developers.weixin.qq.com/community/develop/question)    
-    https://developers.weixin.qq.com/miniprogram/dev/framework/  
-- [开源中国](https://www.oschina.net/)  
-- [简书](https://www.jianshu.com/)
-- [掘金网](https://juejin.im/)
-- [51CTO 博客](https://blog.51cto.com/)  
-
 ## 一、三观
 
 ### 1.1. 学习处世  
-- “孝、悌、忠、信、礼、义、廉、耻”：孝父母、敬兄长、忠于国、讲诚信、守礼法、怀正义、知荣辱、懂廉耻
-- 仁义礼智信： 仁爱、忠义、礼仪、智慧、诚信
-- 温良恭俭让：温和、善良、恭敬、节俭、礼让
+- 三纲：君为臣纲，父为子纲，夫为妻纲
+- 五常：“仁义礼智信”， 仁爱、忠义、礼仪、智慧、诚信
+- 八德：“孝、悌、忠、信、礼、义、廉、耻”，孝父母、敬兄长、忠于国、讲诚信、守礼法、怀正义、知荣辱、懂廉耻
+- 五则：“温良恭俭让”，温和、善良、恭敬、节俭、礼让
 - 达则兼济天下，穷则独善其身
 - 人生哪能尽如意，万事只求半称心
 - 未曾清贫难成人，不经磨难永天真
@@ -50,7 +33,7 @@ permalink: /bookmark
 - 以铜为镜，可以正衣冠；以古为镜，可以知兴替；以人为镜，可以明得失
 - 读史使人明智，读诗使人灵秀，数学使人周密，科学使人深刻，伦理学使人庄重，逻辑修辞之学使人善辩：凡有所学，皆成性格
 - 一个人的生命是应该这样度过的：当他回首往事的时候，不因虚度年华而悔恨，也不因碌碌无为而羞耻。   
-- 孩子若是平凡之辈，那就承欢膝下；若是出类拔萃，那就让其展翅高飞；接受孩子的平庸， 就像孩子从来没有要求父母一定要多么优秀一样
+- 孩子若是平凡之辈，那就承欢膝下；若是出类拔萃，那就让其展翅高飞；接受孩子的平庸，就像孩子从来没有要求父母一定要多么优秀一样
 - 懂得珍惜：怀念过去、珍惜现在、憧憬未来、珍惜身边的亲人和朋友、珍惜拥有的一切
 - 学会感恩：感恩国家、感恩父母、感恩身边帮助过自己的人、感谢冥冥注定的命运的安排
 - 活的充实：做实事、快乐、健康、有意义、积极乐观
@@ -146,7 +129,8 @@ permalink: /bookmark
 - 北方评剧、
 - 河南豫剧、
 - 浙江越剧、
-- 安徽黄梅戏、  
+- 安徽黄梅戏、 
+- 苏州评弹
 - 评书
 
 ### 2.10 影视

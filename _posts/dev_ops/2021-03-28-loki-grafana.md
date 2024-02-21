@@ -12,6 +12,8 @@ tags: [dev-ops]
   - https://grafana.com/docs/loki/latest/configuration/
 - Promtail：https://grafana.com/docs/loki/latest/clients/promtail/installation/
 - Grafana：https://grafana.com/docs/grafana/latest/setup-grafana/installation/
+
+
 - 配置说明：https://www.mianshigee.com/tutorial/loki/readme.md
 - Grafana+Loki+Promtail 搭建日志收集系统:https://blog.csdn.net/jilo88/article/details/131241264
 - PLG（Promtail + Loki + Grafana）日志系统生产快速实践:https://blog.csdn.net/AndCo/article/details/128949093
@@ -39,7 +41,7 @@ Loki与Grafana无缝集成，提供了一个完整的可观察性堆栈。
 - Querier 收到HTTP查询请求，并将请求发送至Ingester 用以获取内存数据 ，Ingester 收到请求后返回符合条件的数据 ；
 如果 Ingester 没有返回数据，Querier 会从后端存储加载数据并遍历去重执行查询 ，通过HTTP返回查询结果
 
-## 二、离线jar包部署应用
+## 二、离线jar包部署LPG
 loki、promtail 离线包下载（选择同一版本下）：https://github.com/grafana/loki/releases/  
 Grafana 下载地址：https://grafana.com/grafana/download?platform=linux  
 
@@ -250,7 +252,7 @@ WantedBy=multi-user.target
 - gtafana：http://ip:3000/ 默认端口3000，默认账号 admin/admin, 首次登录修改密码
 - loki：http://ip:3100/ grafana中配置datasource，添加loki地址即可
 
-## 三、k8s集群日志平台部署
+## 三、k8s集群部署日志平台LPG
 K8S使用LOKI实现日志收集：https://blog.csdn.net/weixin_49343462/article/details/125683145
 
 ### 3.1.依次启动yaml
@@ -915,6 +917,15 @@ gtafana：http://ip:3000/ 默认端口3000，默认账号 admin/admin, 首次登
 ```http://k8snode_ip(如果有vip可以直接配置vip):loki_nodeport_port ``` 
 
 ## 四、问题记录
-参数优化：
+### loki参数优化：
 
-接s3存储：
+### loki接s3存储：
+
+### grafana权限配置
+- 超管：账号-admin，角色role-admin
+- Team：建议创建dev-Aproduct、dev-Bproduct、ops等不同的team，方便给不同team分配不同项目dashboard权限
+- User：创建user，dev赋viewer权限，ops赋editor权限
+- 编辑Team：add user，选择user，可以作为team管理员或者member
+- dashboard权限：
+  - 项目文件夹权限：permissions，可添加team或者user，给view或editor权限
+  - 子dashboard权限：继承自文件夹权限，可添加team或者user，给view或editor权限

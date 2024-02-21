@@ -184,6 +184,7 @@ vi /etc/sysconfig/network-scripts/idcfg-eno16777736
 HWADDR=00:0c:29:b0:26:ab
 IPADDR=192.168.145.130
 ```
+
 3.service network restart
 
 操作系统读磁盘，一次io读一页数据，8扇区*512b=4kb
@@ -423,14 +424,21 @@ du -sh *
 du -lh --max-depth=1
 ```
 
-### 网络是否连通
+### 主机ip网络是否连通
 ```
 ping ip
 ```
 
-### 端口是否可通
+### tcp端口是否通
 ```
 telnet ip port
+```
+
+### udp端口是否通
+``` 
+使用netcat工具测试UDP端口
+https://www.python100.com/html/118945.html
+nc -u IP地址 端口号
 ```
 
 ### linux查看某个服务具体启动时间:
@@ -521,6 +529,7 @@ systemctl enable XXX.service命令会在/etc/systemd/system/multi-user.target.wa
 ### 删除文件: rm
 ```
 rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并删除  -f 就是直接强行删除，不作任何提示的意思
+rm -f app.log.2024-01-{20..28}.*  //删除多个文件，日期连续的日志文件
 ```
 
 ### 编辑文件：cat vi more
@@ -547,7 +556,8 @@ tar zxvf ./apache-tomcat-7.0.81.tar.gz  -C /opt/tomcat/  指定解压目录
 unzip zhparser-master.zip   //解压zip
 tar xvf scws-xxx-xx.tar.bz2   //解压tar.bz2
 
-tar -cvf folder.tar folder/  //压缩
+tar -cvf folder.tar folder/  //压缩文件夹
+tar -cvf folder.tar a.txt *.js *.json   //压缩多文件
 ```
 
 ### 文件权限：chmod、chown
@@ -1004,11 +1014,15 @@ iptables -nL --line-number
 iptables -A INPUT -s 192.168.123.1 -p all -j ACCEPT   //-A，追加规则，在最后
 iptables -I INPUT -s 192.168.123.1/24 -p tcp --dport 3306 -j ACCEPT  //-I,插入到第一条，加子网段；accept规则要放在REJECT all 前面
 iptables -I INPUT -m iprange --src-range 192.168.123.100-192.168.123.200 -j ACCEPT   //加ip段
-iptables -I IN_public_allow -s 192.168.123.1/24 -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT 
+iptables -I IN_public_allow -s 192.168.123.1/24 -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT  
+iptables -I INPUT -s 221.131.136.154 -p tcp -m state --state NEW --dport 8083-j ACCEPT
+iptables -I INPUT -s 221.131.136.154 -p tcp -m state --state NEW -m multiport --dports 8083,22 -j ACCEPT
 
 #添加DROP规则
 iptables -I INPUT -s 192.168.123.1 -j DROP
 iptables -I INPUT -s 121.0.0.0/24 -j DROP
+dockeiptables -A INPUT -p tcp -m multiport --dports 22,5901,8080 -s 59.45.175.0/24 -j DROP   #如何对多个端口进行匹配
+iptables -A INPUT -p tcp --dport 22:28 -j REJECT   #如何对多个端口进行匹配
 
 #添加REJECT规则
 iptables -A INPUT -p tcp --dport 22 -j REJECT
@@ -1025,6 +1039,24 @@ firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192
 firewall-cmd --reload
 firewall-cmd --list-all 
 firewall-cmd --permanent --add-rich-rule='rule protocol value="vrrp" accept'  ## 防火墙开启vrrp 虚拟路由冗余协议(Virtual Router Redundancy Protocol，简称VRRP)
+```
+
+- 26.docker进程加iptables白名单: https://www.cnblogs.com/xiongzaiqiren/p/iptables.html
+
+``` 
+# 亲测不可用（可能与docker版本有关）
+iptables -I DOCKER-USER -i ext_if ! -s 172.0.0.0/24 -p tcp --dport 9180 -j DROP
+iptables -I DOCKER -i ext_if ! -s 172.0.0.0/24 -p tcp --dport 9180 -j DROP
+iptables -I DOCKER -s 172.0.0.0/24 -p tcp --dport 9180 -j ACCEPT
+iptables -I DOCKER -p tcp --dport 9180 -j DROP
+iptables -A DOCKER -p tcp --dport 9180 -j REJECT
+
+## 亲测可用: 在DOCKER-USER链中，限制虚拟机网卡，访问容器内8080端口                                                          
+iptables -I DOCKER-USER -i ens192 -p tcp --dport 8080 -j DROP # 1.先drop所有
+iptables -I DOCKER-USER -i ens192 -s 172.0.0.0/24 -p tcp --dport 8080 -j ACCEPT   # 2.再接收172.0.0.0/24：ens192->虚拟机网卡,8080->容器内端口
+
+## 或者在虚拟机上接收所有，不做限制，然后请求可以正常转发到docker容器内
+iptables -I INPUT  -p tcp -m state --state NEW -m multiport --dports 8083 -j ACCEPT
 ```
 
 ## 附图：

@@ -11,6 +11,7 @@ LVS + keepalived + Nginx实现负载均衡、高可用集群
 - [java架构直通车-第6周 LVS+keepalived+Nginx实现高可用集群](https://class.imooc.com/sale/javaarchitect)  
 - keepalived就是为lvs设计的，结合使用，通过keepalived可以配置lvs和nginx关系：实现主备高可用、负载均衡算法、健康检查、持久化链接
 - [官方文档](http://www.linuxvirtualserver.org/zh/lvs4.html)
+- LVS四层负载均衡规划及部署 https://blog.csdn.net/IT_ZRS/article/details/109014992
 
 ## 一、LVS(Linux Virtual Server)负载均衡器介绍  
 推荐: https://blog.51cto.com/13958408/2312052?source=dra

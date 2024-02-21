@@ -9,15 +9,22 @@ tags: [dev-ops]
 
 ## 参考资料
 - 官网：https://prometheus.io/docs/introduction/overview/
-  - 下载：https://prometheus.io/download/
-  - Prometheus官方文档-中文.pdf
-- 监控平台：Prometheus + Grafana 
+- 下载：https://prometheus.io/download/ 
+
+
+- 教程文档：
+  - Kubernetes技术栈|青牛踏雪的博客prometheus：https://www.prometheus.wang/
+  - yunlzheng博客-prometheus-book：https://yunlzheng.gitbook.io/prometheus-book/
   - 看云博客Prometheus：https://www.kancloud.cn/jiaxzeng/kubernetes/3125895
+
+
+- 监控平台搭建博客：Prometheus + Grafana 
   - 耳东xErdong博客 https://blog.51cto.com/erdong/category1/p_2
-  - 青牛踏雪的博客prometheus：https://www.prometheus.wang/
   - 监控系统部署-普罗米修斯 https://blog.51cto.com/u_64214/5602483
   - Prometheus+Grafana+alertmanager构建企业级监控系统 https://www.cnblogs.com/yangmeichong/category/2185187.html
   - [prometheus之记录规则(recording rules)与告警规则(alerting rule)](https://luanpeng.blog.csdn.net/article/details/82730704)
+
+
 - Prometheus-Operator：为 Kubernetes 提供了对 Prometheus 机器相关监控组件的本地部署和管理方案
 - Thanos：开源、高可用、具有长期存储能力的 分布式Prometheus监控方案
 - 监控平台：Zabbix
@@ -102,10 +109,11 @@ Alertmanager 特性:
 - 抑制：抑制是指当某一告警发出后，可以停止重复发送由此告警引发的其它告警的机制。 例如，当集群不可访问时触发了一次告警，通过配置 Alertmanager 可以忽略与该集群有关的其它所有告警。 这样可以避免接收到大量与实际问题无关的告警通知。抑制机制同样通过 Alertmanager 的配置文件进行设置。
 - 静默：静默提供了一个简单的机制可以快速根据标签对告警进行静默处理。如果接收到的告警符合静默的配置， Alertmanager 则不会发送告警通知。 静默设置需要在 Alertmanager 的 Werb 页面上进行设置。
 
-## 二、离线部署 Prometheus
+## 二、部署 Prometheus
 - https://www.prometheus.wang/quickstart/install-prometheus-server.html    
 - https://blog.51cto.com/u_64214/5602483    
 
+### 2.1 离线tar部署Prometheus
 ``` 
 ## 下载从https://prometheus.io/download/找到最新版本的Prometheus Sevrer软件包：
 export VERSION=2.13.0
@@ -154,17 +162,13 @@ mkdir -p data
 nohup ./prometheus --config.file=prometheus.yml &
 ```
 
-## 三、docker部署 Prometheus
+### 2.2 docker部署 Prometheus
 ``` 
 docker run -p 9090:9090 -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
 ```
 
-## 四、k8s部署 Prometheus + Grafana 
-- Kubernetes+Prometheus+Grafana部署笔记： https://juejin.cn/post/6844903758384594951
-- https://blog.csdn.net/weixin_49343462/article/details/121839755?spm=1001.2014.3001.5501
-
-## 五、部署xx-Exporter采集主机、中间件、集群运行数据
-### 5.1 离线tar包部署Node Exporter采集主机运行数据
+## 三、部署xx-Exporter采集主机、中间件、集群运行数据
+### 3.1 离线tar包部署Node Exporter采集主机运行数据
 ``` 
 ## 从https://prometheus.io/download/获取最新的node exporter版本的二进制包。
 curl -OL https://github.com/prometheus/node_exporter/releases/download/v0.17.0/node_exporter-0.17.0.linux-amd64.tar.gz
@@ -254,11 +258,48 @@ scrape_configs:
 ## 重启Prometheus
 ```
 
-## 六、Grafana展示
+## 四、Grafana配置Prometheus数据源、添加各类指标监控面板
 ### Grafana添加Prometheus数据源、导入node-dashboard.json
 浏览器访问：https://grafana.com/grafana/dashboards ，在页面中搜索 node exporter，在 grafana 页面中，+ Create -> Import ，输入面板 ID 号或者上传 JSON 文件，点击 Load，即可导入监控面板
 
-## 七、AlertManager部署、告警规则配置
-部署alertManager：https://www.prometheus.wang/alert/install-alert-manager.html
+## 五、k8s部署 Prometheus + Grafana
+- Kubernetes+Prometheus+Grafana部署笔记： https://juejin.cn/post/6844903758384594951
+- https://blog.csdn.net/weixin_49343462/article/details/121839755?spm=1001.2014.3001.5501
+
+## 六、AlertManager部署、告警规则配置
+部署alertManager：https://www.prometheus.wang/alert/install-alert-manager.html    
+
+### 6.1 二进制包离线部署alertmanager
+alertmanager最新版本的下载地址可以从Prometheus官方网站https://prometheus.io/download/获取。   
+``` 
+# 1.下载解压
+下载地址：https://prometheus.io/download/#alertmanager
+上传解压：tar xvf alertmanager-$VERSION.darwin-amd64.tar.gz
+
+# 2. 
+
+```
+
+### 6.2 docker部署alertmanager  
+```docker run --name alertmanager -d -p 9093:9093 quay.io/prometheus/alertmanager``` 
+
+## 七、Exporter分类
+https://blog.csdn.net/qq_40859395/article/details/124134611  
+义上讲所有可以向Prometheus提供监控样本数据的程序都可以被称为一个Exporter。而Exporter的一个实例称 为target  
+
+从Exporter的来源上来讲，主要分为两类： 
+一、开源社区提供的exporter：      
+- 主机监控：nodeExporter
+- 容器监控：[cAdvisor部署](https://zhuanlan.zhihu.com/p/618043088)
+- 数据库监控：mysql-exporter...
+- 消息队列监控：kafka-exporter...
+- redis监控：redis-exporter...
+- http服务中间件监控：nginx-exporter...
+- http拨测、TLS监控：blackbox...
+
+![](../../assets/images/2021/monitor/exporterpng.png)
+
+二、用户自定义的exporter  
+用户还可以基于Prometheus提供的Client Library创建自己的 Exporter程序，目前Promthues社区官方提供了对以下编程语言的支持：Go、Java/Scala、Python、Ruby。同 时还有第三方实现的如：Bash、C++、Common Lisp、Erlang,、Haskeel、Lua、Node.js、PHP、Rust等。
 
 ## 问题记录
