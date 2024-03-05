@@ -507,6 +507,50 @@ traceroute 192.168.1.123
 方式2  
 ```yum install traceroute –y```
 
+### tcpdump网络抓包 
+- https://luanpeng.blog.csdn.net/article/details/82991778
+- https://blog.csdn.net/tian830937/article/details/126101925
+
+``` 
+## 安装yum install tcpdump -y
+
+## 抓包
+tcpdump -i ifcfg-ens192
+tcpdump -n -i any port 8080
+tcpdump -n -i any port 8080 -X -c 100 -w /tmp/tcp.cap ##指定输出外部文件，拷到本地用wireshark打开分析
+
+tcpdump -i any tcp and host 192.168.3.200 and port 43905 -X -c 100 -w ./spark.cap 
+这条tcpdump命令的各个参数的含义如下：
+1)-i any: 这是指定要监听的网络接口的参数。在这里，any代表所有可用的网络接口。
+2)tcp and host 192.168.3.200: 这是指定要捕获的协议和目标主机IP地址的参数。在这个例子中，我们使用tcp表示只捕获TCP协议的数据包，目标主机的IP地址为192.168.3.200。
+3)and port 43905: 这是指定要捕获的目标端口号的参数。在这个例子中，我们使用43905作为目标端口的端口号。
+4)-X: 这是启用十六进制格式输出数据包的参数。它可以帮助你更好地理解数据包的内容。
+5)-c 100: 这是指定要捕获的数据包数量的参数。在这里，我们使用100表示只捕获100个数据包。当捕获到指定数量的数据包后，tcpdump将停止并退出。
+6)-w ./spark.cap: 这是指定输出文件路径和名称的参数。在这个例子中，我们将捕获的数据包保存在当前目录下的spark.cap文件中。
+总结起来，这条tcpdump命令将在所有可用的网络接口上监听TCP协议的数据包，目标主机的IP地址为192.168.3.200，目标端口的端口号为43905，捕获100个数据包，并将捕获的数据包保存在当前目录下的spark.cap文件中，每个数据包以十六进制格式显示
+
+tcpdump tcp -i eth1 -t -s 0 -c 100 and dst port ! 22 and src net 192.168.1.0/24 -w ./target.cap
+(1)tcp: ip icmp arp rarp 和 tcp、udp、icmp这些选项等都要放到第一个参数的位置，用来过滤数据报的类型
+(2)-i eth1 : 只抓经过接口eth1的包
+(3)-t : 不显示时间戳
+(4)-s 0 : 抓取数据包时默认抓取长度为68字节。加上-S 0 后可以抓到完整的数据包
+(5)-c 100 : 只抓取100个数据包
+(6)dst port ! 22 : 不抓取目标端口是22的数据包
+(7)src net 192.168.1.0/24 : 数据包的源网络地址为192.168.1.0/24
+(8)-w ./target.cap : 保存成cap文件，方便用ethereal(即wireshark)分析
+
+## 读取tcpdump保存文件(-r选项)
+对于保存的抓包文件，我们可以使用-r选项进行读取：
+tcpdump -r 20120606.pcap
+```
+
+### wireshark分析抓包内容
+https://huaweicloud.csdn.net/6356064ad3efff3090b58d49.html
+
+下载：https://www.wireshark.org/download.html
+
+![分析](../../assets/images/2021/net/wireshark.png)  
+
 ### systemd
 systemd服务的启动命令放置在/lib/systemd/system下  
 systemctl enable XXX.service命令会在/etc/systemd/system/multi-user.target.wants下创建指向/lib/systemd/system服务的软连接  
@@ -1006,6 +1050,7 @@ dmidecode –q
 
 ``` 
 https://blog.csdn.net/wejack/article/details/121677438
+https://blog.csdn.net/weixin_40575457/article/details/123315023
 
 #查看规则及序号
 iptables -nL --line-number

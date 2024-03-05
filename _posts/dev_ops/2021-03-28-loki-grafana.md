@@ -41,7 +41,7 @@ Loki与Grafana无缝集成，提供了一个完整的可观察性堆栈。
 - Querier 收到HTTP查询请求，并将请求发送至Ingester 用以获取内存数据 ，Ingester 收到请求后返回符合条件的数据 ；
 如果 Ingester 没有返回数据，Querier 会从后端存储加载数据并遍历去重执行查询 ，通过HTTP返回查询结果
 
-## 二、离线jar包部署LPG
+## 二、二进制jar包离线部署LPG
 loki、promtail 离线包下载（选择同一版本下）：https://github.com/grafana/loki/releases/  
 Grafana 下载地址：https://grafana.com/grafana/download?platform=linux  
 
