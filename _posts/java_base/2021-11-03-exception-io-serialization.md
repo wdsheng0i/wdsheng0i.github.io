@@ -115,7 +115,7 @@ public List<TreeBeen<Area>> getAeraTree(){
 ## 二、IO  
 ![](https://wdsheng0i.github.io/assets/images/2021/java/io.png)   
 
-字节流读取的时候，读到一个字节就返回一个字节；  
+字节流读取的时候，读到一个字节就返回一个字节；  
   
 字符流使用了字节流读到一个或多个字节（中文对应的字节数是两个，在UTF-8码表中是3个字节）时。先去查指定的编码表，将查到的字符返回
 

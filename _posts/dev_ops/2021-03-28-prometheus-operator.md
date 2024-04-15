@@ -78,7 +78,7 @@ ServiceMonitor 也是 Prometheus Operator 专门开发的一种 Kubernetes 定�
 **Alertmanager**  
 除了 Prometheus 和 ServiceMonitor，Alertmanager 是 Operator 开发的第三种 Kubernetes 定制化资源。我们可以把 Alertmanager 看作是一种特殊的 Deployment，它的用途就是专门部署 Alertmanager 组件。
 
-## 3.Prometheus Operator安装
+## 3.Prometheus Operator部署使用
 Github地址：  
 - prometheus-operator https://github.com/prometheus-operator/prometheus-operator/
 - kube-prometheus https://github.com/prometheus-operator/kube-prometheus

@@ -95,9 +95,9 @@ tags: [design-patterns]
 - 继承是侵入性的，只要继承就必须拥有父类的所有方法和属性，在一定程度上约束了子类，降低了代码的灵活性；
 - 增加了耦合，当父类的常量、变量或者方法被修改了，需要考虑子类的修改，所以一旦父类有了变动，很可能会造成非常糟糕的结果，要重构大量的代码。
 
-### 3. ISP(`Interface Segregation Principle)接口隔离原则
+### 3. ISP(`Interface Segregation Principle)接口隔离原则
 
-所谓`ISP`原则，即：`Interface Segregation Principle`，**接口隔离原则**。原始定义如下：
+所谓`ISP`原则，即：`Interface Segregation Principle`，**接口隔离原则**。原始定义如下：
 
 > Clients should not be forced to depend upon interfaces that they do not use.(客户端只依赖于它所需要的接口；它需要什么接口就提供什么接口，把不需要的接口剔除掉。)
 
@@ -146,9 +146,9 @@ tags: [design-patterns]
 我们称出现为成员变量、 方法参数、 方法返回值中的类为直接朋友。 局部变量、 临时变量则不是直接的朋友。  
 我们要求陌生的类不要作为局部变量出现在类中。  
 
-### 6. CRP(`Composite Reuse Principle)组合复用原则
+### 6. CRP(`Composite Reuse Principle)组合复用原则
 
-所谓`CRP`原则，即：`Composite Reuse Principle`，**组合复用原则**。
+所谓`CRP`原则，即：`Composite Reuse Principle`，**组合复用原则**。
 
 组合复用原则的核心思想是：**尽量使用对象组合，而不是继承来达到复用的目的**。该原则就是在一个新的对象里面使用一些已有的对象，使之成为新对象的一部分：新的对象通过向这些对象的委派达到复用已有功能的目的。
 

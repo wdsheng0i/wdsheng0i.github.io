@@ -35,7 +35,9 @@ ssh -p 22 root@192.168.0.1
 ONBOOT=no, 将no  改为yes
 service network restart
 或 systemctl restart network
-或 service NetworkManager restart
+
+service NetworkManager restart
+systemctl restart NetworkManager
 
 //linux 已修改ip地址（ONBOOT=yes）,但是不显示ip地址??
 1.因为你的（VMware DHCP Service）这个服务没有开，进入计算机管理–》服务和应用程序–》服务 找到VMware DHCP Service打开就行了
@@ -197,12 +199,13 @@ IPADDR=192.168.145.130
 - /data: 自建用户数据目录
 
 ## 三、软件安装
-- 1.在线安装：curl https://xx/*.sh 
+- 1.在线安装：
+  - curl https://xx/*install.sh 
   - yum install -y xxx
-  - wget xxx.rpm后, 安装rpm -ivh xxx.rpm
+  - wget xxx.rpm下载后, 安装rpm -ivh xxx.rpm
 - 2.离线安装：下载.tar、tar.gz，解压，修改配置、启动服务、注册系统服务
-- 3.docker安装，注意持久化conf和data
-- 4.k8s安装，yml编写、镜像、命名空间，注意持久化conf和data
+- 3.docker安装，注意挂载数据卷，持久化conf和data，映射端口
+- 4.k8s安装，yml编写、镜像、命名空间，注意持久化conf和data、服务暴露
 
 ### 安装方式
 `方式1，在线安装：yum install gcc`  
@@ -422,6 +425,7 @@ du -sh *
 
 ```
 du -lh --max-depth=1
+du -hd1
 ```
 
 ### 主机ip网络是否连通
@@ -454,6 +458,17 @@ nameserver 8.8.4.4 #google域名服务器
 nameserver 114.114.114.114 #国内第一个、全球第三个开放的全国通用DNS地址,可以为使用者提供高速、稳定、可信的DNS递归解析服务,延迟基本上在10ms以下
 nameserver 223.6.6.6 #阿里DNS,延迟在25ms左右
 nameserver 223.5.5.5 #阿里DNS
+```
+
+/etc/resolv.conf重启被重置：https://blog.csdn.net/nowhy25/article/details/132567625
+```
+编辑 NetworkManager 的配置文件，禁用其自动更新 /etc/resolv.conf。
+
+使用文本编辑器打开 /etc/NetworkManager/NetworkManager.conf 文件：
+sudo vi /etc/NetworkManager/NetworkManager.conf
+在 [main] 部分中添加以下行：
+dns=none
+保存文件并重启 NetworkManager 服务： systemctl restart NetworkManager
 ```
 
 ### 查、杀进程：
@@ -516,6 +531,7 @@ traceroute 192.168.1.123
 
 ## 抓包
 tcpdump -i ifcfg-ens192
+tcpdump -i eno16777984 port 3306
 tcpdump -n -i any port 8080
 tcpdump -n -i any port 8080 -X -c 100 -w /tmp/tcp.cap ##指定输出外部文件，拷到本地用wireshark打开分析
 
@@ -557,6 +573,9 @@ systemctl enable XXX.service命令会在/etc/systemd/system/multi-user.target.wa
 系统启动时会读取/etc/systemd/system下的服务  
 
 ## 五、文件操作
+### grep/sed/awk
+linux文本三剑客详解 https://blog.csdn.net/m0_55641973/article/details/131259480
+
 ### 新建目录：mkdir
 ```mkdir opt/test```
 
@@ -585,23 +604,25 @@ rm -f app.log.2024-01-{20..28}.*  //删除多个文件，日期连续的日志�
     全局搜索：find / -name *minio*
     vim编辑器中搜索： /搜索的内容
     查找下一个：n
-3.more 按页来查看文件的内容
+3.more 全部读取，按页来查看文件的内容
     Enter 向下n行，可定义定义。默认为1行
     空格键 向下滚动一屏
     Ctrl+B 返回上一屏
     = 输出当前行的行号
     q 退出more
+4.less按查看逐页读取，查看大文件
 ```
 
 ### 解压缩：tar unzip
 ``` 
 tar zxvf ./apache-tomcat-7.0.81.tar.gz   //解压tar.gz
 tar zxvf ./apache-tomcat-7.0.81.tar.gz  -C /opt/tomcat/  指定解压目录
-unzip zhparser-master.zip   //解压zip
 tar xvf scws-xxx-xx.tar.bz2   //解压tar.bz2
+unzip zhparser-master.zip   //解压zip
 
 tar -cvf folder.tar folder/  //压缩文件夹
 tar -cvf folder.tar a.txt *.js *.json   //压缩多文件
+tar -zcvf folder.tar.gz folder/  //压缩文件夹
 ```
 
 ### 文件权限：chmod、chown
@@ -647,11 +668,21 @@ linux安装完毕后，一般都是国外的世界，一点都不方便设置任
 ### 查看系统版本
 ``` 
 lsb_release -a
-或者cat /etc/centos-release
+或者
+cat /etc/centos-release
 ```
 
-### 创建用户、密码、用户主目录
-```useradd  -d/home/mysqluser -m mysqluser```
+### 创建用户组、用户、密码、用户主目录
+```
+用户配置文件，存储用户的基本信息 /etc/passwd
+存储用户的密码信息 /etc/shadow
+存储用户组信息的文件：/etc/group
+groupadd hr  ## 新增
+groupmod -g 1100 -n bjhr hr  ##修改 -g 新的组ID -n 新的组名 原有组名 
+groupdel 用户组名 ## 删除
+
+useradd  -d/home/mysqluser -m mysqluser
+```
 
 ### 查看主机名、添加、修改hostname
 ```
@@ -1053,7 +1084,7 @@ https://blog.csdn.net/wejack/article/details/121677438
 https://blog.csdn.net/weixin_40575457/article/details/123315023
 
 #查看规则及序号
-iptables -nL --line-number
+iptables -nvL --line-number
 
 # 添加ACCEPT规则
 iptables -A INPUT -s 192.168.123.1 -p all -j ACCEPT   //-A，追加规则，在最后
@@ -1066,6 +1097,7 @@ iptables -I INPUT -s 221.131.136.154 -p tcp -m state --state NEW -m multiport --
 #添加DROP规则
 iptables -I INPUT -s 192.168.123.1 -j DROP
 iptables -I INPUT -s 121.0.0.0/24 -j DROP
+iptables -I INPUT 4 -s 45.152.65.0/24 -j DROP  ## 在序号第3条后插一条drop规则
 dockeiptables -A INPUT -p tcp -m multiport --dports 22,5901,8080 -s 59.45.175.0/24 -j DROP   #如何对多个端口进行匹配
 iptables -A INPUT -p tcp --dport 22:28 -j REJECT   #如何对多个端口进行匹配
 
@@ -1075,6 +1107,14 @@ iptables -A INPUT -p all -j REJECT
 
 #删除规则：先查看规则及序号iptables -nL --line-number，然后删除对应序号那条即可
 iptables -D INPUT 3
+
+
+#保存规则
+service iptables save
+
+#或者直接编辑
+vi /etc/sysconfig/iptables
+service iptables reload
 ```
 
 - 25.firewall添加白名单

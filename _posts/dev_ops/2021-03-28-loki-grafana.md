@@ -13,7 +13,7 @@ tags: [dev-ops]
 - Promtail：https://grafana.com/docs/loki/latest/clients/promtail/installation/
 - Grafana：https://grafana.com/docs/grafana/latest/setup-grafana/installation/
 
-
+博客：  
 - 配置说明：https://www.mianshigee.com/tutorial/loki/readme.md
 - Grafana+Loki+Promtail 搭建日志收集系统:https://blog.csdn.net/jilo88/article/details/131241264
 - PLG（Promtail + Loki + Grafana）日志系统生产快速实践:https://blog.csdn.net/AndCo/article/details/128949093

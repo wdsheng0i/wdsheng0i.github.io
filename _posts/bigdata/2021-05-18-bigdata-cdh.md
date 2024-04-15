@@ -152,8 +152,8 @@ sysctl vm.swappiness=10
 echo 'vm.swappiness=10' >> /etc/sysctl.conf
 echo never > /sys/kernel/mm/transparent_hugepage/defrag
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
-echo 'echo never > /sys/kernel/mm/transparent_hugepage/defrag'  >> /etc/rc.local
-echo 'echo never > /sys/kernel/mm/transparent_hugepage/enabled'  >> /etc/rc.local
+echo 'echo never > /sys/kernel/mm/transparent_hugepage/defrag'  >> /etc/rc.local
+echo 'echo never > /sys/kernel/mm/transparent_hugepage/enabled'  >> /etc/rc.local
 ```
 
 ### 安装httpd
@@ -273,8 +273,8 @@ mysql-connector-java.jar上传到 /usr/share/java 目录下
 
 ### 安装Cloudera Manager
 全部节点都安装daemons和agent
-``` 
-yum localinstall -y cloudera-manager-daemons-6.2.0-968826.el7.x86_64.rpm 
+``` 
+yum localinstall -y cloudera-manager-daemons-6.2.0-968826.el7.x86_64.rpm 
 yum localinstall -y cloudera-manager-agent-6.2.0-968826.el7.x86_64.rpm 
 ```
 
@@ -304,7 +304,7 @@ cat PHOENIX-5.0.0-cdh6.2.0.p0.1308267-el7.parcel.sha
 
 3.修改server配置文件（cdh1 server节点上修改server）
 ``` 
-vi /etc/cloudera‐scm‐server/db.properties
+vi /etc/cloudera‐scm‐server/db.properties
 
 com.cloudera.cmf.db.host=cdh3
 com.cloudera.cmf.db.name=cmf
@@ -324,7 +324,7 @@ server_host=cdh1
 #在cdh1 上启动server
 systemctl start cloudera-scm-server
 
-#另开一个窗口，查看相关日志。有异常就解决异常 
+#另开一个窗口，查看相关日志。有异常就解决异常 
 tail -200f /var/log/cloudera-scm-server/cloudera-scm-server.log
 
 # 在全部节点上启动agent

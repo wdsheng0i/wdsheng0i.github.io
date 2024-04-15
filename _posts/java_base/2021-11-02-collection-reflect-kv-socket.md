@@ -237,22 +237,22 @@ https://www.cnblogs.com/bukudekong/p/3889740.html
 遍历key和value ： 
 ``` 
 Map<String, Object> map = new HashMap<String, Object>(); 
-         map.put(“key”, ObjectValue);
+         map.put(“key”, ObjectValue);
 }
 
 遍历1：Iterator<String> iter = map.keySet().iterator();
 while (iter.hasNext()) {
-    key = iter.next();  //取键
-    value = map.get(key);  //取值
+    key = iter.next();  //取键
+    value = map.get(key);  //取值
 }
 
 遍历2：for (String key : map.keySet()) {
     System.out.println(key );  
-             value = map.get(key);
+             value = map.get(key);
 }
 
-遍历3： for (Map.Entry<String, String> entry : map.entrySet()) {
- key = entry.getKey() 
+遍历3： for (Map.Entry<String, String> entry : map.entrySet()) {
+ key = entry.getKey() 
     value =  entry.getValue());
 } //推荐，尤其是容量大时
 ```
@@ -319,7 +319,7 @@ public class AbsComparator implements Comparator {
 ```
 
 ### 3.5.Vector和ArrayList区别
-- 1）  Vector的方法都是同步的(Synchronized),是线程安全的(thread-safe)，而ArrayList的方法不是，由于线程的同步必然要影响性能，因此,ArrayList的性能好于Vector。 
+- 1）  Vector的方法都是同步的(Synchronized),是线程安全的(thread-safe)，而ArrayList的方法不是，由于线程的同步必然要影响性能，因此,ArrayList的性能好于Vector。 
 - 2） 当Vector或ArrayList中的元素超过它的初始大小时,Vector会将它的容量翻倍,而ArrayList只增加50%的大小，这样,ArrayList就有利于节约内存空间。
 
 ### 3.6.HashMap和HashTable
@@ -334,7 +334,7 @@ ArrayList是基于数组实现的，而LinkedList是基于链表实现的。两�
 
 ### 3.8.可以使用foreach循环的集合 
 ``` 
-for(元素类型t 元素变量x : 遍历对象obj){     
+for(元素类型t 元素变量x : 遍历对象obj){     
     引用了x的java语句;
 } 
 ```
@@ -440,16 +440,16 @@ Collections.sort(plist, new Comparator<Person>(){  //Person无默认比较器实
 
 ### 4.2 RMI
 RMI 指的是远程方法调用 (Remote Method Invocation)。它是一种机制，能够让在某个 Java 虚拟机上的对象调用另一个 Java 虚拟机中的对象上的方法。可以用此方法调用的任何对象必须实现该远程接口。
- 
-- 只要一个类extends了java.rmi.Remote接口，即可成为存在于服务器端的远程对象，供客户端访问并提供一定的服务。JavaDoc描述：Remote 接口用于标识其方法可以从非本地虚拟机上调用的接口。任何远程对象都必须直接或间接实现此接口
-    - extends了Remote接口的类或者其他接口中的方法若是声明抛出了RemoteException异常，则表明该方法可被客户端远程访问调用。 
-- 同时，远程对象必须实现java.rmi.server.UniCastRemoteObject类，这样才能保证客户端访问获得远程对象时，该远程对象将会把自身的一个拷贝以Socket的形式传输给客户端，此时客户端所获得的这个拷贝称为“存根”，而服务器端本身已存在的远程对象则称之为“骨架”。其实此时的存根是客户端的一个代理，用于与服务器端的通信，而骨架也可认为是服务器端的一个代理，用于接收客户端的请求之后调用远程方法来响应客户端的请求。 
+ 
+- 只要一个类extends了java.rmi.Remote接口，即可成为存在于服务器端的远程对象，供客户端访问并提供一定的服务。JavaDoc描述：Remote 接口用于标识其方法可以从非本地虚拟机上调用的接口。任何远程对象都必须直接或间接实现此接口
+    - extends了Remote接口的类或者其他接口中的方法若是声明抛出了RemoteException异常，则表明该方法可被客户端远程访问调用。 
+- 同时，远程对象必须实现java.rmi.server.UniCastRemoteObject类，这样才能保证客户端访问获得远程对象时，该远程对象将会把自身的一个拷贝以Socket的形式传输给客户端，此时客户端所获得的这个拷贝称为“存根”，而服务器端本身已存在的远程对象则称之为“骨架”。其实此时的存根是客户端的一个代理，用于与服务器端的通信，而骨架也可认为是服务器端的一个代理，用于接收客户端的请求之后调用远程方法来响应客户端的请求。 
 
-RMI 框架的基本原理大概如下图，应用了代理模式来封装了本地存根与真实的远程对象进行通信的细节。  
+RMI 框架的基本原理大概如下图，应用了代理模式来封装了本地存根与真实的远程对象进行通信的细节。  
 
 ![](https://wdsheng0i.github.io/assets/images/2021/java/rmi1.jpeg)
 
-下面给出一个简单的RMI 应用，其中类图如下：其中IService接口用于声明服务器端必须提供的服务（即service()方法），ServiceImpl类是具体的服务实现类，而Server类是最终负责注册服务器远程对象，以便在服务器端存在骨架代理对象来对客户端的请求提供处理和响应。
+下面给出一个简单的RMI 应用，其中类图如下：其中IService接口用于声明服务器端必须提供的服务（即service()方法），ServiceImpl类是具体的服务实现类，而Server类是最终负责注册服务器远程对象，以便在服务器端存在骨架代理对象来对客户端的请求提供处理和响应。
 
 ![](https://wdsheng0i.github.io/assets/images/2021/java/rmi2.jpeg)
 

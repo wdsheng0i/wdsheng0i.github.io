@@ -4,9 +4,9 @@ title: 架构师能力总结
 category: arch
 tags: [arch]
 ---
-
+    
 架构师能力总结
-
+    
 ## 一. 架构基本理论
 ### 1.1 架构设计方法
 ![](https://wdsheng0i.github.io/assets/images/2021/micro/5v.png)  
@@ -18,8 +18,7 @@ tags: [arch]
     - "运行架构"（系统对接、数据流转）
 - [TOGAF](https://zhuanlan.zhihu.com/p/152088490)：(The Open Group Architecture Framework) 开放组织架构框架
 - [DODAF](http://www.uml.org.cn/modeler/202108172.asp)：(Department of Defense Architecture Framework ) (美国)国防部体系结构框架
-- 架构风格： 数据流风格、复制风格、分层风格、移动代码风格、点对点风格、分布式风格、管道和过滤器风格
-	
+- 架构风格： 数据流风格、复制风格、分层风格、移动代码风格、点对点风格、分布式风格、管道和过滤器风格	
 
 ### 1.2 数据一致性[设计](https://www.jianshu.com/p/ac0a8363c23d)  
 
@@ -28,9 +27,9 @@ tags: [arch]
 ```
 CAP定理（CAP theorem）
 又被称作 布鲁尔定理（Brewer's theorem）,它指出对于一个分布式计算系统来说，不可能同时满足以下三点:
-一致性(Consistency) (所有节点在同一时间具有相同的数据)
-可用性(Availability) (保证每个请求不管成功或者失败都有响应)
-分隔容忍(Partition tolerance) (系统中任意信息的丢失或失败不会影响系统的继续运作)
+一致性(Consistency) (所有节点在同一时间具有相同的数据)
+可用性(Availability) (保证每个请求不管成功或者失败都有响应)
+分隔容忍(Partition tolerance) (系统中任意信息的丢失或失败不会影响系统的继续运作)
 
 CAP理论的核心是：一个分布式系统不可能同时很好的满足一致性，可用性和分区容错性这三个需求，最多只能同时较好的满足两个。
 因此，根据 CAP 原理将 NoSQL 数据库分成了满足 CA 原则、满足 CP 原则和满足 AP 原则三 大类：
