@@ -8,16 +8,17 @@ permalink: /link
 ---
 
 ## 推荐博客专栏
-- [纯洁的微笑博客](http://www.ityouknow.com/) 
-- [方志朋的专栏](https://www.fangzhipeng.com/) 
-- [方志朋博客2018汇总](https://mp.weixin.qq.com/s/uDTvTHM2gJMRsDAOdRDXuA)  
-- [chenshiying博客2019汇总](https://blog.csdn.net/qq_27384769/article/details/80343511)
+- [bilibili-免费教程集合](https://space.bilibili.com/1003916720/fans/follow?spm_id_from=333.999.0.0)
 - [慕课网](https://www.imooc.com/)
 - [菜鸟教程](https://www.runoob.com/)
 - [java极客教程](https://www.javajike.com/)
 - [面圈网](https://www.mianshigee.com/)：知识库 教程 文档 面经 题库
 - [我爱学习网 Wiki](https://www.5axxw.com/wiki/)
 - [JAVA1234免费资源汇总](http://www.java1234.com/zy.html)
+- [纯洁的微笑博客](http://www.ityouknow.com/) 
+- [方志朋的专栏](https://www.fangzhipeng.com/) 
+- [方志朋博客2018汇总](https://mp.weixin.qq.com/s/uDTvTHM2gJMRsDAOdRDXuA)  
+- [chenshiying博客2019汇总](https://blog.csdn.net/qq_27384769/article/details/80343511)
 - [java进阶架构师-2020.7.3-Java进阶架构师30大专题,共600篇优质文章合集！](https://mp.weixin.qq.com/s/xartth4HCMgBroIozW29kw)  
 - [ImportNew 史上最全的开发和设计资源大全](https://mp.weixin.qq.com/s/cjaj_-gX6MhqMXSrqchFbg)
 

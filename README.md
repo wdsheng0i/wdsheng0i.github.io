@@ -12,7 +12,7 @@
 - 七、bigdata-ability大数据能力总结：bigdata-ability (https://github.com/wdsheng0i/xxx.git)
 - 八、高并发、高可用方案设计总结(集群、分布式、微服务)
 - 九、云原生架构总结（云、微服务、容器、容器编排、CICD、弹性伸缩、扩容、监控、灾备...）
-- 十、运维技术栈总结（虚拟化、Linux、shell、DBA-灾备、恢复、数据库/存储中间件、服务器中间件、高可用架构、监控告警、网络、信息安全、CICD、云原生devops、大数据、自动化运维 & AIops）
+- 十、运维技术栈总结（虚拟化、Linux、shell、DBA-灾备、恢复、数据库/存储中间件、服务器中间件、高可用架构、监控告警、日志收集、网络、信息安全、CICD、云原生devops、大数据、自动化运维 & AIops）
 
 ## 一、data-algorithm 数据结构 & 算法总结
 ### 1、数据结构
@@ -325,12 +325,7 @@ https://blog.csdn.net/weixin_42453582/article/details/113697878
 - https://blog.csdn.net/qq_39940205/article/details/80536666    
 - https://blog.csdn.net/azhuyangjun/article/details/86976514    
 
-#### Mycat部署（部署、配置主从、分库分表）  
-- Mycat安装与配置详解：https://blog.csdn.net/yu342107056/article/details/88326540  
-- MyCat介绍与配置（精）https://blog.csdn.net/linuxlsq/article/details/52606225  
-- Linux下Mycat安装配置和使用 https://blog.csdn.net/jaysonhu/article/details/52858535  
-- mycat的安装及使用 https://www.cnblogs.com/hzcya1995/p/13300562.html?utm_source=tuicool  
-- MySQL以及MyCat的安装和使用  https://www.jianshu.com/p/3932551e0221 
+#### Mycat部署（部署、配置主从、分库分表）   
 
 ### 8.2 高可用部署方案：LVS + Keepalived + Nginx（动静分离、反向代理、集群、负载均衡、主从热备、双机主备）
 实现 **动静分离、反向代理、集群、负载均衡、主从热备、双机主备** 
@@ -360,10 +355,12 @@ https://blog.csdn.net/weixin_42453582/article/details/113697878
 - 10.4 数据库/存储中间件
 - 10.5 服务器中间件
 - 10.6 高可用集群架构
-- 10.7 监控告警
-- 10.8 网络 
-- 10.9 信息安全 
-- 10.10 CICD
-- 10.11 云原生devops
-- 10.12 大数据
-- 10.13 自动化运维 & AIops
+- 10.7 云原生devops
+- 10.8 CICD
+- 10.9 监控告警
+- 10.10 日志收集
+- 10.11 网络 
+- 10.12 信息安全 
+- 10.13 大数据
+- 10.14 自动化运维
+- 10.15 智能化运维AIops

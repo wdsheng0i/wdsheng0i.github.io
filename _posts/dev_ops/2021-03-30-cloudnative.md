@@ -107,9 +107,10 @@ Portainer是一个可视化的容器镜像的图形管理工具，利用Portaine
 #### 2.4.3 KubeSphere
 - KubeSphere：是在Kubernetes 之上构建的面向云原生应用的分布式操作系统,完全开源,支持多云与多集群管理,提供全栈的 IT 自动化运维能力,简化企业的 DevOps 工作流
 
-#### 2.4.4 kind、Kubespray 创建 K8S 集群
-- Kind：是Kubernetes In Docker的缩写，顾名思义，看起来是把k8s放到docker的意思。没错，kind创建k8s集群的基本原理就是：提前准备好k8s节点的镜像，通过docker启动容器，来模拟k8s的节点，从而组成完整的k8s集群。需要注意，kind创建的集群仅可用于开发、学习、测试等，不能用于生产环境
+#### 2.4.4 kubeadm、Kubespray、kind 创建 K8S 集群
+- kubeadm是官方社区推出的一个用于快速部署kubernetes集群的工具。
 - Kubespray：是Kubernetes incubator 中的项目，目标是提供Production Ready Kubernetes部署方案，该项目基础是通过Ansible Playbook 来定义系统与Kubernetes 集群部署的任务
+- Kind：是Kubernetes In Docker的缩写，顾名思义，看起来是把k8s放到docker的意思。没错，kind创建k8s集群的基本原理就是：提前准备好k8s节点的镜像，通过docker启动容器，来模拟k8s的节点，从而组成完整的k8s集群。需要注意，kind创建的集群仅可用于开发、学习、测试等，不能用于生产环境
 
 #### 2.4.5 CNI容器网络插件、Cilium、Flannel
 - CNI插件存放位置:# cat /etc/cni/net.d/10-flannel.conflist    插件使用的解决方案如下: 虚拟网桥,虚拟网卡,多个容器共用一个虚拟网卡进行通信
@@ -122,11 +123,12 @@ Portainer是一个可视化的容器镜像的图形管理工具，利用Portaine
 
 kustomize 使用 k8s 原生概念帮助创建并复用资源配置(YAML)，允许用户以一个应用描述文件 （YAML 文件）为基础（Base YAML），然后通过 Overlay 的方式生成最终部署应用所需的描述文件
 
-#### 2.4.7 kubelet、kubeadm、kubectl
-- kubeadm是官方社区推出的一个用于快速部署kubernetes集群的工具。
+#### 2.4.7 kubelet、kubeadm、kubectl、kubecm
+- kubeadm 是官方社区推出的一个用于快速部署kubernetes集群的工具。
     - 这个工具能通过两条指令完成一个kubernetes集群的部署：　# 创建一个 Master 节点　kubeadm init　# 将一个 Node 节点加入到当前集群中　kubeadm join <Master节点的IP和端口 >　
-- kubectl是Kubernetes集群的命令行工具，通过kubectl能够对集群本身进行管理，并能够在集群上进行容器化应用的安装和部署
+- kubectl 是Kubernetes集群的命令行工具，通过kubectl能够对集群本身进行管理，并能够在集群上进行容器化应用的安装和部署
 - kubelet　master派到node节点代表，管理本机容器，一个集群中每个节点上运行的代理，它保证容器都运行在Pod中，负责维护容器的生命周期，同时也负责Volume(CSI) 和 网络(CNI)的管理　
+- kubecm：KubeCM（Kubernetes ConfigMap）是一个轻量级、命令行界面的工具，专为简化 Kubernetes 的 ConfigMap 和 Secret 管理而设计。通过 KubeCM，你可以方便地在本地与集群之间同步配置文件，轻松进行版本控制和差异比较，从而提高运维效率并降低出错率
 
 ## 三、容器应用的设计原则 
 12-Factor：https://12factor.net/zh_cn/
@@ -155,7 +157,8 @@ kustomize 使用 k8s 原生概念帮助创建并复用资源配置(YAML)，允�
 
 ### 3.5. 用完即丢
 所有的容器都是临时的，它随时有可能被其它的容器实例所替代，需要把容器的状态保存在容器之外，并且尽可能快速的启动和终止容器。即容器为无状态的。  
-挂载日志、配置文件？？
+
+挂载：数据、日志、配置文件
 
 ### 3.6. 自包含
 容器在构建的时候应该包含所有的依赖，也就是所说容器在运行时不应该有任何的外部依赖。

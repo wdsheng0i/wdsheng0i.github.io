@@ -22,6 +22,13 @@ tags: [dev-ops]
 - Prometheus-Operator：为 Kubernetes 提供了对 Prometheus 机器相关监控组件的本地部署和管理方案
 - Thanos：开源、高可用、具有长期存储能力的 分布式Prometheus监控方案
 - 监控平台Zabbix：https://blog.51cto.com/u_15352876/3774456
+- [使用prometheus exporter实现rocketmq集群监控指标采集](https://blog.csdn.net/zpsimon/article/details/124249989)
+  - https://blog.csdn.net/u012867699/article/details/138344866
+  - https://blog.csdn.net/sinat_14840559/article/details/119782996
+  - https://blog.csdn.net/zpsimon/article/details/124249989
+  - Dashboard:https://grafana.com/grafana/dashboards/14612-rocketmq/
+- [prometheus监控rabbitmq，rabbitmq_exporter](https://www.cnblogs.com/gered/p/17462842.html)
+  - https://www.cnblogs.com/user-sunli/p/16178925.html
 
 ## 一、Prometheus简介
 Prometheus受启发于Google的Brogmon监控系统（相似的Kubernetes是从Google的Brog系统演变而来），从2012年开始由前Google工程师在Soundcloud以开源软件的形式进行研发的系统监控和告警工具，
@@ -252,8 +259,18 @@ scrape_configs:
 ## 重启Prometheus
 ```
 
+### 3.2 node_exporter部署之认证（启用 TLS）
+- https://blog.csdn.net/weixin_42562106/article/details/117367297
+- https://blog.csdn.net/scand123/article/details/137275087
+- --web.config高版本参数改成了--web.config.file
+
+### 3.3 配置node-exporter参数
+- https://github.com/prometheus/node_exporter
+- https://www.cnblogs.com/heian99/p/17026955.html
+
 ## 四、Grafana配置Prometheus数据源、添加各类指标监控面板
-### 4.1 离线部署Grafana：参考https://wdsheng0i.github.io/dev-ops/2021/03/28/loki.html
+### 4.1 离线部署Grafana：
+参考https://wdsheng0i.github.io/dev-ops/2021/03/28/loki.html
 
 ### 4.2 Grafana添加Prometheus数据源、导入node-dashboard.json    
 浏览器访问：https://grafana.com/grafana/dashboards ，在页面中搜索 node exporter，在 grafana 页面中，+ Create -> Import ，输入面板 ID 号或者上传 JSON 文件，点击 Load，即可导入监控面板
@@ -262,8 +279,7 @@ scrape_configs:
 - Kubernetes + Prometheus + Grafana + Exporter部署笔记： https://juejin.cn/post/6844903758384594951
 - k8s + prometheus + grafana + Exporter + alertmanager监控加邮件告警: https://blog.csdn.net/weixin_49343462/article/details/121839755?spm=1001.2014.3001.5501
 
-## 六、AlertManager部署、告警规则配置
-部署alertManager：https://www.prometheus.wang/alert/install-alert-manager.html    
+## 六、[AlertManager部署、告警规则配置](https://www.prometheus.wang/alert/install-alert-manager.html  )
 
 ### 6.1 二进制包离线部署alertmanager
 alertmanager最新版本的下载地址可以从Prometheus官方网站https://prometheus.io/download/获取。   
@@ -279,24 +295,26 @@ alertmanager最新版本的下载地址可以从Prometheus官方网站https://pr
 ### 6.2 docker部署alertmanager  
 ```docker run --name alertmanager -d -p 9093:9093 quay.io/prometheus/alertmanager``` 
 
-## 七、Exporter分类
-https://blog.csdn.net/qq_40859395/article/details/124134611  
-义上讲所有可以向Prometheus提供监控样本数据的程序都可以被称为一个Exporter。而Exporter的一个实例称 为target  
+### 6.3 告警阈值维护说明
+
+## 七、[Exporter分类](https://blog.csdn.net/qq_40859395/article/details/124134611 )
+广义上讲所有可以向Prometheus提供监控样本数据的程序都可以被称为一个Exporter。而Exporter的一个实例称 为target    
 
 从Exporter的来源上来讲，主要分为两类：
-(一)、开源社区提供的exporter：      
-- 主机监控：nodeExporter
-- 容器监控：[cAdvisor部署](https://zhuanlan.zhihu.com/p/618043088)
+
+### 7.1 开源社区提供的exporter：      
+- 主机监控：node_exporter
 - 数据库监控：mysql-exporter...
 - 消息队列监控：kafka-exporter...
 - redis监控：redis-exporter...
 - http服务中间件监控：nginx-exporter...
-- http拨测、TLS监控：blackbox...
-- process exporter:进程指标监控
+- http拨测、TLS证书监控：blackbox...
+- 进程监控：process exporter
+- 容器监控：[cAdvisor部署](https://zhuanlan.zhihu.com/p/618043088)
 
 ![](../../assets/images/2021/monitor/exporterpng.png)
 
-(二)、用户自定义的exporter  
+### 7.2 用户自定义的exporter  
 用户还可以基于Prometheus提供的Client Library创建自己的 Exporter程序，目前Promthues社区官方提供了对以下编程语言的支持：Go、Java/Scala、Python、Ruby。同 时还有第三方实现的如：Bash、C++、Common Lisp、Erlang,、Haskeel、Lua、Node.js、PHP、Rust等。
 
 ## 问题记录

@@ -10,7 +10,6 @@ tags: [database]
 ## 参考资料 
 - [深入理解分布式事务](https://www.cnblogs.com/biakia/p/6195142.html)
 - [真赞！阿里开源的这款分布式事务框架,不愧为民族之光](https://mp.weixin.qq.com/s/TKiO71lVziCCicYs5b-lPA)
- 
 
 ## 一、数据库事务介绍
 事务（Transaction)是由一系列对系统中数据进行访问与更新的操作所组成的一个程序 执行逻辑单元（Unit)。  

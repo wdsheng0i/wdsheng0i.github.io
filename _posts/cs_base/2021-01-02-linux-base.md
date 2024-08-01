@@ -395,8 +395,9 @@ free -m
 可用：available = free + buffer/cache - 不可被回收内存(共享内存段、tmpfs、ramfs等)
 ```
 
-### 查看磁盘 df -h
+### 查看磁盘 lsblk 、df -h
 ```
+lsblk  
 df -h
 ```
 
@@ -413,12 +414,13 @@ ps -eo pid,ppid,cmd,%cpu,%mem --sort=-%cpu | head
 vmstat
 ```
 
-### 查看系统中文件的使用情况
-```
-df -h
+### 网络带宽测试工具speedtest-cli
+``` 
+yum install speedtest-cli
+speedtest-cli
 ```
 
-### 查看当前目录下各个文件及目录占用空间大小
+### du -hd1查看当前目录下各个文件及目录占用空间大小
 ```
 du -sh *
 ```
@@ -433,7 +435,7 @@ du -hd1
 ping ip
 ```
 
-### tcp端口是否通
+### telnet tcp端口是否通
 ```
 telnet ip port
 ```
@@ -450,7 +452,7 @@ nc -u IP地址 端口号
 ps -p PID -o lstart,  其中，PID为某个进程的进程ID号
 ```
 
-### DNS：
+### DNS：resolv.conf
 ```
 本机的DNS配置信息是在：/etc/resolv.conf
 nameserver 8.8.8.8 #google域名服务器
@@ -471,7 +473,7 @@ dns=none
 保存文件并重启 NetworkManager 服务： systemctl restart NetworkManager
 ```
 
-### 查、杀进程：
+### 查、杀进程：ps -ef
 ```
 1、ps 命令用于查看当前正在运行的进程。 grep 是搜索例如： ps -ef | grep java  //表示查看所有进程里 CMD 是 java 的进程信息`
 2、ps -aux | grep java          //-aux 显示所有状态 `
@@ -485,7 +487,7 @@ ifconfig
 ip addr
 ```
 
-### 查看占用端口进程（2种方式）
+### netstat查看占用端口进程（2种方式）
 ```
 1、lsof -i:端口号
 
@@ -532,10 +534,11 @@ traceroute 192.168.1.123
 ## 抓包
 tcpdump -i ifcfg-ens192
 tcpdump -i eno16777984 port 3306
-tcpdump -n -i any port 8080
+tcpdump -n -i any port 8080  ## 不指定协议和网卡
 tcpdump -n -i any port 8080 -X -c 100 -w /tmp/tcp.cap ##指定输出外部文件，拷到本地用wireshark打开分析
+示例：tcpdump udp -i ens192 and host 192.168.3.200  and port 58913  -s 0  -X -c 100 -w ./dump.cap ##导出文件
 
-tcpdump -i any tcp and host 192.168.3.200 and port 43905 -X -c 100 -w ./spark.cap 
+示例：tcpdump tcp -i any and host 192.168.3.200 and port 43905 -X -c 100 -w ./spark.cap 
 这条tcpdump命令的各个参数的含义如下：
 1)-i any: 这是指定要监听的网络接口的参数。在这里，any代表所有可用的网络接口。
 2)tcp and host 192.168.3.200: 这是指定要捕获的协议和目标主机IP地址的参数。在这个例子中，我们使用tcp表示只捕获TCP协议的数据包，目标主机的IP地址为192.168.3.200。
@@ -545,7 +548,7 @@ tcpdump -i any tcp and host 192.168.3.200 and port 43905 -X -c 100 -w ./spark.ca
 6)-w ./spark.cap: 这是指定输出文件路径和名称的参数。在这个例子中，我们将捕获的数据包保存在当前目录下的spark.cap文件中。
 总结起来，这条tcpdump命令将在所有可用的网络接口上监听TCP协议的数据包，目标主机的IP地址为192.168.3.200，目标端口的端口号为43905，捕获100个数据包，并将捕获的数据包保存在当前目录下的spark.cap文件中，每个数据包以十六进制格式显示
 
-tcpdump tcp -i eth1 -t -s 0 -c 100 and dst port ! 22 and src net 192.168.1.0/24 -w ./target.cap
+示例：tcpdump tcp -i eth1 -t -s 0 -c 100 and dst port ! 22 and src net 192.168.1.0/24 -w ./target.cap
 (1)tcp: ip icmp arp rarp 和 tcp、udp、icmp这些选项等都要放到第一个参数的位置，用来过滤数据报的类型
 (2)-i eth1 : 只抓经过接口eth1的包
 (3)-t : 不显示时间戳
@@ -615,14 +618,14 @@ rm -f app.log.2024-01-{20..28}.*  //删除多个文件，日期连续的日志�
 
 ### 解压缩：tar unzip
 ``` 
+tar -cvf folder.tar folder/  //压缩文件夹
+tar -cvf folder.tar a.txt *.js *.json   //压缩多文件
+tar -zcvf folder.tar.gz folder/  //压缩gz 
 tar zxvf ./apache-tomcat-7.0.81.tar.gz   //解压tar.gz
 tar zxvf ./apache-tomcat-7.0.81.tar.gz  -C /opt/tomcat/  指定解压目录
 tar xvf scws-xxx-xx.tar.bz2   //解压tar.bz2
 unzip zhparser-master.zip   //解压zip
-
-tar -cvf folder.tar folder/  //压缩文件夹
-tar -cvf folder.tar a.txt *.js *.json   //压缩多文件
-tar -zcvf folder.tar.gz folder/  //压缩文件夹
+zip log.zip dump3.cap app.log  //压缩zip 
 ```
 
 ### 文件权限：chmod、chown
@@ -648,7 +651,33 @@ scp -r root@192.168.62.10:/root/  /home/administrator/Desktop/new/
 ```
 
 ### 远程链接：ssh -p   
-```ssh -p 22 root@192.168.0.1```  
+```ssh -p 22 root@192.168.0.1```
+
+### sftp操作
+```
+登陆：sftp -P 12322 ftpuser@192.168.1.1 
+cd 到目标目录下
+下载：get a.txt /home/
+上传：put /home/a.txt
+创建目录： mkdir test，
+删除目录： rmdir test
+```
+
+问题：/etc/ssh/ssh_config line 59: Unsupported option “gssapiauthentication“  
+https://huaweicloud.csdn.net/635637fcd3efff3090b5aee9.html? 
+
+问题记录：
+登录报错Unsupported option "gssapiauthentication"  
+1、打开~/.ssh/known_hosts文件，然后找到对应ip的记录，删除；  
+2、ssh-keygen -R +ip ；  
+
+### ftp操作
+```
+登陆：ftp 192.168.1.1 21
+cd 到目标目录下
+下载：get a.txt /home/
+上传：put /home/a.txt 
+```
 
 ## 六、系统操作
 ### CentOS修改服务器系统时间
@@ -723,6 +752,8 @@ passwd: Have exhausted maximum number of retries for service
 ``` 
 tail -f /var/log/messages
 cat /var/log/*.log
+
+head -n 50 app.log   //查看前50行
 ```
 
 ### 如果日志在更新，如何实时查看
@@ -1071,12 +1102,14 @@ dmidecode –q
 - 21.查看定时任务：crontab -l
 - 22.不删文件，清空内容：cat /dev/null > /data/logs/app.log  
 - 23.[curl命令查看请求响应时间](https://blog.csdn.net/fang0604631023/article/details/127845928)：
+  -[ curl的常用参数](https://blog.csdn.net/fen_dou_shao_nian/article/details/123038537) 
   - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://www.baidu.com"
   - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://baidu.com"
   - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://blog.csdn.net"
   - curl -o /dev/null -s -w "time_connect: %{time_connect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" "https://blog.csdn.net/"
   - curl -i -v  -X get "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8"
   - curl -i -v  -X post "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8" -d '{"name":"zhangsan"}'
+  - curl -k -I -i -u testUser:pwd https://ip:port
 - 24.iptable添加白名单:https://baijiahao.baidu.com/s?id=1765288969345841746&wfr=spider&for=pc
 
 ``` 
@@ -1087,7 +1120,8 @@ https://blog.csdn.net/weixin_40575457/article/details/123315023
 iptables -nvL --line-number
 
 # 添加ACCEPT规则
-iptables -A INPUT -s 192.168.123.1 -p all -j ACCEPT   //-A，追加规则，在最后
+iptables -A INPUT -s 192.168.123.1 -p all -j ACCEPT   //-A，追加规则，在最后,all所有协议、所有端口
+iptables -I INPUT -s 192.168.123.1 -p tcp --dport 3306 -j ACCEPT  //-I,插入到第一条，指定ip、指定协议、指定端口
 iptables -I INPUT -s 192.168.123.1/24 -p tcp --dport 3306 -j ACCEPT  //-I,插入到第一条，加子网段；accept规则要放在REJECT all 前面
 iptables -I INPUT -m iprange --src-range 192.168.123.100-192.168.123.200 -j ACCEPT   //加ip段
 iptables -I IN_public_allow -s 192.168.123.1/24 -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT  
@@ -1147,3 +1181,9 @@ iptables -I INPUT  -p tcp -m state --state NEW -m multiport --dports 8083 -j ACC
 ## 附图：
 ![](https://wdsheng0i.github.io/assets/images/2021/os/Linux-1.png)
 
+## 问题记录
+1.Errors during downloading metadata for repository 'update-source':
+```
+检查网络连接：确保你的系统可以正常访问互联网。
+清除缓存：运行 yum clean all 或 dnf clean all 清除缓存，然后再尝试更新
+```
