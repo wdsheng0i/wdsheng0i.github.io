@@ -116,8 +116,15 @@ sudo systectl restart ssh
 命令后回车，再输入当前登录用户的密码，回车，来修改防火墙规则；更改规则后，再输入`sudo firewall-cmd reload`命令重启防火墙让规则生效。或者在终端输入`sudo iptables -F`命令直接关闭防火墙即可。
 ```
 
-### 1.7 防火墙
-Linux防火墙之——iptables和firewalld：https://blog.csdn.net/Zhaohui_Zhang/article/details/126090994
+### 1.7 防火墙iptables
+netfilter/iptables是unix/Linux(2.4版本内核后)自带的一款优秀且免费的基于包过滤的防火墙工具。  
+netfilter组件也称为内核空间（kernelspace），是内核的一部分，由一些信息包过滤表组成，这些表包含内核用来控制信息包过滤处理的规则集。  
+iptables是一种组件工具，也称为用户空间（userspace），它使插入、修改和除去信息包过滤表中的规则变得  
+
+- Linux防火墙iptables详解 https://www.cnblogs.com/The-day-of-the-wind/p/9300635.html
+- Linux防火墙之——iptables和firewalld：https://blog.csdn.net/Zhaohui_Zhang/article/details/126090994
+- 未安装iptables-service怎样修改iptables规则 https://blog.csdn.net/m0_59388826/article/details/135764103
+- centos iptables 生效 centos7 iptables配置文件 https://blog.51cto.com/u_13303/11170984
 ``` 
 - 1） 重启后生效
 开启： chkconfig iptables on
@@ -571,9 +578,15 @@ https://huaweicloud.csdn.net/6356064ad3efff3090b58d49.html
 ![分析](../../assets/images/2021/net/wireshark.png)  
 
 ### systemd
+``` 
 systemd服务的启动命令放置在/lib/systemd/system下  
+
 systemctl enable XXX.service命令会在/etc/systemd/system/multi-user.target.wants下创建指向/lib/systemd/system服务的软连接  
 系统启动时会读取/etc/systemd/system下的服务  
+
+#查看开机自启服务
+systemctl list-unit-files --type=service | grep enabled
+```
 
 ## 五、文件操作
 ### grep/sed/awk
@@ -598,7 +611,7 @@ rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并�
 rm -f app.log.2024-01-{20..28}.*  //删除多个文件，日期连续的日志文件
 ```
 
-### 编辑文件：cat vi more
+### 查看编辑文件：cat vi more
 ```
 1.查看 cat  a.txt
 2.编辑 vi a.txt 
@@ -614,6 +627,32 @@ rm -f app.log.2024-01-{20..28}.*  //删除多个文件，日期连续的日志�
     = 输出当前行的行号
     q 退出more
 4.less按查看逐页读取，查看大文件
+```
+
+### 创建文件touch
+
+### 编辑文件追加内容cat >> file << EOF
+``` 
+#示例1
+cat >> /etc/rancher/k3s/registries.yaml << EOF
+mirrors:
+  hub.wds.com:
+    endpoint:
+      - "https://hub.wds.com"
+configs:
+  "hub.wds.com":
+    auth:
+      username: wds
+      password: wds123
+    tls:
+      insecure_skip_verify: true
+EOF
+
+#示例2
+cat >> /etc/hosts << EOF
+1.1.4.1 hub.wds.com
+EOF
+
 ```
 
 ### 解压缩：tar unzip
@@ -713,19 +752,44 @@ groupdel 用户组名 ## 删除
 useradd  -d/home/mysqluser -m mysqluser
 ```
 
-### 查看主机名、添加、修改hostname
+### 查看主机名、添加、修改hostname、hosts
+hostname: 需要保持etc/hostname、etc/hosts本机映射的hostname一致，否则可能会重启后不生效
 ```
 vi etc/hosts   添加一行
 192.23.20.72    wds.com    //ip   hostname
+
+vi etc/hostname 
+wds.com
+```
+
+sed批量修改/etc/hostname： 1c替换文件第一行
+```
+sed -i "1c devops-`ifconfig ens192 |grep netmask |awk '{print $2}'|sed 's/\./0/g'`"  /etc/hostname
+或者
+hostnamectl set-hostname "devops-`ifconfig ens192 |grep netmask |awk '{print $2}'|sed 's/\./0/g'|sed 's/01/1/g'`" 
+```
+
+sed批量修改/etc/hosts：3a第三行后追加一行
+```
+sed -i "3a`ifconfig ens192 |grep netmask |awk '{print $2}'`     `hostname`"  /etc/hosts
+```
+
+批量改/etc/resolv.conf,第2行后追加一行nameserver 8.8.8.8
+``` 
+sed -i "2a nameserver 8.8.8.8"  /etc/resolv.conf
 ```
 
 ### 重启：reboot
 
 ### 切换root权限sudo
 ```
-su root
-sudo su //获取root权限
+su root //需要输入root密码
+
+sudo su //获取root权限，需要输入当前用户app密码，前提是当前用户app需要线加入到/etc/sudoers文件中
+如：app ALL=(ALL) NOPASSWD: ALL
+
 sudo su - //获取root权限，带 - 会带上环境变量，有些命令没有环境变量执行不了，如kubectl
+
 sudo -i
 ```
 
@@ -748,15 +812,16 @@ passwd: Have exhausted maximum number of retries for service
 ```
 
 ## 七、查看日志
-### 如何实时查看linux下的日志：
+### 查看linux下的日志：tail -f、head -n、cat
 ``` 
 tail -f /var/log/messages
+tail -200f /var/log/messages //查看后200行
 cat /var/log/*.log
 
 head -n 50 app.log   //查看前50行
 ```
 
-### 如果日志在更新，如何实时查看
+### 日志在更新，实时查看tail -f
 ```
 tail -f /var/log/messages
 
@@ -778,7 +843,7 @@ tail -200 mgmt-info.log
 grep -i 更新sn为【290200000937】的设备状态为 ./mgmt-info.log
 ```
 
-### 清空日志
+### 清空日志cat /dev/null >
 cat /dev/null > err.log
 
 ### rsyslog系统日志进程占用内存较高
@@ -969,7 +1034,7 @@ sda      8:0    0 465.8G  0 disk
 └—sda6   8:6    0 269.2G  0 part
 ```
 
-### 如果要看硬盘和分区的详细信息
+### 硬盘和分区的详细信息fdisk -l
 ``` 
 # fdisk -l
 Disk /dev/sda: 500.1 GB, 500107862016 bytes
@@ -986,13 +1051,13 @@ Device Boot      Start         End      Blocks   Id  System
 /dev/sda6       412307456   976771071   282231808   83  Linux
 ```
 
-### 查看网卡硬件信息
+### 查看网卡硬件信息lspci | grep -i 'eth'
 ``` 
 # lspci | grep -i 'eth'
 02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168B PCI Express Gigabit Ethernet controller (rev 06)
 ```
 
-### 查看系统的所有网络接口
+### 查看系统的所有网络接口ifconfig -a
 ``` 
 # ifconfig -a
 eth0      Link encap:以太网  硬件地址 b8:97:5a:17:b3:8f
@@ -1123,25 +1188,26 @@ iptables -nvL --line-number
 iptables -A INPUT -s 192.168.123.1 -p all -j ACCEPT   //-A，追加规则，在最后,all所有协议、所有端口
 iptables -I INPUT -s 192.168.123.1 -p tcp --dport 3306 -j ACCEPT  //-I,插入到第一条，指定ip、指定协议、指定端口
 iptables -I INPUT -s 192.168.123.1/24 -p tcp --dport 3306 -j ACCEPT  //-I,插入到第一条，加子网段；accept规则要放在REJECT all 前面
-iptables -I INPUT -m iprange --src-range 192.168.123.100-192.168.123.200 -j ACCEPT   //加ip段
-iptables -I IN_public_allow -s 192.168.123.1/24 -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT  
+iptables -I INPUT -s 221.131.136.0/24 -p tcp -m multiport --dports 8080,3306 -j ACCEPT
 iptables -I INPUT -s 221.131.136.154 -p tcp -m state --state NEW --dport 8083-j ACCEPT
 iptables -I INPUT -s 221.131.136.154 -p tcp -m state --state NEW -m multiport --dports 8083,22 -j ACCEPT
+iptables -I INPUT -m iprange --src-range 192.168.123.100-192.168.123.200 -j ACCEPT   //加ip段
+iptables -I IN_public_allow -s 192.168.123.1/24 -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT  
 
 #添加DROP规则
 iptables -I INPUT -s 192.168.123.1 -j DROP
 iptables -I INPUT -s 121.0.0.0/24 -j DROP
 iptables -I INPUT 4 -s 45.152.65.0/24 -j DROP  ## 在序号第3条后插一条drop规则
 dockeiptables -A INPUT -p tcp -m multiport --dports 22,5901,8080 -s 59.45.175.0/24 -j DROP   #如何对多个端口进行匹配
-iptables -A INPUT -p tcp --dport 22:28 -j REJECT   #如何对多个端口进行匹配
 
 #添加REJECT规则
-iptables -A INPUT -p tcp --dport 22 -j REJECT
 iptables -A INPUT -p all -j REJECT
+iptables -A INPUT -p tcp --dport 22 -j REJECT
+iptables -A INPUT -p tcp -m multiport --dports 8080,3306,1234 -j REJECT
+iptables -A INPUT -p tcp --dport 22:28 -j REJECT   #如何对多个端口进行匹配
 
 #删除规则：先查看规则及序号iptables -nL --line-number，然后删除对应序号那条即可
 iptables -D INPUT 3
-
 
 #保存规则
 service iptables save
@@ -1149,6 +1215,15 @@ service iptables save
 #或者直接编辑
 vi /etc/sysconfig/iptables
 service iptables reload
+
+#开启iptables日志记录,即添加一条规则
+iptables -A INPUT -j LOG --log-prefix "iptables_reject: "
+
+#查看日志
+journalctl | grep -i "iptables_reject"
+
+#删除对于规则id，停止记录日志
+iptables -D INPUT  id
 ```
 
 - 25.firewall添加白名单

@@ -1,3 +1,5 @@
+
+
 ---
 layout: post
 title: clickhouse
@@ -12,7 +14,9 @@ tags: [dev-ops]
   - https://clickhouse.com/docs/zh
 - OLAP系列之分析型数据库clickhouse https://www.cnblogs.com/yangmeichong/category/2328488.html
 
-##  clickhouse 安装
+## clickhouse单点安装
+
+##  clickhouse 集群安装
 前提: 
 - 计划安装clickhouse的机器需要设置 FQDN ,且均需要在 /etc/hosts 下添加其他节点的 FQDN
 - zk集群部署 
