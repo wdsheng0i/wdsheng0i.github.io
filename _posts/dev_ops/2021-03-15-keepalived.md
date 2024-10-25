@@ -275,6 +275,136 @@ vrrp_instance VI_2 {
 }
 ```
 
+## 四、常用track_script配置
+### 4.1 chk_nginx.sh 
+```
+# 1.keepalived.conf
+! Configuration File for keepalived
+
+global_defs {
+    router_id LVS_nginx_110
+    vrrp_mcast_group4 224.0.0.110
+}
+
+vrrp_script chk_script {
+    script "/etc/keepalived/chk_nginx.sh"
+    interval 15 # 间隔15秒执行一次
+    timeout 10 # 10秒超时
+    fall 3 # 失败3次才算失败
+}
+
+vrrp_instance VI_1 {
+    interface ens192 # 网卡
+    state BACKUP # 主从均设置为BACKUP
+    priority 150 # 主从权重设置一致
+    advert_int 1
+    nopreempt
+    virtual_router_id 110 #路由ID，可通过#tcpdump vrrp查看。
+    garp_master_delay 1 #主从切换时间，单位为秒。
+
+    authentication {
+        auth_type PASS
+        auth_pass 000000
+    }
+    track_interface {
+       ens192
+    }
+    virtual_ipaddress {
+        192.168.1.110  # VIP
+    }
+    virtual_ipaddress_excluded {
+        xxxx:8c60:xxxx:2:0:1:129:xxxx/112
+    }
+    track_script {
+        chk_script
+    }
+}
+# 2.chk_nginx.sh 
+#!/bin/bash
+run=`ps -C nginx --no-header | wc -l`
+if [ $run -eq 0 ]
+then
+exit 1
+fi
+```
+
+### 4.2 chk_mysql.sh
+``` 
+# 1.keepalived.conf
+同上
+
+# 2.chk_mysql.sh
+#!/bin/bash
+debuglog_path='/etc/keepalived/debug.log'
+debugrun_path='/etc/keepalived/debug.run'
+
+echo '['`date +"%Y-%m-%d %X"`']>>>>>>>>' > $debugrun_path 2>&1
+mysql -h localhost -ukeepalived -p'123456' -e 'select @@version' >> $debugrun_path 2>&1
+
+if [ $? -eq 0 ]; then
+ echo 0
+ exit 0
+fi
+
+cat $debugrun_path >> $debuglog_path
+
+echo 1
+exit 1
+```
+
+### 4.3 chk_redis.sh
+``` 
+# 1.keepalived.conf
+同上
+
+# 2.chk_redis.sh
+#!/bin/bash
+debuglog_path='/etc/keepalived/debug.log'
+debugrun_path='/etc/keepalived/debug.run'
+
+redis_path=redis-cli
+host=127.0.0.1
+port=$(cat /etc/redis.conf |grep -v ^# | grep -v "^$" | grep 'port ' |awk '{print $2}')
+pwd=$(cat /etc/redis.conf |grep -v ^# | grep -v "^$" | grep 'requirepass ' |awk '{print $2}')
+pwd=${pwd//\"/}
+
+echo '['`date +"%Y-%m-%d %X"`']>>>>>>>>' > $debugrun_path 2>&1
+timeout 5s $redis_path -h $host -p $port -a $pwd info Replication|grep role:master >> $debugrun_path 2>&1
+
+if [ $? -eq 0 ]; then
+ echo 'master'
+ exit 0
+fi
+
+timeout 5s $redis_path -h $host -p $port -a $pwd info Replication|grep role:slave >> $debugrun_path 2>&1
+
+if [ $? -eq 0 ]; then
+ echo 'slave'
+ exit 1
+fi
+
+cat $debugrun_path >> $debuglog_path
+
+echo 'error'
+exit 1
+```
+
+### 4.4 chk_k8s_master.sh
+``` 
+# 1.keepalived.conf
+同上
+
+# 2.chk_k8s_master.sh
+#!/bin/bash
+result=$(curl -k -s https://localhost:6443/ping)
+
+if [[ ${result} == "pong" ]]; then
+    exit 0
+else
+    exit 1
+fi
+```
+
 ## 云服务的DNS解析配置与负载均衡
 用户请求经dns轮询发送给虚拟ip进行处理   
 
