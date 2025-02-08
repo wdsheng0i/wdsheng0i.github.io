@@ -10,6 +10,11 @@ k8s集群监控方案-Prometheus-Operator
 ## 参考资料
 - 官网：
 - 下载： 
+  - prometheus-operator https://github.com/prometheus-operator/prometheus-operator/
+  - kube-prometheus https://github.com/prometheus-operator/kube-prometheus
+- 【云原生】Kubernetes----Metrics-Server组件与HPA资源 https://blog.csdn.net/hy199707/article/details/139631044
+- k8s全栈监控之metrics-server和prometheus https://www.cnblogs.com/cuishuai/p/9857120.html
+
 
 ## 1.Operator介绍
 ### 1.1 有状态和无状态的介绍

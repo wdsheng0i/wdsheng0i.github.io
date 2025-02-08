@@ -508,7 +508,7 @@ netstat -tunlp|grep 端口号
 ### 查看进程端口（27404为PID）
 ```netstat -nap | grep 27404```
 
-### 排查网络路由traceroute
+### 排查网络路由[traceroute](https://blog.csdn.net/yuguo_im/article/details/143920529)
 方式1  
 ```
 1、安装yumdownloader命令
@@ -526,6 +526,9 @@ rpm -Uvh --force --nodeps *.rpm
 
 5.排查
 traceroute 192.168.1.123
+
+5.指定协议 端口
+traceroute -T -p 9100 192.168.1.123
 ```
 
 方式2  
@@ -1216,13 +1219,14 @@ service iptables save
 vi /etc/sysconfig/iptables
 service iptables reload
 
-#开启iptables日志记录,即添加一条规则
+#开启iptables日志记录,即iptables添加一条规则
 iptables -A INPUT -j LOG --log-prefix "iptables_reject: "
+iptables -A INPUT -p tcp --dport 2181 -j LOG --log-prefix "INPUT: "
 
 #查看日志
 journalctl | grep -i "iptables_reject"
 
-#删除对于规则id，停止记录日志
+#删除日志记录对于规则id，停止记录日志
 iptables -D INPUT  id
 ```
 

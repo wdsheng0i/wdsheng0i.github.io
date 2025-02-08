@@ -8,6 +8,7 @@ tags: [operate-system]
 windows使用总结  
 
 ## 系统安装
+- [Win10专业版激活](https://mbd.baidu.com/newspage/data/dtlandingsuper?nid=dt_4989978513854689339&sourceFrom=search_a)
 - [Win7原版(自动激活)Win7 64位旗舰版[安装版]iso镜像(带USB3.0支持8,9代CPU)](http://www.winwin7.com/Win7QiJianBan/Win7AZB-3998.html)
 - [U盘安装盘制作方法](http://www.winwin7.com/JC/AnZhuang-37.html)
 - [如何设置u盘启动?bios设置u盘启动教程 U盘启动快捷键大全](http://www.winwin7.com/JC/AnZhuang-4.html)
@@ -169,3 +170,7 @@ win7:控制面板 ->Windows 防火墙->  点击左侧的“打开或关闭 Windo
 - F1进入bios
 - Device->vidio->设为IGD
 - multi  monitor  设为Enble     //允许双屏显示
+
+## 五、创建用户，加入允许远程访问
+远程桌面没有授权此用户账户进行远程登录怎么办
+https://www.anyviewer.cn/how-to/user-account-is-not-authorized-for-remote-login-2111.html

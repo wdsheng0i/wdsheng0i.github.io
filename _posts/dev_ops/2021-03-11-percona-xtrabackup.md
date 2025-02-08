@@ -66,6 +66,7 @@ mkdir -p $BACKUP_DIR
 
 # 备份数据库
 # mysqldump -h $HOST_IP -u$DB_USER -p$DB_PASSWD $DB_NAME > $BACKUP_DIR/$BACKUP_FILE
+# mysqldump -h mysql_ip -uroot -p123456  --single-transaction --master-data=2 --all-databases > $BACKUP_DIR/$BACKUP_FILE  # 导出时保证事务一致，并且记录当前binlog和position
 mysqldump -h mysql_ip -uroot -p123456 --all-databases > $BACKUP_DIR/$BACKUP_FILE
 
 # 压缩备份文件
@@ -122,4 +123,10 @@ rpm -ivh percona-xtrabackup-24-2.4.7-1.el6.x86_64.rpm
 ### 3.4.通过定时任务，每日执行备份
 需求：通过 crontab -e 添加shell脚本，实现每日增量备份、每周全量备份。
 
-## 问题记录
+## 问题记录  
+1.mysql 如何线上添加从机器 不停机：https://jingyan.baidu.com/article/c275f6bae7d709a23d7567e8.html  
+https://www.cnblogs.com/cheyunhua/p/9896167.html  
+
+- single-transaction 选项和 lock-all-tables 选项是二选一的，前者是在导出开始时设置事务隔离状态并使用一致性快照开始事务,而后马上unlock tables，然后执行导出,导出过程不影响其它事务或业务连接，但只支持类似innodb多版本特性的引擎，因为必须保证即使导出期间其它操作(事务点t2)改变了数据，而导出时仍能取出导出开始的事务点t1时的数据。
+- lock-all-tables则一开始就 FLUSH TABLES WITH READ LOCK; 加全局读锁，直到dump完毕。
+- master-data=2时，备份会记录当前的binlog位置与pos，他是不停机做主从的关键，默认等于1，将dump起始（change master to）binlog点和pos值写到结果中，等于2是将change master to写到结果中并注释。
