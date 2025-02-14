@@ -314,7 +314,7 @@ alertmanager最新版本的下载地址可以从Prometheus官方网站https://pr
 - 进程监控：process exporter
 - 容器监控：[cAdvisor部署](https://zhuanlan.zhihu.com/p/618043088)
 
-![](../../assets/images/2021/monitor/exporterpng.png)
+![](https://wdsheng0i.github.io/assets/images/2021/monitor/exporterpng.png)
 
 ### 7.2 用户自定义的exporter  
 用户还可以基于Prometheus提供的Client Library创建自己的 Exporter程序，目前Promthues社区官方提供了对以下编程语言的支持：Go、Java/Scala、Python、Ruby。同 时还有第三方实现的如：Bash、C++、Common Lisp、Erlang,、Haskeel、Lua、Node.js、PHP、Rust等。

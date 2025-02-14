@@ -578,7 +578,7 @@ https://huaweicloud.csdn.net/6356064ad3efff3090b58d49.html
 
 下载：https://www.wireshark.org/download.html
 
-![分析](../../assets/images/2021/net/wireshark.png)  
+![分析](https://wdsheng0i.github.io/assets/images/2021/net/wireshark.png)  
 
 ### systemd
 ``` 
