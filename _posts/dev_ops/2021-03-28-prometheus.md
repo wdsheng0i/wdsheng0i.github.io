@@ -19,9 +19,6 @@ tags: [dev-ops]
   - 监控系统部署-普罗米修斯 https://blog.51cto.com/u_64214/5602483
   - Prometheus+Grafana+alertmanager构建企业级监控系统 https://www.cnblogs.com/yangmeichong/category/2185187.html
   - [prometheus之记录规则(recording rules)与告警规则(alerting rule)](https://luanpeng.blog.csdn.net/article/details/82730704)
-- Prometheus-Operator：为 Kubernetes 提供了对 Prometheus 机器相关监控组件的本地部署和管理方案
-- Thanos：开源、高可用、具有长期存储能力的 分布式Prometheus监控方案
-- 监控平台Zabbix：https://blog.51cto.com/u_15352876/3774456
 - [使用prometheus exporter实现rocketmq集群监控指标采集](https://blog.csdn.net/zpsimon/article/details/124249989)
   - https://blog.csdn.net/u012867699/article/details/138344866
   - https://blog.csdn.net/sinat_14840559/article/details/119782996
@@ -309,10 +306,11 @@ alertmanager最新版本的下载地址可以从Prometheus官方网站https://pr
 - redis监控：redis-exporter...
 - zookeeper监控：[zookeeper-exporter](https://github.com/dabealu/zookeeper-exporter/)
   - https://blog.csdn.net/weixin_42467874/article/details/127548045
-- http服务中间件监控：nginx-exporter...
+- http服务中间件监控：nginx_exporter...
 - http拨测、TLS证书监控：blackbox...
-- 进程监控：process exporter
+- 进程监控：process_exporter
 - 容器监控：[cAdvisor部署](https://zhuanlan.zhihu.com/p/618043088)
+- GPU监控：dcgm-exporter
 
 ![](https://wdsheng0i.github.io/assets/images/2021/monitor/exporterpng.png)
 

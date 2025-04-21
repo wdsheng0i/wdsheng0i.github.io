@@ -5,16 +5,32 @@ category: dev-ops
 tags: [dev-ops]
 ---
 
-k8s集群监控方案-Prometheus-Operator
+k8s集群监控方案发展: Heapster+cAdvisor-》metrics-server-》prometheus-operator -》kube-prometheus-》kube-prometheus-stack
 
 ## 参考资料
-- 官网：
-- 下载： 
+- 官网：https://prometheus-operator.dev/
   - prometheus-operator https://github.com/prometheus-operator/prometheus-operator/
   - kube-prometheus https://github.com/prometheus-operator/kube-prometheus
+  - kube-prometheus-stack https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
 - 【云原生】Kubernetes----Metrics-Server组件与HPA资源 https://blog.csdn.net/hy199707/article/details/139631044
 - k8s全栈监控之metrics-server和prometheus https://www.cnblogs.com/cuishuai/p/9857120.html
+- k8s部署Promehteus（kube-prometheus&kube-prometheus-stack）监控 https://www.cnblogs.com/liugp/p/16444580.html
+- Prometheus on k8s 部署与实战操作进阶篇 https://baijiahao.baidu.com/s?id=1775453145487726755&wfr=spider&for=pc
 
+## k8s集群监控介绍
+- metrics-server：核心资源指标收集，用于实时CPU和Mem数据，为kube-scheduler，HPA等k8s核心组件，以及kubectl top命令和Dashboard等UI组件提供数据来源。
+- kube-state-metrics：关注的是K8s对象的状态，比如Deployment的副本数、Pod的状态等，不采集资源使用指标。不要混淆它与metrics-server，两者数据互补。
+- prometheus-k8s：通常是在Prometheus-Operator部署中的Prometheus实例，主要负责抓取apiserver，scheduler，controller-manager，kubelet组件数据和存储监控数据，提供查询和告警功能。
+- prometheus-operator：用来简化和自动化Prometheus的部署管理，比如通过CRD (如 ServiceMonitor) 自动化配置 Prometheus 抓取规则；定义监控目标、服务发现等。
+- kube-prometheus: 为基于 Prometheus 和 Prometheus Operator 的完整集群监控堆栈提供示例配置。这包括部署多个 Prometheus 和 Alertmanager 实例、指标导出器（例如用于收集节点指标的 node_exporter）、抓取将 Prometheus 链接到各种指标端点的目标配置，以及用于通知集群中潜在问题的示例警报规则。
+  - The Prometheus Operator：创建CRD自定义的资源对象
+  - Highly available Prometheus：创建高可用的Prometheus
+  - Highly available Alertmanager：创建高可用的告警组件
+  - Prometheus node-exporter：创建主机的监控组件
+  - Prometheus Adapter for Kubernetes Metrics APIs：创建自定义监控的指标工具（例如可以通过nginx的request来进行应用的自动伸缩）
+  - kube-state-metrics：监控k8s相关资源对象的状态指标
+  - Grafana：进行图像展示
+- kube-prometheus-stack: "kube-prometheus-stack" 是 "kube-prometheus" 项目的更新版本，进行了大量的改进和扩展, 它提供了更多的功能、改进和修复, 是一个便捷的综合性监控解决方案，适合在 Kubernetes 环境中快速部署和使用。。
 
 ## 1.Operator介绍
 ### 1.1 有状态和无状态的介绍
@@ -83,8 +99,7 @@ ServiceMonitor 也是 Prometheus Operator 专门开发的一种 Kubernetes 定�
 **Alertmanager**  
 除了 Prometheus 和 ServiceMonitor，Alertmanager 是 Operator 开发的第三种 Kubernetes 定制化资源。我们可以把 Alertmanager 看作是一种特殊的 Deployment，它的用途就是专门部署 Alertmanager 组件。
 
-## 3.Prometheus Operator部署使用
-Github地址：  
+## 3.kube-prometheus[安装](https://www.cnblogs.com/liugp/p/16444580.html#3prometheus-operator)
 - prometheus-operator https://github.com/prometheus-operator/prometheus-operator/
 - kube-prometheus https://github.com/prometheus-operator/kube-prometheus
 
@@ -106,6 +121,40 @@ http://ip:30772/
 
 ## 查看prometheus
 http://ip:31656/targets
+```
+
+## 4.使用[Helm3安装kube-prometheus-stack](https://www.cnblogs.com/liugp/p/16444580.html#3prometheus-operator)
+``` 
+# 添加repo
+$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+$ helm repo update
+$ helm search repo prometheus-community/prometheus
+
+# 拉包
+$ helm pull prometheus-community/kube-prometheus-stack
+# 解包
+$ tar -xf kube-prometheus-stack-19.2.3.tgz
+
+# 创建命名空间
+$ kubectl create ns kube-prometheus-stack
+$ helm install mykube-prometheus-stack kube-prometheus-stack \
+  -n kube-prometheus-stack \
+  --set prometheus-node-exporter.hostRootFsMount=false \
+  --set prometheus.ingress.enabled=true \
+  --set prometheus.ingress.hosts='{prometheus.k8s.local}' \
+  --set prometheus.ingress.paths='{/}' \
+  --set prometheus.ingress.pathType=Prefix \
+  --set alertmanager.ingress.enabled=true \
+  --set alertmanager.ingress.hosts='{alertmanager.k8s.local}' \
+  --set alertmanager.ingress.paths='{/}' \
+  --set alertmanager.ingress.pathType=Prefix \
+  --set grafana.ingress.enabled=true \
+  --set grafana.ingress.hosts='{grafana.k8s.local}' \
+  --set grafana.ingress.paths='{/}' \
+  --set grafana.ingress.pathType=Prefix
+  
+  #清理
+  $ helm uninstall mykube-prometheus-stack -n kube-prometheus-stack
 ```
 
 ## 问题记录

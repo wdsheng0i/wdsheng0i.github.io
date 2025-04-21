@@ -222,9 +222,31 @@ IPADDR=192.168.145.130
 `rpm -qa |grep yum `  
 
 ### 替换yum源
-[使用国内Yum源](https://blog.csdn.net/nklinsirui/article/details/80146083)  
+[使用国内Yum源](https://blog.csdn.net/nklinsirui/article/details/80146083)    
 
-`/etc/yum.repos.d/CentOS-Base.repo`  
+```
+1. 确认系统版本
+cat /etc/centos-release 
+
+2. 备份原有源 
+cd /etc/yum.repos.d/
+# 备份所有原有源（建议保留）
+mkdir backup
+mv *.repo backup/
+
+3. 下载新源配置
+CentOS 7：
+wget -O CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo
+CentOS 8（需使用vault源）：
+wget -O CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo
+
+4. 清除并重建缓存
+yum clean all
+yum makecache
+
+5. 更新系统（可选）
+yum update -y
+```
 
 ### 下载 wget  
 `wget http://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz`
@@ -250,7 +272,7 @@ IPADDR=192.168.145.130
 
 ### 下载工具lrzsz
 ```
-yum install lrzsz
+yum -y install lrzsz
 ```
 
 下载命令
@@ -784,6 +806,11 @@ sed -i "2a nameserver 8.8.8.8"  /etc/resolv.conf
 
 ### 重启：reboot
 
+### 设置[免密登录](https://blog.csdn.net/weixin_46627652/article/details/125795619?spm=1001.2014.3001.5501)
+ssh-keygen -t rsa
+cd ~/.ssh
+ssh-copy-id 10.10.20.20 #需要免密登录的机器IP
+
 ### 切换root权限sudo
 ```
 su root //需要输入root密码
@@ -1142,6 +1169,7 @@ dmidecode –q
 以上是linux查看硬件信息的所有命令，可以查看CPU、硬盘、网卡、磁盘等硬件的信息
 
 ## 附：常用命令
+
 - 1.查看所有端口：netstat -tunlp
 - 2.查看端口：netstat -tunlp | grep 8080
 - 3.搜索程序安装位置：whereis nginx
@@ -1255,6 +1283,14 @@ iptables -I DOCKER-USER -i ens192 -s 172.0.0.0/24 -p tcp --dport 8080 -j ACCEPT 
 
 ## 或者在虚拟机上接收所有，不做限制，然后请求可以正常转发到docker容器内
 iptables -I INPUT  -p tcp -m state --state NEW -m multiport --dports 8083 -j ACCEPT
+```
+
+- 27.k8s的nodeport端口限制白名单（由于k8s默认会在filter表input链添加路由放通且默认会放在第一位，所以inpit链无法限制，改为在raw表限制）
+
+``` 
+  添加 iptables -t raw -A PREROUTING -p tcp --dport 30080 -s 10.12.52.15 -j DROP
+  查看 iptables -t raw -vL PREROUTING -n --line-numbers
+  删除 iptables -t raw -D PREROUTING 1
 ```
 
 ## 附图：
