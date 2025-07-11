@@ -117,14 +117,18 @@ sudo systectl restart ssh
 ```
 
 ### 1.7 防火墙iptables
-netfilter/iptables是unix/Linux(2.4版本内核后)自带的一款优秀且免费的基于包过滤的防火墙工具。  
-netfilter组件也称为内核空间（kernelspace），是内核的一部分，由一些信息包过滤表组成，这些表包含内核用来控制信息包过滤处理的规则集。  
-iptables是一种组件工具，也称为用户空间（userspace），它使插入、修改和除去信息包过滤表中的规则变得  
+netfilter/iptables是unix/Linux(2.4版本内核后)自带的一款优秀且免费的基于包过滤的防火墙工具。    
+netfilter组件也称为内核空间（kernelspace），是内核的一部分，由一些信息包过滤表组成，这些表包含内核用来控制信息包过滤处理的规则集。    
+iptables是一种组件工具，也称为用户空间（userspace），它使插入、修改和除去信息包过滤表中的规则变得    
 
 - Linux防火墙iptables详解 https://www.cnblogs.com/The-day-of-the-wind/p/9300635.html
 - Linux防火墙之——iptables和firewalld：https://blog.csdn.net/Zhaohui_Zhang/article/details/126090994
 - 未安装iptables-service怎样修改iptables规则 https://blog.csdn.net/m0_59388826/article/details/135764103
 - centos iptables 生效 centos7 iptables配置文件 https://blog.51cto.com/u_13303/11170984
+- iptables: 四表五链 https://blog.csdn.net/Zhaohui_Zhang/article/details/126090994
+
+![](../../assets/images/2021/net/iptables.png)
+
 ``` 
 - 1） 重启后生效
 开启： chkconfig iptables on
@@ -1285,7 +1289,7 @@ iptables -I DOCKER-USER -i ens192 -s 172.0.0.0/24 -p tcp --dport 8080 -j ACCEPT 
 iptables -I INPUT  -p tcp -m state --state NEW -m multiport --dports 8083 -j ACCEPT
 ```
 
-- 27.k8s的nodeport端口限制白名单（由于k8s默认会在filter表input链添加路由放通且默认会放在第一位，所以inpit链无法限制，改为在raw表限制）
+- 27.k8s的nodeport端口限制白名单（由于k8s默认会在filter表input链添加路由放通且默认会放在第一位，所以input链无法限制，改为在raw表限制）
 
 ``` 
   添加 iptables -t raw -A PREROUTING -p tcp --dport 30080 -s 10.12.52.15 -j DROP

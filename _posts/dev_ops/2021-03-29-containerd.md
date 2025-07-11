@@ -47,6 +47,9 @@ ctr -n=k8s.io images ls
 ctr image pull docker.io/library/busybox:latest
 注：必须全路径，从 dockerhub 上下载默认 busybox 镜像。
 
+# 跳过证书、验证鉴权参数
+ctr image pull --skip-verify -u username:pwd docker.io/library/busybox:latest
+
 #删除镜像
 ctr images rm 删除镜像
 

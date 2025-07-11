@@ -6,6 +6,19 @@ tags: [arch]
 ---
     
 架构师能力总结
+
+# 资料
+- 服务架构的演变历史是怎么的https://www.zhihu.com/question/67629774
+- 软件架构的演变-单体架构，垂直架构，分布式架构，SOA架构和微服务架构的演变历程
+  - https://zhuanlan.zhihu.com/p/98392801
+  - https://blog.csdn.net/weixin_44062339/article/details/103262680
+- 从单体架构到微服务的服务化演进之路https://www.cnblogs.com/zytrue/p/8487616.html
+- 分布式、集群、微服务、SOA 之间的区别  https://blog.csdn.net/HeatDeath/article/details/79038795 
+- 分布式服务架构与微服务架构概念的区别与联系是怎样的？ https://www.zhihu.com/question/28253777
+- 何谓分布式服务器，怎么理解分布式服务框架？ https://www.zhihu.com/question/19699884
+- 分布式与集群的区别是什么？ https://www.zhihu.com/question/20004877
+- SOA和微服务架构的区别？ https://www.zhihu.com/question/37808426
+
     
 ## 一. 架构基本理论
 ### 1.1 架构设计方法
