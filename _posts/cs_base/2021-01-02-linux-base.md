@@ -39,6 +39,8 @@ service network restart
 service NetworkManager restart
 systemctl restart NetworkManager
 
+*****注意：谨慎使用 sudo ifdown ens192、sudo ifup ens192来操作网卡，除非it人员有vm控制台可以操作，否则ssh链接操作ifdown后即无法链接主机了*****
+
 //linux 已修改ip地址（ONBOOT=yes）,但是不显示ip地址??
 1.因为你的（VMware DHCP Service）这个服务没有开，进入计算机管理–》服务和应用程序–》服务 找到VMware DHCP Service打开就行了
 
@@ -61,6 +63,7 @@ DNS1=192.168.182.2
 3.重启网卡服务：service network restart
 或 systemctl restart network
 或 service NetworkManager restart
+systemctl restart NetworkManager
 ```
 
 2.windows无法ping通服务器
@@ -475,9 +478,23 @@ telnet ip port
 
 ### udp端口是否通
 ``` 
-使用netcat工具测试UDP端口
-https://www.python100.com/html/118945.html
-nc -u IP地址 端口号
+# 使用netcat（nc）工具发送UDP数据包https://www.python100.com/html/118945.html
+echo "test" | nc -u -w 2 <目标IP> <端口号>
+-u：使用 UDP 协议。
+-w 2：设置超时时间（2秒）。
+示例：echo "test" | nc -u -w 2 192.168.1.100 53
+
+# 使用nmap工具扫描UDP端口。
+nmap -sU -p <端口号> <目标IP>
+-sU：UDP 扫描。
+示例：nmap -sU -p 53 192.168.1.100
+结果解读：
+**open**：端口可达且有服务响应。
+**open|filtered**：无响应（可能是防火墙丢弃或服务不回复）。
+**closed**：收到 ICMP 端口不可达错误（端口无服务）
+
+# 使用 tcpdump 抓包分析
+tcpdump -i any udp and host <目标IP> 
 ```
 
 ### linux查看某个服务具体启动时间:
@@ -1210,6 +1227,8 @@ dmidecode –q
   - curl -i -v  -X get "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8"
   - curl -i -v  -X post "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8" -d '{"name":"zhangsan"}'
   - curl -k -I -i -u testUser:pwd https://ip:port
+  - curl -G --data-urlencode 'match[]={job=~".*"}' http://10.168.1.168:9290/federate | grep -v '#'  //同网端请求数据有返回，不同网段请求，端口通且curl 10.168.1.168:9290有返回/query，但是请求federate指标数据请求就会被超时重置；抓包发现服务端有响应但是请求端未收到，即大包会丢失
+     - 服务器到客户端的网络链路存在单向阻塞如防火墙丢弃大包）、Prometheus返回数据量过大导致分片丢失、MTU不匹配引发IP分片丢失==>修改网卡配置vi /etc/sysconfig/network-scripts/ifcfg-ens192, 增加一行 MTU=1476，后systemctl restart NetworkManager
 - 24.iptable添加白名单:https://baijiahao.baidu.com/s?id=1765288969345841746&wfr=spider&for=pc
 
 ``` 
@@ -1228,6 +1247,7 @@ iptables -I INPUT -s 221.131.136.154 -p tcp -m state --state NEW --dport 8083-j 
 iptables -I INPUT -s 221.131.136.154 -p tcp -m state --state NEW -m multiport --dports 8083,22 -j ACCEPT
 iptables -I INPUT -m iprange --src-range 192.168.123.100-192.168.123.200 -j ACCEPT   //加ip段
 iptables -I IN_public_allow -s 192.168.123.1/24 -p tcp -m tcp --dport 3306 -m conntrack --ctstate NEW,UNTRACKED -j ACCEPT  
+iptables -t nat -I INPUT -s 192.168.123.0/24 -p tcp --dport 1234 -j ACCEPT # -t指定nat表input链放通
 
 #添加DROP规则
 iptables -I INPUT -s 192.168.123.1 -j DROP
@@ -1250,6 +1270,7 @@ service iptables save
 #或者直接编辑
 vi /etc/sysconfig/iptables
 service iptables reload
+iptables-restore < /etc/sysconfig/iptables
 
 #开启iptables日志记录,即iptables添加一条规则
 iptables -A INPUT -j LOG --log-prefix "iptables_reject: "
@@ -1266,6 +1287,7 @@ iptables -D INPUT  id
 
 ``` 
 firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192.168.0.1/24" port protocol="tcp" port="3306" accept"
+firewall-cmd --permanent --add-rich-rule="rule family="ipv4" source address="192.168.0.1" port protocol="tcp" port="3306" accept"
 firewall-cmd --reload
 firewall-cmd --list-all 
 firewall-cmd --permanent --add-rich-rule='rule protocol value="vrrp" accept'  ## 防火墙开启vrrp 虚拟路由冗余协议(Virtual Router Redundancy Protocol，简称VRRP)
@@ -1292,8 +1314,9 @@ iptables -I INPUT  -p tcp -m state --state NEW -m multiport --dports 8083 -j ACC
 - 27.k8s的nodeport端口限制白名单（由于k8s默认会在filter表input链添加路由放通且默认会放在第一位，所以input链无法限制，改为在raw表限制）
 
 ``` 
-  添加 iptables -t raw -A PREROUTING -p tcp --dport 30080 -s 10.12.52.15 -j DROP
-  查看 iptables -t raw -vL PREROUTING -n --line-numbers
+  添加接受 iptables -t raw -I PREROUTING -p tcp --dport 30080 -s 10.12.52.15 -j ACCEPT
+  添加拒绝 iptables -t raw -A PREROUTING -p tcp --dport 30080  DROP
+  查看 iptables -t raw -nvL PREROUTING --line-numbers
   删除 iptables -t raw -D PREROUTING 1
 ```
 

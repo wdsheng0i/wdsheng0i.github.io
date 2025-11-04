@@ -15,12 +15,24 @@ tags: [dev-ops]
 # Compose目前已经完全支持Linux、Mac OS和Windows，在我们安装Compose之前，需要先安装Docker。下面我 们以编译好的二进制包方式安装在Linux系统中。 
 curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 如果不能下载，浏览器访问https://github.com/docker/compose/releases?expanded=true&page=6&q=1.21下载后上传至服务器
+或https://github.com/docker/compose/releases下载需要的版本
 
 # 设置文件可执行权限 
 chmod +x /usr/local/bin/docker-compose
 
 # 查看版本信息 
 docker-compose -version
+
+# 现象：输入 docker-compose 提示 command not found，但 /usr/local/bin/docker-compose 文件存在
+原因：/usr/local/bin 未加入系统的 PATH 环境变量
+解决： 
+# 临时生效
+export PATH="/usr/local/bin:$PATH"
+
+# 永久生效（添加到 shell 配置文件）
+echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bashrc  # Bash
+echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.zshrc   # Zsh
+source ~/.bashrc  # 或 source ~/.zshrc
 ```
 
 ## 2、卸载Docker Compose
