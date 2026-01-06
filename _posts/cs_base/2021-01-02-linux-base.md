@@ -1315,7 +1315,7 @@ iptables -I INPUT  -p tcp -m state --state NEW -m multiport --dports 8083 -j ACC
 
 ``` 
   添加接受 iptables -t raw -I PREROUTING -p tcp --dport 30080 -s 10.12.52.15 -j ACCEPT
-  添加拒绝 iptables -t raw -A PREROUTING -p tcp --dport 30080  DROP
+  添加拒绝 iptables -t raw -A PREROUTING -p tcp --dport 30080 -j  DROP
   查看 iptables -t raw -nvL PREROUTING --line-numbers
   删除 iptables -t raw -D PREROUTING 1
 ```
