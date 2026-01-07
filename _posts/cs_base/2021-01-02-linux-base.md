@@ -130,7 +130,7 @@ iptables是一种组件工具，也称为用户空间（userspace），它使插
 - centos iptables 生效 centos7 iptables配置文件 https://blog.51cto.com/u_13303/11170984
 - iptables: 四表五链 https://blog.csdn.net/Zhaohui_Zhang/article/details/126090994
 
-![](../../assets/images/2021/net/iptables.png)
+![](https://wdsheng0i.github.io/assets/images/2021/net/iptables.png)
 
 ``` 
 - 1） 重启后生效
