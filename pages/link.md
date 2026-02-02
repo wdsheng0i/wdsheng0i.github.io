@@ -33,10 +33,7 @@ permalink: /link
 - [我会尽力将 LeetCode 上所有的题目都用动画的形式演示出来](https://github.com/MisterBooo/LeetCodeAnimation)
 - [Java学习+面试指南](https://github.com/Snailclimb/JavaGuide)：https://github.com/Snailclimb/JavaGuide
 
-## 常用工具网站
-- [程序员导航网站](http://tooool.org/) - 程序员的导航网站 
-- [百度网盘超能搜](https://www.chaonengso.com/)
-  - 毕方铺
+## 常用工具网站 
 - [电影网站]()
 	- [6v电影](http://www.hao6v.com/)
 	- [新6v电影](https://www.66s.cc) 
