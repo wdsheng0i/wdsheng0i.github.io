@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 组件 
+title: 组件
 titlebar: component
 subtitle: Nginx &nbsp;&nbsp; Redis &nbsp;&nbsp; Kafka &nbsp;&nbsp; MongoDB &nbsp;&nbsp; ES &nbsp;&nbsp; Zookeeper ...
 menu: component
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /component
 ---
 
@@ -43,4 +43,5 @@ permalink: /component
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

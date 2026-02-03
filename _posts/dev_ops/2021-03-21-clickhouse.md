@@ -1,5 +1,3 @@
-
-
 ---
 layout: post
 title: clickhouse
@@ -8,20 +6,24 @@ tags: [dev-ops]
 ---
 
 ## 参考资料
+
 - 官网地址：https://clickhouse.com/
 - 下载地址：
 - 文档地址：https://clickhouse.tech/docs/zh/
-  - https://clickhouse.com/docs/zh
+    - https://clickhouse.com/docs/zh
 - OLAP系列之分析型数据库clickhouse https://www.cnblogs.com/yangmeichong/category/2328488.html
 
 ## clickhouse单点安装
 
-##  clickhouse 集群安装
-前提: 
+## clickhouse 集群安装
+
+前提:
+
 - 计划安装clickhouse的机器需要设置 FQDN ,且均需要在 /etc/hosts 下添加其他节点的 FQDN
-- zk集群部署 
+- zk集群部署
 
 ### zookeeper 集群安装和配置
+
 ``` 
 部署步骤
 * 下载 wget https://archive.apache.org/dist/zookeeper/zookeeper-3.6.2/zookeeper-3.6.2.tar.gz
@@ -56,8 +58,10 @@ export PATH=$PATH:$ZOOKEEPER_HOME/bin
 ```
 
 ### clickhouse部署步骤
-* 参考网址  
-- https://clickhouse.tech/  
+
+* 参考网址
+
+- https://clickhouse.tech/
 - https://clickhouse.tech/docs/zh/
 - https://github.com/ClickHouse
 
@@ -233,7 +237,9 @@ export PATH=$PATH:$ZOOKEEPER_HOME/bin
 ```
 
 ## 问题记录
-1.常用命令  
+
+1.常用命令
+
 ``` 
 ## 链接
 clickhouse-client --port 9000 -h 127.0.0.1 -m

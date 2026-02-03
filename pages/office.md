@@ -1,10 +1,10 @@
 ---
 layout: page
-title: office 
+title: office
 titlebar: office
 subtitle: PPT &nbsp;&nbsp; WORD &nbsp;&nbsp; EXCEL &nbsp;&nbsp; PS &nbsp;&nbsp; PDF
 menu: office
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /office
 ---
 
@@ -43,4 +43,5 @@ permalink: /office
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

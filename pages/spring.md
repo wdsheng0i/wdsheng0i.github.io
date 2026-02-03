@@ -1,10 +1,10 @@
 ---
 layout: page
-title: spring 
+title: spring
 titlebar: spring
 subtitle: spring &nbsp;&nbsp; spring MVC &nbsp;&nbsp; AOP &nbsp;&nbsp; IOC &nbsp;&nbsp; 动态代理  ...
 menu: spring
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /spring
 ---
 
@@ -43,4 +43,5 @@ permalink: /spring
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

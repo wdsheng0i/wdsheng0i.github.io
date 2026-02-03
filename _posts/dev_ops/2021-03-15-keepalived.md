@@ -2,34 +2,39 @@
 layout: post
 title: Keepalived 原理与实战
 category: dev-ops
-tags: [dev-ops]
+tags: [ dev-ops ]
 ---
 
 ## 参考资料
+
 - 官网地址：https://www.keepalived.org
 - 下载地址：https://www.keepalived.org/download.html
-- 文档地址：  
-- Keepalived 原理与实战、双机主备、双主热备  
+- 文档地址：
+- Keepalived 原理与实战、双机主备、双主热备
 - [java架构直通车-第6周 LVS+Nginx实现高可用集群](https://class.imooc.com/sale/javaarchitect)
 
 ## 一、keepalived简介、安装
-![](https://wdsheng0i.github.io/assets/images/2021/keepalived/ha.png)   
+
+![](https://wdsheng0i.github.io/assets/images/2021/keepalived/ha.png)
+
 - Keepalived能够解决单点故障，实现HA高可用机制
-- 只有当主节点宕机，备用节点采用启用；主节点重新可用时，备节点会自动退出(主节点会向备节点发送心跳)。  
+- 只有当主节点宕机，备用节点采用启用；主节点重新可用时，备节点会自动退出(主节点会向备节点发送心跳)。
 - 构建有多个路由器(nginx)的master backup路由器组, 监测nginx状态
 - 虚拟IP-VIP（virtual IP Address）:linux安装后，网卡下有两个ip，一个ip，一个vip
-- 基于**VRRP**：虚拟路由冗余协议(Virtual Router Redundancy Protocol，简称VRRP)  
+- 基于**VRRP**：虚拟路由冗余协议(Virtual Router Redundancy Protocol，简称VRRP)
 
 是由IETF提出的解决局域网中配置静态网关出现单点失效现象的路由协议。
 VRRP广泛应用在边缘网络中，它的设计目标是支持特定情况下IP数据流量失败转移不会引起混乱，允许主机使用单路由器，以及即使在实际第一跳路由器使用失败的情形下仍能够维护路由器间的连通性
 
 ### 1.1 Keepalived在线安装
+
 ``` 
 yum -y install Keepalived  
 配置  vi /etc/keepalived/keepalived.conf
 ```
 
-### 1.2 Keepalived离线安装 
+### 1.2 Keepalived离线安装
+
 1.下载[Keepalived](https://www.keepalived.org/download.html)
 https://www.keepalived.org/download.html
 
@@ -39,6 +44,7 @@ https://www.keepalived.org/download.html
 ```tar -zxvf keepalived-2.0.18.tar.gz```
 
 4.解压后进入到解压出来的目录，看到会有 configure ，那么就可以做配置了（配置安装和nginx一模一样）
+
 ```
 ./configure --prefix=/usr/local/keepalived --sysconf=/etc
 ```
@@ -49,15 +55,19 @@ https://www.keepalived.org/download.html
 ```yum -y install libnl libnl-devel```
 
 ## 二、Keepalived实现双机主备高可用部署架构
+
 ### 2.1 高可用集群架构 Keepalived 双机主备原理
-- 主备节点硬件配置保持相同，才能有相同的抗压能力，保证高可用  
 
-![](https://wdsheng0i.github.io/assets/images/2021/keepalived/kpl.png)    
+- 主备节点硬件配置保持相同，才能有相同的抗压能力，保证高可用
 
-![](https://wdsheng0i.github.io/assets/images/2021/keepalived/vip.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/keepalived/kpl.png)
 
-### 2.2 Keepalived实现双机主备（两keepalived绑同一个vip）高可用-（配置 Keepalived-主） 
-1.通过命令 vim keepalived.conf 打开配置文件  
+![](https://wdsheng0i.github.io/assets/images/2021/keepalived/vip.png)
+
+### 2.2 Keepalived实现双机主备（两keepalived绑同一个vip）高可用-（配置 Keepalived-主）
+
+1.通过命令 vim keepalived.conf 打开配置文件
+
 ```
 global_defs { 
    # 路由id：当前安装keepalived的节点主机标识符，保证全局唯一 
@@ -86,13 +96,16 @@ vrrp_instance VI_1 {
 }
 ```  
 
-2.启动keepalived    
+2.启动keepalived
+
 ```
 ./keepalived
 ```
 
-### 2.3 把Keepalived 注册为系统服务 
+### 2.3 把Keepalived 注册为系统服务
+
 1.拷贝文件
+
 ```
 #进入目录
 cd /opt/keepalived/etc
@@ -105,7 +118,8 @@ cp sysconfig/keepalived /etc/sysconfig/
 systemctl daemon-reload
 ```
 
-2.启动 Keepalived    
+2.启动 Keepalived
+
 ``` 
 # 启动keepalived 
 systemctl start keepalived.service 
@@ -117,13 +131,16 @@ systemctl stop keepalived.service
 systemctl restart keepalived.service
 ```
 
-3.查看进程  
+3.查看进程
+
 ```
 ps -ef|grep keepalived  
 ```
 
 ### 2.3 Keepalived实现双机主备（两keepalived绑同一个vip）高可用-(配置 Keepalived-备)
-1.通过命令 vim keepalived.conf 打开配置文件    
+
+1.通过命令 vim keepalived.conf 打开配置文件
+
 ```
 global_defs { 
     router_id keep_172 
@@ -152,10 +169,12 @@ vrrp_instance VI_1 {
 
 ``` 
 
-### 2.4 Keepalived配置Nginx自动重启，实现7x24不间断服务 
+### 2.4 Keepalived配置Nginx自动重启，实现7x24不间断服务
+
 为了保证nginx自动重启，提供7x24的不间断服务，需要自行添加脚本使得keepalived对nginx进行检测。
 
-1.增加Nginx重启检测脚本  
+1.增加Nginx重启检测脚本
+
 ```
 vim /etc/keepalived/check_nginx_alive_or_not.sh 
 #!/bin/bash 
@@ -171,12 +190,14 @@ if [ $A -eq 0 ];then
 fi
 ```
 
-2.增加运行权限    
+2.增加运行权限
+
 ```
 chmod +x /etc/keepalived/check_nginx_alive_or_not.sh
 ```
 
-3.配置keepalived监听nginx脚本  
+3.配置keepalived监听nginx脚本
+
 ``` 
 vrrp_script check_nginx_alive { 
     script "/etc/keepalived/check_nginx_alive_or_not.sh" 
@@ -185,26 +206,31 @@ vrrp_script check_nginx_alive {
 }
 ```
 
-4.在 vrrp_instance 中新增监控的脚本  
+4.在 vrrp_instance 中新增监控的脚本
+
 ``` 
 track_script { 
     check_nginx_alive # 追踪 nginx 脚本 
 }
 ```
 
-5.重启Keepalived使得配置文件生效  
+5.重启Keepalived使得配置文件生效
+
 ```
 systemctl restart keepalived
 ```
 
 ## 三、Keepalived实现双主热备高可用部署架构
+
 互为主备  
 ![](https://wdsheng0i.github.io/assets/images/2021/keepalived/2master.png)
 
 ### 3.1 配置实现keepalived双主热备 （2keepalived分别绑两个虚拟ip）
-规则：以一个虚拟ip分组归为同一个路由  
+
+规则：以一个虚拟ip分组归为同一个路由
 
 **vip1主、vip2备节点配置：**
+
 ```
 global_defs { 
     router_id keep_171 
@@ -240,6 +266,7 @@ vrrp_instance VI_2 {
 ```
 
 **vip2主、vip1备节点配置**
+
 ```
 global_defs { 
     router_id keep_172 
@@ -276,7 +303,9 @@ vrrp_instance VI_2 {
 ```
 
 ## 四、常用track_script配置
-### 4.1 chk_nginx.sh 
+
+### 4.1 chk_nginx.sh
+
 ```
 # 1.keepalived.conf
 ! Configuration File for keepalived
@@ -329,6 +358,7 @@ fi
 ```
 
 ### 4.2 chk_mysql.sh
+
 ``` 
 # 1.keepalived.conf
 同上
@@ -353,6 +383,7 @@ exit 1
 ```
 
 ### 4.3 chk_redis.sh
+
 ``` 
 # 1.keepalived.conf
 同上
@@ -390,6 +421,7 @@ exit 1
 ```
 
 ### 4.4 chk_k8s_master.sh
+
 ``` 
 # 1.keepalived.conf
 同上
@@ -406,6 +438,7 @@ fi
 ```
 
 ## 云服务的DNS解析配置与负载均衡
-用户请求经dns轮询发送给虚拟ip进行处理   
+
+用户请求经dns轮询发送给虚拟ip进行处理
 
 ## 问题记录

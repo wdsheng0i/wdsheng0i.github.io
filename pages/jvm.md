@@ -1,10 +1,10 @@
 ---
 layout: page
-title: jvm  
+title: jvm
 titlebar: jvm
 subtitle: <span class="mega-octicon octicon-clippy"></span> 类加载机制 &nbsp;&nbsp; JMM内存模型 &nbsp;&nbsp; 内存区域分配 &nbsp;&nbsp; 垃圾回收机制 &nbsp;&nbsp; GC调优
 menu: jvm
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /jvm
 ---
 
@@ -43,4 +43,5 @@ permalink: /jvm
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

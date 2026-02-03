@@ -2,7 +2,7 @@
 layout: post
 title: 容器编排 Docker Compose
 category: dev-ops
-tags: [dev-ops]
+tags: [ dev-ops ]
 ---
 
 容器编排 Docker Compose

@@ -2,25 +2,30 @@
 layout: post
 title: ZooKeeper
 category: dev-ops
-tags: [dev-ops]
+tags: [ dev-ops ]
 ---
 
 ZooKeeper
 
-## 参考资料 
+## 参考资料
+
 - 官网地址：https://zookeeper.apache.org/
 - 下载地址：https://zookeeper.apache.org/releases.html#download
 - 文档地址：
 
 ## 一、简介
+
 [Zookeeper 3、Zookeeper工作原理（详细）](https://www.cnblogs.com/raphael5200/p/5285583.html)  
-ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。 
+ZooKeeper是一个分布式的，开放源码的分布式应用程序协调服务，是Google的Chubby一个开源的实现，是Hadoop和Hbase的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。
 
 ZooKeeper的目标就是封装好复杂易出错的关键服务，将简单易用的接口和性能高效、功能稳定的系统提供给用户。
 
-ZooKeeper是以Fast Paxos算法为基础的，Paxos算法存在活锁的问题，即当有多个proposer交错提交时，有可能互相排斥导致没有一个proposer能提交成功，而FastPaxos做了一些优化，通过选举产生一个leader (领导者)，只有leader才能提交proposer，具体算法可见FastPaxos。因此，要想弄懂ZooKeeper首先得对Fast Paxos有所了解。
+ZooKeeper是以Fast
+Paxos算法为基础的，Paxos算法存在活锁的问题，即当有多个proposer交错提交时，有可能互相排斥导致没有一个proposer能提交成功，而FastPaxos做了一些优化，通过选举产生一个leader (
+领导者)，只有leader才能提交proposer，具体算法可见FastPaxos。因此，要想弄懂ZooKeeper首先得对Fast Paxos有所了解。
 ********
 ZooKeeper的基本运转流程：
+
 - 1、选举Leader。
 - 2、同步数据。
 - 3、选举Leader过程中算法有很多，但要达到的选举标准是一致的。
@@ -28,7 +33,9 @@ ZooKeeper的基本运转流程：
 - 5、集群中大多数的机器得到响应并接受选出的Leader。
 
 ## 二、安装
+
 ### 2.1 windows环境下单点[安装](https://www.cnblogs.com/riches/p/11199402.html)
+
 ```
 1.下载
 下载地址：https://archive.apache.org/dist/zookeeper/
@@ -57,6 +64,7 @@ WatchedEvent state:SyncConnected type:None path:null
 ```
 
 ### 2.2 Linux环境下单点[安装](https://blog.csdn.net/shufangreal/article/details/108524408)
+
 ```
 1.下载
 apache-zookeeper-3.6.2-bin.tar.gz
@@ -95,6 +103,7 @@ WatchedEvent state:SyncConnected type:None path:null
 ```
 
 ### 2.2 Linux环境下集群安装
+
 [Apache-Zookeeper-3.6.2 的集群安装](https://blog.csdn.net/shufangreal/article/details/108524408)
 
 ``` 
@@ -131,7 +140,9 @@ export PATH=$PATH:$ZOOKEEPER_HOME/bin
 ```
 
 ## 问题记录
+
 ### 1.zk集群脑裂的排查思路
+
 ```
 查看进程：ps -ef|grep zookeeper
 客户端链接：./zkCli.sh -server 127.0.0.1:2181

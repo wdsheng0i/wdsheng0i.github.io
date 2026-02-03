@@ -4,7 +4,7 @@ title: DevOps
 titlebar: dev-ops
 subtitle: JDK &nbsp;&nbsp;Maven &nbsp;&nbsp; Git &nbsp;&nbsp; Docker &nbsp;&nbsp; K8s &nbsp;&nbsp; Jenkins &nbsp;&nbsp; Yapi &nbsp;&nbsp; JIRA &nbsp;&nbsp; Sonar  ...
 menu: dev-ops
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /dev-ops
 ---
 
@@ -43,4 +43,5 @@ permalink: /dev-ops
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

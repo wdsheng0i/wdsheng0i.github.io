@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 前端 
+title: 前端
 titlebar: web
 subtitle: HTML &nbsp;&nbsp; CSS &nbsp;&nbsp; Javascript &nbsp;&nbsp; Jquery &nbsp;&nbsp; Vue &nbsp;&nbsp; 公众号 &nbsp;&nbsp; 小程序  ...
 menu: web
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /web
 ---
 
@@ -43,4 +43,5 @@ permalink: /web
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

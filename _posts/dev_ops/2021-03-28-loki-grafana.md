@@ -1,19 +1,21 @@
 ---
 layout: post
-title: PLG(Promtail + Loki + Grafana) 
+title: PLG(Promtail + Loki + Grafana)
 category: dev-ops
-tags: [dev-ops]
+tags: [ dev-ops ]
 ---
 
 日志平台：PLG(Promtail + Loki + Grafana)
 
 ## 参考资料
+
 - Loki: https://grafana.com/docs/loki/latest/installation/
-  - https://grafana.com/docs/loki/latest/configuration/
+    - https://grafana.com/docs/loki/latest/configuration/
 - Promtail：https://grafana.com/docs/loki/latest/clients/promtail/installation/
 - Grafana：https://grafana.com/docs/grafana/latest/setup-grafana/installation/
 
-博客：  
+博客：
+
 - 配置说明：https://www.mianshigee.com/tutorial/loki/readme.md
 - Grafana+Loki+Promtail 搭建日志收集系统:https://blog.csdn.net/jilo88/article/details/131241264
 - PLG（Promtail + Loki + Grafana）日志系统生产快速实践:https://blog.csdn.net/AndCo/article/details/128949093
@@ -21,31 +23,37 @@ tags: [dev-ops]
 - 轻量级 k8s 应用日志收集方案 loki：https://www.jianshu.com/p/674470fd05a7
 - K8S使用LOKI实现日志收集: https://blog.csdn.net/weixin_49343462/article/details/125683145
 
-## 前言 
+## 前言
+
 Loki索引是由标签建立的,原始日志消息不被索引，采用计算换空间的方式，  
 Loki特点：通过对日志索引，高效使用内存  
 多租户：读写链接的多租户实现   
-可扩展性: 可使用all in one 部署，即所有组件均在同一进程内; 每一个loki组件都能以微服务形式运行，配置允许单独扩展微服务，允许灵活的大规模安装。  
+可扩展性: 可使用all in one 部署，即所有组件均在同一进程内;
+每一个loki组件都能以微服务形式运行，配置允许单独扩展微服务，允许灵活的大规模安装。  
 易用性：拥有大量的可观测性的客户端插件支持，例如支持promtail、fluentd等  
-Loki与Grafana无缝集成，提供了一个完整的可观察性堆栈。  
+Loki与Grafana无缝集成，提供了一个完整的可观察性堆栈。
 
 ## 一、PLG日志系统介绍
+
 - Promtail： 日志采集器，安装部署在需要收集和分析日志的业务服务器，promtail会将日志发给Loki服务。
 - Loki： 主服务器，负责存储日志和处理查询。由Grafana提供的开源日志聚合工具，一个高效存储日志数据的数据存储
 - Grafana：提供web管理界面，数据搜索展示功能。
 
-![](https://wdsheng0i.github.io/assets/images/2021/devops/loki.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/devops/loki.png)
+
 - promtail收集并将日志发送给loki的 Distributor 组件
 - Distributor会对接收到的日志流进行正确性校验，并将验证后的日志分批并行发送到Ingester
 - Ingester 接受日志流并构建数据块，压缩后存放到所连接的存储后端
 - Querier 收到HTTP查询请求，并将请求发送至Ingester 用以获取内存数据 ，Ingester 收到请求后返回符合条件的数据 ；
-如果 Ingester 没有返回数据，Querier 会从后端存储加载数据并遍历去重执行查询 ，通过HTTP返回查询结果
+  如果 Ingester 没有返回数据，Querier 会从后端存储加载数据并遍历去重执行查询 ，通过HTTP返回查询结果
 
 ## 二、二进制jar包离线部署LPG
-loki、promtail 离线包下载（选择同一版本下）：https://github.com/grafana/loki/releases/  
-Grafana 下载地址：https://grafana.com/grafana/download?platform=linux  
 
-### 2.1 loki部署 
+loki、promtail 离线包下载（选择同一版本下）：https://github.com/grafana/loki/releases/  
+Grafana 下载地址：https://grafana.com/grafana/download?platform=linux
+
+### 2.1 loki部署
+
 ``` 
 # 1、下载zip、解压
 curl -O -L "https://github.com/grafana/loki/releases/download/v2.8.4/loki-linux-amd64.zip"
@@ -134,6 +142,7 @@ systemctl enable loki
 ```
 
 ### 2.2 promtail部署
+
 ``` 
 # 1、下载zip、解压
 curl -O -L "https://github.com/grafana/loki/releases/download/v2.8.4/promtail-linux-amd64.zip"
@@ -194,8 +203,10 @@ EOF
  systemctl enable promtail
 ```
 
-### 2.3 grafana部署 
+### 2.3 grafana部署
+
 1.通过rpm安装
+
 ```
 1).下载安装
 sudo yum install -y https://dl.grafana.com/enterprise/release/grafana-enterprise-10.0.0-1.x86_64.rpm
@@ -224,6 +235,7 @@ vi  usr/share/grafana/conf/defaults.ini
 ```
 
 2.通过tar包安装 (推荐)
+
 ``` 
 1)、下载解压
 wget https://dl.grafana.com/enterprise/release/grafana-enterprise-10.0.0.linux-amd64.tar.gz
@@ -253,10 +265,13 @@ WantedBy=multi-user.target
 - loki：http://ip:3100/ grafana中配置datasource，添加loki地址即可
 
 ## 三、k8s集群部署日志平台LPG
+
 K8S使用LOKI实现日志收集：https://blog.csdn.net/weixin_49343462/article/details/125683145
 
 ### 3.1.依次启动yaml
+
 loki-ns.yaml
+
 ```
 apiVersion: v1
 kind: Namespace
@@ -266,6 +281,7 @@ metadata:
 ```
 
 loki-rbac.yaml
+
 ```
 apiVersion: v1
 kind: ServiceAccount
@@ -306,6 +322,7 @@ subjects:
 ```
 
 loki-configmap.yaml
+
 ```
 apiVersion: v1
 kind: ConfigMap
@@ -362,6 +379,7 @@ data:
 ```
 
 loki.yaml
+
 ```
 apiVersion: v1
 kind: Service
@@ -473,6 +491,7 @@ spec:
 ```
 
 loki-promtail-configmap.yaml
+
 ```
 apiVersion: v1
 kind: ConfigMap
@@ -749,6 +768,7 @@ data:
 ```
 
 loki-promtail-rbac.yaml
+
 ```
 apiVersion: v1
 kind: ServiceAccount
@@ -796,6 +816,7 @@ roleRef:
 ```
 
 loki-promtail.yaml
+
 ```
 apiVersion: apps/v1
 kind: DaemonSet
@@ -883,6 +904,7 @@ spec:
 ```
 
 ### 3.2.通过tar包安装grafana (推荐)
+
 ``` 
 1)、下载解压
 wget https://dl.grafana.com/enterprise/release/grafana-enterprise-10.0.0.linux-amd64.tar.gz
@@ -907,25 +929,29 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target 
 ```
+
 gtafana：http://ip:3000/ 默认端口3000，默认账号 admin/admin, 首次登录修改密码
 
 ### 3.3 配置loki数据源
+
 1.查看loki-outer对应nodeport类型的暴露的端口loki_nodeport_port   
-```kubectl get svc -n logging ``` 
+```kubectl get svc -n logging ```
 
 2.添加loki数据源  
-```http://k8snode_ip(如果有vip可以直接配置vip):loki_nodeport_port ``` 
+```http://k8snode_ip(如果有vip可以直接配置vip):loki_nodeport_port ```
 
 ## 四、问题记录
+
 ### loki参数优化：
 
 ### loki接s3存储：
 
 ### grafana权限配置
+
 - 超管：账号-admin，角色role-admin
 - Team：建议创建dev-Aproduct、dev-Bproduct、ops等不同的team，方便给不同team分配不同项目dashboard权限
 - User：创建user，dev赋viewer权限，ops赋editor权限
 - 编辑Team：add user，选择user，可以作为team管理员或者member
 - dashboard权限：
-  - 项目文件夹权限：permissions，可添加team或者user，给view或editor权限
-  - 子dashboard权限：继承自文件夹权限，可添加team或者user，给view或editor权限
+    - 项目文件夹权限：permissions，可添加team或者user，给view或editor权限
+    - 子dashboard权限：继承自文件夹权限，可添加team或者user，给view或editor权限

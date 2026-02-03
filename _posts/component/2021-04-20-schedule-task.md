@@ -2,7 +2,7 @@
 layout: post
 title: 定时任务
 category: component
-tags: [component]
+tags: [ component ]
 ---
 
 定时任务总结
@@ -10,12 +10,15 @@ tags: [component]
 ## 参考资料
 
 ## 一、定时任务简介
+
 ### [1.1 JAVA实现定时任务的几种方式](https://blog.csdn.net/kegumingxin2626/article/details/72854823)
+
 - JDK 自带的定时器实现： java.util.Timer类，允许调度一个java.util.TimerTask任务。这种方式可以让程序按照某一个频度执行，但不能在指定时间运行。一般用的较少
 - Quartz 定时器实现： 是一个功能比较强大的的调度器，可以让你的程序在指定时间执行，也可以按照某一个频度执行，配置起来稍显复杂
 - Spring task任务调度： 可以将它看成一个轻量级的Quartz，而且使用起来比Quartz简单许多
 
 ### [1.2 从作业类的继承方式来讲，可以分为两类：](https://blog.csdn.net/Jesse_Suo/article/details/54928773)
+
 - 1.作业类需要继承自特定的作业类基类
     - Quartz中需要继承自org.springframework.scheduling.quartz.QuartzJobBean；
     - java.util.Timer中需要继承自java.util.TimerTask。
@@ -24,6 +27,7 @@ tags: [component]
 注:个人推荐使用第二种方式，因为这样所以的类都是普通类，不需要事先区别对待。
 
 ### 1.3 从任务调度的触发时机来分，这里主要针对作业使用的触发器，主要有以下两种：
+
 - 1.每隔指定时间则触发一次，在Quartz中对应的触发器为：org.springframework.scheduling.quartz.SimpleTriggerBean
 - 2.每到指定时间则触发一次，在Quartz中对应的调度器为：org.springframework.scheduling.quartz.CronTriggerBean
 
@@ -105,9 +109,12 @@ public class WorkTimeTask extends TimerTask {
 ### 3.2. [Spring Boot 整合 Quartz 实现 Java 定时任务的动态配置](https://mp.weixin.qq.com/s?__biz=MzA3MTUzOTcxOQ==&mid=2452975136&idx=2&sn=10674e5bd21cb0e86d260c334bb40656&chksm=88edc348bf9a4a5e6bb2f246b3f79a413373b54cea594406d60420345e8429d5f837188a92b5&scene=126&sessionid=1600839119&key=ee549ff23b50c79bb30f1019ef7772a2a53d67bb578f16b65767d7f9cde7d2c88f6d6ecbe856a2b3c2a2a0c4c687380f728fe1ac1693f1823bfeac44af1c5aa72233dd0c756c71bbe14ce1eea66dd29455eb41800e732fd9587bcb3c2e31810ca251efa95e7af063d5a10dbb05e381d57fce565a91c3727fa662390b296dbc7d&ascene=1&uin=MTYyMjEyNjk4MQ%3D%3D&devicetype=Windows+10+x64&version=62090529&lang=zh_CN&exportkey=AVVWVkvQ5GN8IQ0gFnr%2BcZI%3D&pass_ticket=1ZRHcMrk8kR5QTAeWwNrdWx%2Fcs3MPn147JxyMRKhwQFyB8mY0HQDloj6S35f53WM&wx_header=0)
 
 ## 四、spring-task定时任务工具
-Spring3.0以后自主开发的定时任务工具，spring task，可以将它比作一个轻量级的 Quartz，而且使用起来很简单，除spring相关的包外不需要额外的包，而且支持注解和配置 文件两种形式 
+
+Spring3.0以后自主开发的定时任务工具，spring task，可以将它比作一个轻量级的 Quartz，而且使用起来很简单，除spring相关的包外不需要额外的包，而且支持注解和配置
+文件两种形式
 
 ### 4.1.配置文件形式
+
 ```
 <?xml version="1.0" encoding="UTF-8"?> 
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -126,7 +133,9 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.sprin
 </task:scheduled-tasks> 
 </beans> 
 ```
-任务类： 
+
+任务类：
+
 ```
 public class SpringTaskDemo { 
     public void job1() { 
@@ -139,16 +148,19 @@ public class SpringTaskDemo {
 ```
 
 ### 4.2.注解形式
-spring定时任务详解（@Scheduled注解） - 在springMVC里使用spring的定时任务非常的简 单，如下： 
->（一）在xml里加入task的命名空间 xmlns:task="http://www.springframework.org/schema/task" http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xs
 
->（二）启用注解驱动的定时任务   
-<task:annotation-driven scheduler="myScheduler"/> 
+spring定时任务详解（@Scheduled注解） - 在springMVC里使用spring的定时任务非常的简 单，如下：
+> （一）在xml里加入task的命名空间 xmlns:
+> task="http://www.springframework.org/schema/task" http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.1.xs
 
->（三）配置定时任务的线程池 推荐配置线程池，若不配置多任务下会有问题。后面会详细说明单线程的问题。   
-<task:scheduler id="myScheduler" pool-size="5"/> 
+> （二）启用注解驱动的定时任务   
+<task:annotation-driven scheduler="myScheduler"/>
 
->（四）写我们的定时任务： @Scheduled注解为定时任务，cron表达式里写执行的时机 
+> （三）配置定时任务的线程池 推荐配置线程池，若不配置多任务下会有问题。后面会详细说明单线程的问题。   
+<task:scheduler id="myScheduler" pool-size="5"/>
+
+> （四）写我们的定时任务： @Scheduled注解为定时任务，cron表达式里写执行的时机
+
 ```
 @Component 
 public class ATask implements IATask{ 
@@ -166,6 +178,7 @@ public class ATask implements IATask{
 ```
 
 ### 4.3 springboot定时任务@EnableScheduling
+
 ```
 //1.通过 @EnableScheduling 注解，开启定时任务调度功能
 @EnableScheduling
@@ -187,11 +200,14 @@ public class TaskConfig {
 ```
 
 ### 4.4.分布式节点-spring-task定时任务执行控制
+
 基于redis锁实现，防止多节点定时任务重复执行
 
-## 五、定时任务-xxljob 
+## 五、定时任务-xxljob
+
 [XXL-JOB的使用(详细教程)](https://blog.csdn.net/f2315895270/article/details/104714692/)
 
 ## 六、定时任务框架[quartz、elastic-job和xxl-job的分析对比](https://blog.csdn.net/LWS826528071/article/details/94394249)
+
 ![](https://wdsheng0i.github.io/assets/images/2021/job/comp.png)
 

@@ -2,34 +2,41 @@
 layout: post
 title: Linux基础操作命令
 category: operate-system
-tags: [operate-system]
+tags: [ operate-system ]
 ---
 
 Linux基础操作命令
 
 ## 参考资料
+
 - [鸟哥私房菜-基础学习篇]
 - [鸟哥私房菜-服务器架设篇]
 - [Linux就该这么学]
 
 ## 一、装机
-[curl,apt-get,wget,yum的区别](https://blog.csdn.net/xcliang9418/article/details/122081142)   
 
-一般来说著名的linux系统基本上分两大类：  
-- RedHat系列：Redhat、Centos、Fedora等  
-- Debian系列：Debian、Ubuntu等  
+[curl,apt-get,wget,yum的区别](https://blog.csdn.net/xcliang9418/article/details/122081142)
+
+一般来说著名的linux系统基本上分两大类：
+
+- RedHat系列：Redhat、Centos、Fedora等
+- Debian系列：Debian、Ubuntu等
 
 ### 1.1 做raid
+
 [图文并茂 RAID 技术全解 – RAID0、RAID1、RAID5、RAID100](https://mp.weixin.qq.com/s/XgHz65Fe5WogTxBp0kqs7w)
 
 ### 1.2 ssh跳转
+
 ```
 ssh -p 22 root@192.168.0.1
 ```
 
 ### 1.3 配ip：
+
 1.虚拟机装centos7后，ifconfig无ip地址  
 1.1 获取动态ip
+
 ```
 修改/etc/sysconfig/network-scripts/ifcfg-eno16777736
 ONBOOT=no, 将no  改为yes
@@ -49,6 +56,7 @@ VMware Network Adapter 启用
 ```
 
 1.2 配置静态（固定）ip
+
 ```
 1.虚拟机网卡设置：NAT
 
@@ -67,12 +75,14 @@ systemctl restart NetworkManager
 ```
 
 2.windows无法ping通服务器
+
 ```
 1.检查防火墙，
 2.window虚拟网卡是否启用
 ```
 
 3.查看出口ip（外网ip）
+
 ```
 windows：cmd
 curl cip.cc
@@ -92,6 +102,7 @@ service network restart
 ```
 
 ### 1.4hostname设置
+
 ```
 查看 hostname
 临时设置 hostname bigdata01
@@ -99,6 +110,7 @@ service network restart
 ```
 
 ### 1.5 hosts文件修改
+
 ```
 vi /etc/hosts
 ip1 hostname1
@@ -107,6 +119,7 @@ ip3 hostname3
 ```
 
 ### 1.6 修改[ssh端口](https://blog.csdn.net/qq_41736266/article/details/128486125)
+
 ```
 sudo vim /etc/ssh/sshd_config
 service sshd restart
@@ -120,9 +133,10 @@ sudo systectl restart ssh
 ```
 
 ### 1.7 防火墙iptables
+
 netfilter/iptables是unix/Linux(2.4版本内核后)自带的一款优秀且免费的基于包过滤的防火墙工具。    
 netfilter组件也称为内核空间（kernelspace），是内核的一部分，由一些信息包过滤表组成，这些表包含内核用来控制信息包过滤处理的规则集。    
-iptables是一种组件工具，也称为用户空间（userspace），它使插入、修改和除去信息包过滤表中的规则变得    
+iptables是一种组件工具，也称为用户空间（userspace），它使插入、修改和除去信息包过滤表中的规则变得
 
 - Linux防火墙iptables详解 https://www.cnblogs.com/The-day-of-the-wind/p/9300635.html
 - Linux防火墙之——iptables和firewalld：https://blog.csdn.net/Zhaohui_Zhang/article/details/126090994
@@ -164,7 +178,9 @@ yum install iptables-services
 ```
 
 ### 1.8 磁盘分区、格式化、挂载mount
+
 [lsblk、fdisk、df -h、mount](https://blog.csdn.net/m0_54108654/article/details/126601804)
+
 ```
 ## 首先需要新增磁盘sdb，新增的硬件在dev下
 lsblk 查看磁盘是否添加成功sdb
@@ -187,9 +203,11 @@ mount /dev/sdb1 /data
 ```
 
 ### 1.9 虚拟机克隆
-1.管理-克隆  
 
-2.克隆完成后修改配置  
+1.管理-克隆
+
+2.克隆完成后修改配置
+
 ```
 ipa ddr 查看ip、mac地址
 ...
@@ -206,6 +224,7 @@ IPADDR=192.168.145.130
 操作系统读磁盘，一次io读一页数据，8扇区*512b=4kb
 
 ## 二、目录规范
+
 - /opt：基础环境、基础软件安装目录
 - /usr：用户软件安装目录
 - /home：用户目录
@@ -213,23 +232,27 @@ IPADDR=192.168.145.130
 - /data: 自建用户数据目录
 
 ## 三、软件安装
+
 - 1.在线安装：
-  - curl https://xx/*install.sh 
-  - yum install -y xxx
-  - wget xxx.rpm下载后, 安装rpm -ivh xxx.rpm
+    - curl https://xx/*install.sh
+    - yum install -y xxx
+    - wget xxx.rpm下载后, 安装rpm -ivh xxx.rpm
 - 2.离线安装：下载.tar、tar.gz，解压，修改配置、启动服务、注册系统服务
 - 3.docker安装，注意挂载数据卷，持久化conf和data，映射端口
 - 4.k8s安装，yml编写、镜像、命名空间，注意持久化conf和data、服务暴露
 
 ### 安装方式
+
 `方式1，在线安装：yum install gcc`  
-`方式2，离线安装：wget xxx.rpm ,  rpm -ivh vsftpd.rpm   --https://centos.pkgs.org/`
+`方式2，离线安装：wget xxx.rpm , rpm -ivh vsftpd.rpm --https://centos.pkgs.org/`
 
 ### 查看是否安装
-`rpm -qa |grep yum `  
+
+`rpm -qa |grep yum `
 
 ### 替换yum源
-[使用国内Yum源](https://blog.csdn.net/nklinsirui/article/details/80146083)    
+
+[使用国内Yum源](https://blog.csdn.net/nklinsirui/article/details/80146083)
 
 ```
 1. 确认系统版本
@@ -255,49 +278,62 @@ yum makecache
 yum update -y
 ```
 
-### 下载 wget  
+### 下载 wget
+
 `wget http://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz`
 
 ### 安装 git
+
 `yum install git -y`
 
 ### 安装 wget
+
 `yum -y install wget`
 
 ### 安装 vim
+
 `yum install vim -y`
 
 ### 安装 telnet
+
 `yum install telnet`
 
 ### 安装 ifconfig
+
 `yum install net-tools`  
 `yum install ifconfig`
 
 ### 安装zip解压缩工具
+
 ` yum install unzip`
 
 ### 下载工具lrzsz
+
 ```
 yum -y install lrzsz
 ```
 
 下载命令
+
 ```
 sz filename
 ```
 
 上传命令
+
 ``` 
 rz  
 ```
 
 ### 安装gcc
-`yum install gcc`  
+
+`yum install gcc`
 
 ### 安装配置jdk
+
 http://jingyan.baidu.com/article/e4d08ffdabb0710fd2f60de9.html
 http://www.linuxidc.com/Linux/2016-11/136958.htm
+
 ```
 1.tar zxvf  jdk1.7.0_80.tar.gz  //解压
 
@@ -318,6 +354,7 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 ```
 
 方式2：
+
 ```
 查看java JDK列表
 yum -y list java*
@@ -329,7 +366,8 @@ yum -y install java-1.8.0-openjdk*
 通过yum默认安装的路径为/usr/lib/jvm/java-版本号（如/usr/lib/jvm/java-1.8.0）
 ```
 
-方式3：  
+方式3：
+
 ``` 
 下载jdk-8u281-linux-x64.rpm  
 
@@ -338,6 +376,7 @@ rpm -ivh jdk-8u181-linux-x64.rpm
 ```
 
 ### 安装配置tomcat
+
 ```
 1.下载，移动，解压
 sudo mv apache-tomcat-7.0.81.tar.gz /usr
@@ -358,7 +397,9 @@ JAVA_OPTS="-Xms1024m -Xmx1024m -Xss1024k -XX:PermSize=128m -XX:MaxPermSize=256m"
 ```
 
 ### 安装maven
+
 https://blog.csdn.net/ameken/article/details/122368869
+
 ```
 下载：
 wget http://dlcdn.apache.org/maven/maven-3/3.8.4/binaries/apache-maven-3.8.4-bin.tar.gz
@@ -393,7 +434,9 @@ mvn -v
 ```
 
 ### 装nodejs npm
+
 https://blog.csdn.net/self321/article/details/116746460
+
 ```
 1、从官网下下载最新的nodejs，https://nodejs.org/en/download/
 历史版本可从https://nodejs.org/dist/下载
@@ -416,15 +459,19 @@ npm -v
 ```
 
 ### whereis查找
+
 ```
 whereis nginx  //命令只能用于程序名的搜索  
 ```
 
-### 全局搜索：find  
-```find / -name *minio* ``` 
+### 全局搜索：find
+
+```find / -name *minio* ```
 
 ## 四、系统、硬件监控命令
+
 ### 查看内存 free -m
+
 ```
 free -m
 
@@ -432,12 +479,14 @@ free -m
 ```
 
 ### 查看磁盘 lsblk 、df -h
+
 ```
 lsblk  
 df -h
 ```
 
 ### 查看进程 top
+
 ```
 top
 
@@ -446,17 +495,20 @@ ps -eo pid,ppid,cmd,%cpu,%mem --sort=-%cpu | head
 ```
 
 ### 查看 内存 cpu 进程 io 使用情况
+
 ```
 vmstat
 ```
 
 ### 网络带宽测试工具speedtest-cli
+
 ``` 
 yum install speedtest-cli
 speedtest-cli
 ```
 
 ### du -hd1查看当前目录下各个文件及目录占用空间大小
+
 ```
 du -sh *
 ```
@@ -467,16 +519,19 @@ du -hd1
 ```
 
 ### 主机ip网络是否连通
+
 ```
 ping ip
 ```
 
 ### telnet tcp端口是否通
+
 ```
 telnet ip port
 ```
 
 ### udp端口是否通
+
 ``` 
 # 使用netcat（nc）工具发送UDP数据包https://www.python100.com/html/118945.html
 echo "test" | nc -u -w 2 <目标IP> <端口号>
@@ -498,11 +553,13 @@ tcpdump -i any udp and host <目标IP>
 ```
 
 ### linux查看某个服务具体启动时间:
+
 ```
 ps -p PID -o lstart,  其中，PID为某个进程的进程ID号
 ```
 
 ### DNS：resolv.conf
+
 ```
 本机的DNS配置信息是在：/etc/resolv.conf
 nameserver 8.8.8.8 #google域名服务器
@@ -513,6 +570,7 @@ nameserver 223.5.5.5 #阿里DNS
 ```
 
 /etc/resolv.conf重启被重置：https://blog.csdn.net/nowhy25/article/details/132567625
+
 ```
 编辑 NetworkManager 的配置文件，禁用其自动更新 /etc/resolv.conf。
 
@@ -524,6 +582,7 @@ dns=none
 ```
 
 ### 查、杀进程：ps -ef
+
 ```
 1、ps 命令用于查看当前正在运行的进程。 grep 是搜索例如： ps -ef | grep java  //表示查看所有进程里 CMD 是 java 的进程信息`
 2、ps -aux | grep java          //-aux 显示所有状态 `
@@ -531,6 +590,7 @@ dns=none
 ```
 
 ### 查看ip
+
 ```
 ifconfig
 或
@@ -538,6 +598,7 @@ ip addr
 ```
 
 ### netstat查看占用端口进程（2种方式）
+
 ```
 1、lsof -i:端口号
 
@@ -549,10 +610,13 @@ netstat -tunlp|grep 端口号
 ```
 
 ### 查看进程端口（27404为PID）
+
 ```netstat -nap | grep 27404```
 
 ### 排查网络路由[traceroute](https://blog.csdn.net/yuguo_im/article/details/143920529)
-方式1  
+
+方式1
+
 ```
 1、安装yumdownloader命令
 yum install yum-utils -y
@@ -577,7 +641,8 @@ traceroute -T -p 9100 192.168.1.123
 方式2  
 ```yum install traceroute –y```
 
-### tcpdump网络抓包 
+### tcpdump网络抓包
+
 - https://luanpeng.blog.csdn.net/article/details/82991778
 - https://blog.csdn.net/tian830937/article/details/126101925
 
@@ -617,13 +682,15 @@ tcpdump -r 20120606.pcap
 ```
 
 ### wireshark分析抓包内容
+
 https://huaweicloud.csdn.net/6356064ad3efff3090b58d49.html
 
 下载：https://www.wireshark.org/download.html
 
-![分析](https://wdsheng0i.github.io/assets/images/2021/net/wireshark.png)  
+![分析](https://wdsheng0i.github.io/assets/images/2021/net/wireshark.png)
 
 ### systemd
+
 ``` 
 systemd服务的启动命令放置在/lib/systemd/system下  
 
@@ -635,29 +702,37 @@ systemctl list-unit-files --type=service | grep enabled
 ```
 
 ## 五、文件操作
+
 ### grep/sed/awk
+
 linux文本三剑客详解 https://blog.csdn.net/m0_55641973/article/details/131259480
 
 ### 新建目录：mkdir
+
 ```mkdir opt/test```
 
 ### 移动文件： mv
-```mv apache-tomcat-7.0.81.tar.gz       /usr```
+
+```mv apache-tomcat-7.0.81.tar.gz /usr```
 
 ### 重命名 mv
+
 ```mv a.txt  b.txt```
 
 ### 复制文件：cp
-```cp /home/ftp/FTP-linux.zip      /home/```
-```cp -r /home/ftp/      /home/```
+
+```cp /home/ftp/FTP-linux.zip /home/```
+```cp -r /home/ftp/ /home/```
 
 ### 删除文件: rm
+
 ```
 rm -rf 文件名  -r  //就是向下递归，不管有多少级目录，一并删除  -f 就是直接强行删除，不作任何提示的意思
 rm -f app.log.2024-01-{20..28}.*  //删除多个文件，日期连续的日志文件
 ```
 
 ### 查看编辑文件：cat vi more
+
 ```
 1.查看 cat  a.txt
 2.编辑 vi a.txt 
@@ -678,6 +753,7 @@ rm -f app.log.2024-01-{20..28}.*  //删除多个文件，日期连续的日志�
 ### 创建文件touch
 
 ### 编辑文件追加内容cat >> file << EOF
+
 ``` 
 #示例1
 cat >> /etc/rancher/k3s/registries.yaml << EOF
@@ -702,6 +778,7 @@ EOF
 ```
 
 ### 解压缩：tar unzip
+
 ``` 
 tar -cvf folder.tar folder/  //压缩文件夹
 tar -cvf folder.tar a.txt *.js *.json   //压缩多文件
@@ -714,6 +791,7 @@ zip log.zip dump3.cap app.log  //压缩zip
 ```
 
 ### 文件权限：chmod、chown
+
 ``` 
 chmod 777 文件名 //文件改权限
 chmod 777 -R * //文件夹赋权限
@@ -723,6 +801,7 @@ chmod 755 -R * //文件夹赋权限
 ```
 
 ### 远程拷贝两个主机文件: scp
+
 ``` 
 1、拷贝本机/home/administrator/test整个目录至远程主机192.168.1.100的/root目录下  
 scp -r /home/administrator/test/   root@192.168.1.100:/root/
@@ -735,10 +814,12 @@ scp  /home/administrator/Desktop/old/driver/test/test.txt   root@192.168.1.100:/
 scp -r root@192.168.62.10:/root/  /home/administrator/Desktop/new/
 ```
 
-### 远程链接：ssh -p   
+### 远程链接：ssh -p
+
 ```ssh -p 22 root@192.168.0.1```
 
 ### sftp操作
+
 ```
 登陆：sftp -P 12322 ftpuser@192.168.1.1 
 cd 到目标目录下
@@ -749,14 +830,15 @@ cd 到目标目录下
 ```
 
 问题：/etc/ssh/ssh_config line 59: Unsupported option “gssapiauthentication“  
-https://huaweicloud.csdn.net/635637fcd3efff3090b5aee9.html? 
+https://huaweicloud.csdn.net/635637fcd3efff3090b5aee9.html?
 
 问题记录：
 登录报错Unsupported option "gssapiauthentication"  
 1、打开~/.ssh/known_hosts文件，然后找到对应ip的记录，删除；  
-2、ssh-keygen -R +ip ；  
+2、ssh-keygen -R +ip ；
 
 ### ftp操作
+
 ```
 登陆：ftp 192.168.1.1 21
 cd 到目标目录下
@@ -765,7 +847,9 @@ cd 到目标目录下
 ```
 
 ## 六、系统操作
+
 ### CentOS修改服务器系统时间
+
 ``` 
 linux安装完毕后，一般都是国外的世界，一点都不方便设置任务，或者导致网站获取本地的时间错乱，所以就需要把服务器的时间改为和本地时间一致，也就是换成中国的时间。
 第一条指令：date –s '2016-10-31 10:10:10'
@@ -774,12 +858,14 @@ linux安装完毕后，一般都是国外的世界，一点都不方便设置任
 ```
 
 ### 查看系统时间
+
 ``` 
 查看：date
 修改：date -s '2019-09-09 10:00:00'
 ```
 
 ### 查看系统版本
+
 ``` 
 lsb_release -a
 或者
@@ -787,6 +873,7 @@ cat /etc/centos-release
 ```
 
 ### 创建用户组、用户、密码、用户主目录
+
 ```
 用户配置文件，存储用户的基本信息 /etc/passwd
 存储用户的密码信息 /etc/shadow
@@ -799,7 +886,9 @@ useradd  -d/home/mysqluser -m mysqluser
 ```
 
 ### 查看主机名、添加、修改hostname、hosts
+
 hostname: 需要保持etc/hostname、etc/hosts本机映射的hostname一致，否则可能会重启后不生效
+
 ```
 vi etc/hosts   添加一行
 192.23.20.72    wds.com    //ip   hostname
@@ -809,6 +898,7 @@ wds.com
 ```
 
 sed批量修改/etc/hostname： 1c替换文件第一行
+
 ```
 sed -i "1c devops-`ifconfig ens192 |grep netmask |awk '{print $2}'|sed 's/\./0/g'`"  /etc/hostname
 或者
@@ -816,11 +906,13 @@ hostnamectl set-hostname "devops-`ifconfig ens192 |grep netmask |awk '{print $2}
 ```
 
 sed批量修改/etc/hosts：3a第三行后追加一行
+
 ```
 sed -i "3a`ifconfig ens192 |grep netmask |awk '{print $2}'`     `hostname`"  /etc/hosts
 ```
 
 批量改/etc/resolv.conf,第2行后追加一行nameserver 8.8.8.8
+
 ``` 
 sed -i "2a nameserver 8.8.8.8"  /etc/resolv.conf
 ```
@@ -828,11 +920,13 @@ sed -i "2a nameserver 8.8.8.8"  /etc/resolv.conf
 ### 重启：reboot
 
 ### 设置[免密登录](https://blog.csdn.net/weixin_46627652/article/details/125795619?spm=1001.2014.3001.5501)
+
 ssh-keygen -t rsa
 cd ~/.ssh
 ssh-copy-id 10.10.20.20 #需要免密登录的机器IP
 
 ### 切换root权限sudo
+
 ```
 su root //需要输入root密码
 
@@ -845,12 +939,14 @@ sudo -i
 ```
 
 ### 查看历史操作命令： history
+
 ```
 #历史操作搜索
 history|grep 'docker'
 ```
 
 ### 修改用户密码passwd
+
 ```
 passwd user1
 
@@ -863,7 +959,9 @@ passwd: Have exhausted maximum number of retries for service
 ```
 
 ## 七、查看日志
+
 ### 查看linux下的日志：tail -f、head -n、cat
+
 ``` 
 tail -f /var/log/messages
 tail -200f /var/log/messages //查看后200行
@@ -873,6 +971,7 @@ head -n 50 app.log   //查看前50行
 ```
 
 ### 日志在更新，实时查看tail -f
+
 ```
 tail -f /var/log/messages
 
@@ -882,6 +981,7 @@ watch -d -n 1 cat /var/log/messages   -d表示高亮不同的地方，-n表示�
 ```
 
 ### 日志查看、搜索
+
 ```
 //查看文件尾200行，并继续实时打印
 tail -200f mgmt-info.log
@@ -895,10 +995,13 @@ grep -i 更新sn为【290200000937】的设备状态为 ./mgmt-info.log
 ```
 
 ### 清空日志cat /dev/null >
+
 cat /dev/null > err.log
 
 ### rsyslog系统日志进程占用内存较高
+
 https://www.cnblogs.com/gered/p/17519186.html
+
 ```
 1.top查看所有进程，m内存大小排序展示
 
@@ -944,6 +1047,7 @@ Max realtime timeout      unlimited            unlimited            us
 ```
 
 ### 在Linux系统中，有三个主要的日志子系统
+
 ``` 
 1.连接时间日志--由多个程序执行，把纪录写入到/var/log/wtmp和/var/run/utmp，login等程序更新wtmp和utmp文件，使系统管理员能够跟踪谁在何时登录到系统。
 2.进程统计--由系统内核执行。当一个进程终止时，为每个进程往进程统计文件（pacct或acct）中写一个纪录。进程统计的目的是为系统中的基本服务提供命令使用统
@@ -951,6 +1055,7 @@ Max realtime timeout      unlimited            unlimited            us
 ```
 
 ## 八、linux设置服务开机自启
+
 ``` 
 在/etc/rc.local中添加
 如果不想将脚本粘来粘去，或创建链接什么的， 则:
@@ -1002,6 +1107,7 @@ chkconfig autostart.sh on
 ## 九、硬件信息查看
 
 ### lscpu查看cpu
+
 ```
 lscpu命令，查看的是cpu的统计信息.
 blue@blue-pc:~$ lscpu
@@ -1028,6 +1134,7 @@ L3 cache:              6144K
 ```
 
 ### 查看/proc/cpuinfo,可以知道每个cpu信息，如每个CPU的型号，主频等。
+
 ```
 # cat /proc/cpuinfo
 processor    : 0
@@ -1040,6 +1147,7 @@ model name    : Intel(R) Core(TM) i5-2320 CPU @ 3.00GHz
 ```
 
 ### 内存不够，加swap交换扩展内存
+
 ```
 #count=2048 bs=1MiB表示2GB
 dd if=/dev/zero of=/swapfile count=2048 bs=1MiB
@@ -1050,6 +1158,7 @@ echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
 ```
 
 ### 查看内存硬件信息
+
 ```
 dmidecode -t memory
 # dmidecode 2.11
@@ -1073,6 +1182,7 @@ Size: 4096 MB
 ```
 
 ### 查看硬盘和分区分lsblk
+
 ``` 
 # lsblk
 NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
@@ -1086,6 +1196,7 @@ sda      8:0    0 465.8G  0 disk
 ```
 
 ### 硬盘和分区的详细信息fdisk -l
+
 ``` 
 # fdisk -l
 Disk /dev/sda: 500.1 GB, 500107862016 bytes
@@ -1103,12 +1214,14 @@ Device Boot      Start         End      Blocks   Id  System
 ```
 
 ### 查看网卡硬件信息lspci | grep -i 'eth'
+
 ``` 
 # lspci | grep -i 'eth'
 02:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168B PCI Express Gigabit Ethernet controller (rev 06)
 ```
 
 ### 查看系统的所有网络接口ifconfig -a
+
 ``` 
 # ifconfig -a
 eth0      Link encap:以太网  硬件地址 b8:97:5a:17:b3:8f
@@ -1146,6 +1259,7 @@ Link detected: yes    #表示有网线连接，和路由是通的
 ```
 
 ### 查看pci信息，即主板所有硬件槽信息。
+
 ``` 
 Lspci
 
@@ -1170,6 +1284,7 @@ Lspci
 ```
 
 ### 查看bios信息
+
 ``` 
 # dmidecode -t bios
 ......
@@ -1185,6 +1300,7 @@ dmidecode以一种可读的方式dump出机器的DMI(Desktop Management Interfac
 ```
 
 ### 如果要查看所有有用信息
+
 dmidecode –q
 
 以上是linux查看硬件信息的所有命令，可以查看CPU、硬盘、网卡、磁盘等硬件的信息
@@ -1203,32 +1319,42 @@ dmidecode –q
 - 9.磁盘分区：lsblk
 - 10.防火墙状态：systemctl status firewalld
 - 11.查看文件大小：
-  - du -h --max-depth=1 
-  - du -hd1
+    - du -h --max-depth=1
+    - du -hd1
 - 13.文件夹赋权账号：
-  - chown vftp:vftp download/
-  - chmod 755 file、
-  - chmod -R 755 dir
+    - chown vftp:vftp download/
+    - chmod 755 file、
+    - chmod -R 755 dir
 - 14.远程copy：scp a.txt root@192.168.0.1:/home
 - 15.远程链接：ssh -p 22 root@192.168.0.1
-- 16.软连接：ln -snf /data/packages/demo-h5/v1.2.1 demo-h5  # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
+- 16.软连接：ln -snf /data/packages/demo-h5/v1.2.1 demo-h5 # 当前目录下demo-h5,软连接到/data/packages/demo-h5/v1.2.1
 - 17.查看白名单：iptables -nL --line-number
 - 18.修改密码：passwd appUser
 - 19.chage -M 99999 ansible
 - 20.统计目录下文件数：ls -Rl | grep '.txt' | wc -l
 - 21.查看定时任务：crontab -l
-- 22.不删文件，清空内容：cat /dev/null > /data/logs/app.log  
+- 22.不删文件，清空内容：cat /dev/null > /data/logs/app.log
 - 23.[curl命令查看请求响应时间](https://blog.csdn.net/fang0604631023/article/details/127845928)：
-  -[ curl的常用参数](https://blog.csdn.net/fen_dou_shao_nian/article/details/123038537) 
-  - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://www.baidu.com"
-  - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://baidu.com"
-  - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::%{speed_download}"\n" "https://blog.csdn.net"
-  - curl -o /dev/null -s -w "time_connect: %{time_connect}\ntime_starttransfer: %{time_starttransfer}\ntime_total: %{time_total}\n" "https://blog.csdn.net/"
-  - curl -i -v  -X get "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8"
-  - curl -i -v  -X post "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:application/json;charset=UTF-8" -d '{"name":"zhangsan"}'
-  - curl -k -I -i -u testUser:pwd https://ip:port
-  - curl -G --data-urlencode 'match[]={job=~".*"}' http://10.168.1.168:9290/federate | grep -v '#'  //同网端请求数据有返回，不同网段请求，端口通且curl 10.168.1.168:9290有返回/query，但是请求federate指标数据请求就会被超时重置；抓包发现服务端有响应但是请求端未收到，即大包会丢失
-     - 服务器到客户端的网络链路存在单向阻塞如防火墙丢弃大包）、Prometheus返回数据量过大导致分片丢失、MTU不匹配引发IP分片丢失==>修改网卡配置vi /etc/sysconfig/network-scripts/ifcfg-ens192, 增加一行 MTU=1476，后systemctl restart NetworkManager
+  -[ curl的常用参数](https://blog.csdn.net/fen_dou_shao_nian/article/details/123038537)
+    - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::
+      %{speed_download}"\n" "https://www.baidu.com"
+    - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::
+      %{speed_download}"\n" "https://baidu.com"
+    - curl -o /dev/null -s -w %{time_namelookup}::%{time_connect}::%{time_starttransfer}::%{time_total}::
+      %{speed_download}"\n" "https://blog.csdn.net"
+    - curl -o /dev/null -s -w "time_connect: %{time_connect}\ntime_starttransfer: %{time_starttransfer}\ntime_total:
+      %{time_total}\n" "https://blog.csdn.net/"
+    - curl -i -v -X get "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:
+      application/json;charset=UTF-8"
+    - curl -i -v -X post "http://10.168.1.168:30201/onesupport/entrancexl" -H "content-type:
+      application/json;charset=UTF-8" -d '{"name":"zhangsan"}'
+    - curl -k -I -i -u testUser:pwd https://ip:port
+    - curl -G --data-urlencode 'match[]={job=~".*"}' http://10.168.1.168:9290/federate | grep -v '#'
+      //同网端请求数据有返回，不同网段请求，端口通且curl 10.168.1.168:
+      9290有返回/query，但是请求federate指标数据请求就会被超时重置；抓包发现服务端有响应但是请求端未收到，即大包会丢失
+        -
+        服务器到客户端的网络链路存在单向阻塞如防火墙丢弃大包）、Prometheus返回数据量过大导致分片丢失、MTU不匹配引发IP分片丢失==>
+        修改网卡配置vi /etc/sysconfig/network-scripts/ifcfg-ens192, 增加一行 MTU=1476，后systemctl restart NetworkManager
 - 24.iptable添加白名单:https://baijiahao.baidu.com/s?id=1765288969345841746&wfr=spider&for=pc
 
 ``` 
@@ -1321,10 +1447,13 @@ iptables -I INPUT  -p tcp -m state --state NEW -m multiport --dports 8083 -j ACC
 ```
 
 ## 附图：
+
 ![](https://wdsheng0i.github.io/assets/images/2021/os/Linux-1.png)
 
 ## 问题记录
+
 1.Errors during downloading metadata for repository 'update-source':
+
 ```
 检查网络连接：确保你的系统可以正常访问互联网。
 清除缓存：运行 yum clean all 或 dnf clean all 清除缓存，然后再尝试更新

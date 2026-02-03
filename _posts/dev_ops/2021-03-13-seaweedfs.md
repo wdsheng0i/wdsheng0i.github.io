@@ -1,30 +1,34 @@
 ---
 layout: post
-title: Seaweedfs 安装、配置、使用 
+title: Seaweedfs 安装、配置、使用
 category: dev-ops
-tags: [dev-ops]
+tags: [ dev-ops ]
 ---
 
-seaweedfs 安装、配置、使用 
+seaweedfs 安装、配置、使用
 
 ## 参考资料
+
 - 官网地址：
 - 下载地址：https://github.com/seaweedfs/seaweedfs/releases
 - 文档地址：
 
 ## 一、部署SeaweedFS
-1.下载  
+
+1.下载
 
 ```
 https://github.com/chrislusf/seaweedfs/releases
 ```
-2.解压  
+
+2.解压
 
 ```
 tar -xzvf linux_amd64.tar.gz
 ```
-3.启动 
- 
+
+3.启动
+
 ```
 # 
 nohup /data/file-server/weed master -port=9333 -defaultReplication="000" >>/data/file-server/log.log &

@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Java并发 
+title: Java并发
 titlebar: juc
 subtitle: juc &nbsp;&nbsp; 多线程 &nbsp;&nbsp; 线程池 &nbsp;&nbsp; 锁机制 &nbsp;&nbsp; 线程通信  ...
 menu: juc
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /juc
 ---
 
@@ -43,4 +43,5 @@ permalink: /juc
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

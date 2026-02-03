@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 网络 
+title: 网络
 titlebar: design-patterns
 subtitle: 设计原则 &nbsp;&nbsp; 设计模式
 menu: design-patterns
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /design-patterns
 ---
 
@@ -43,4 +43,5 @@ permalink: /design-patterns
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 数据结构 
+title: 数据结构
 titlebar: data-struct
 subtitle: 数组 &nbsp;&nbsp; 线性表 &nbsp;&nbsp; 哈希 &nbsp;&nbsp; 堆 &nbsp;&nbsp; 栈 &nbsp;&nbsp; 队列 &nbsp;&nbsp; 树 &nbsp;&nbsp; 图
 menu: data-struct
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /data-struct
 ---
 
@@ -43,4 +43,5 @@ permalink: /data-struct
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

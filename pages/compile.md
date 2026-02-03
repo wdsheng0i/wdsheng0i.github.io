@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 编译原理 
+title: 编译原理
 titlebar: compile
-subtitle:  
+subtitle:
 menu: compile
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /compile
 ---
 
@@ -43,4 +43,5 @@ permalink: /compile
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

@@ -2,21 +2,24 @@
 layout: post
 title: 大数据之本地开发环境
 category: acide
-tags: [acide]
+tags: [ acide ]
 ---
 
 本地开发模式: 开发、调试mapreduce代码
 
 ## 参考资料
+
 [idea中调试hadoop mapreduce程序(windows)](http://kaimingwan.com/post/da-shu-ju/ideazhong-diao-shi-hadoop-mapreducecheng-xu-windows)  
 [IDEA 调试 Hadoop程序](https://blog.csdn.net/uq_jin/article/details/52235121)
 
 ## 本地hadoop环境支持
-1.下载[hadoop-3.2.0.tar.gz](https://archive.apache.org/dist/hadoop/common/hadoop-3.2.0/)  
 
-2.解压  
+1.下载[hadoop-3.2.0.tar.gz](https://archive.apache.org/dist/hadoop/common/hadoop-3.2.0/)
 
-3.配置环境变量  
+2.解压
+
+3.配置环境变量
+
 ``` 
 HADOOP_HOME：D:\hadoop-3.2.0
 HADOOP_BIN_PATH：%HADOOP_HOME%\bin
@@ -24,16 +27,21 @@ HADOOP_PREFIX：%HADOOP_HOME%
 在Path后面加上%HADOOP_HOME%\bin;%HADOOP_HOME%\sbin;
 ```
 
-4.[下载安装额外的win支持](https://codechina.csdn.net/mirrors/cdarlint/winutils/-/tree/master/hadoop-3.2.0/bin)，复制到D:\hadoop-3.2.0\bin下  
-winutils.exe:  解决报错 ```java.io.IOException: Could not locate executable D:\hadoop-3.2.0\bin\winutils.exe in the Hadoop binaries.```     
-hadoop.dll:  解决报错 ```Exception in thread "main" java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z```     
+4.[下载安装额外的win支持](https://codechina.csdn.net/mirrors/cdarlint/winutils/-/tree/master/hadoop-3.2.0/bin)，复制到D:
+\hadoop-3.2.0\bin下  
+winutils.exe:
+解决报错 ```java.io.IOException: Could not locate executable D:\hadoop-3.2.0\bin\winutils.exe in the Hadoop binaries.```     
+hadoop.dll:
+解决报错 ```Exception in thread "main" java.lang.UnsatisfiedLinkError: org.apache.hadoop.io.nativeio.NativeIO$Windows.access0(Ljava/lang/String;I)Z```
 
 5.重启idea
 
 ## 测试Demo
-1.新建maven工程hadoop-demo   
 
-2.添加pom依赖  
+1.新建maven工程hadoop-demo
+
+2.添加pom依赖
+
 ``` 
 <!-- hadoop-client依赖 -->
 <dependency>
@@ -59,6 +67,7 @@ hadoop.dll:  解决报错 ```Exception in thread "main" java.lang.UnsatisfiedLin
 ```
 
 3.resource/ 添加日志配置log4j.properties
+
 ``` 
 log4j.rootLogger=INFO, stdout  
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender  
@@ -71,6 +80,7 @@ log4j.appender.logfile.layout.ConversionPattern=%d %p [%c] - %m%n
 ```
 
 4.WordCountJob.java
+
 ``` 
 public class WordCountJob {
     /**
@@ -184,21 +194,22 @@ public class WordCountJob {
 ```
 
 5.启动参数program argumets指定远端hdfs输入、输出路径，run运行         
-![](https://wdsheng0i.github.io/assets/images/2021/big-data/debug-1.png)  
+![](https://wdsheng0i.github.io/assets/images/2021/big-data/debug-1.png)
 
 6.使用本地文件夹作为输入输出路径，不连接集群环境hdfs    
-a.组装job代码里注释掉配置的远端hdfs配置    
+a.组装job代码里注释掉配置的远端hdfs配置
+
 ```
 //conf.set("fs.defaultFS", "hdfs://192.168.1.196");  
 //conf.set("yarn.resourcemanager.hostname", "192.168.1.197");  
 ```
 
 b.program argumets添加本地路径参数，run运行    
-![](https://wdsheng0i.github.io/assets/images/2021/big-data/debug-2.png)  
-  
-![](https://wdsheng0i.github.io/assets/images/2021/big-data/debug-3.png)  
-		
+![](https://wdsheng0i.github.io/assets/images/2021/big-data/debug-2.png)
+
+![](https://wdsheng0i.github.io/assets/images/2021/big-data/debug-3.png)
 
 ## 问题记录
+
 - 教程：http://kaimingwan.com/post/da-shu-ju/ideazhong-diao-shi-hadoop-mapreducecheng-xu-windows
 - 问题集合：https://blog.csdn.net/congcong68/article/details/42043093

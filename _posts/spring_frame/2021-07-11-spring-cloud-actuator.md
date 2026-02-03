@@ -2,17 +2,21 @@
 layout: post
 title: 服务监控：spring-boot-actuator、spring-boot-admin
 category: springcloud
-tags: [springcloud]
+tags: [ springcloud ]
 ---
 
 ## 参考资料
+
 - [Spring Boot (十九)：使用 Spring Boot Actuator 监控应用](http://www.ityouknow.com/springboot/2018/02/06/spring-boot-actuator.html)
 - [Spring Boot(二十)：使用 spring-boot-admin 对 Spring Boot 服务进行监控](http://www.ityouknow.com/springboot/2018/02/11/spring-boot-admin.html)
 
 ## 一、spring-boot-actuator 监控
-Actuator 是 Spring Boot 提供的对应用系统的自省和监控的集成功能，可以查看应用配置的详细信息，例如自动化配置信息、创建的 Spring beans 以及一些环境属性等。
 
-为了保证 actuator 暴露的监控接口的安全性，需要添加安全控制的依赖spring-boot-start-security依赖，访问应用监控端点时，都需要输入验证信息。Security 依赖，可以选择不加，不进行安全管理，但不建议这么做。
+Actuator 是 Spring Boot 提供的对应用系统的自省和监控的集成功能，可以查看应用配置的详细信息，例如自动化配置信息、创建的
+Spring beans 以及一些环境属性等。
+
+为了保证 actuator 暴露的监控接口的安全性，需要添加安全控制的依赖spring-boot-start-security依赖，访问应用监控端点时，都需要输入验证信息。Security
+依赖，可以选择不加，不进行安全管理，但不建议这么做。
 
 ### 1.1 Actuator 的 REST 接口
 
@@ -24,34 +28,33 @@ Actuator 监控分成两类：原生端点和用户自定义端点；自定义�
 - 度量指标类：主要是运行期的动态信息，例如堆栈、请求连、一些健康指标、metrics 信息等；
 - 操作控制类：主要是指 shutdown,用户可以发送一个请求将应用的监控功能关闭。
 
-
 Actuator 提供了 13 个接口，具体如下表所示。
 
-| HTTP 方法 | 路径 | 描述 |
-| --- | --- | --- |
-| GET | /auditevents  | 显示应用暴露的审计事件 (比如认证进入、订单失败) |
-| GET | /beans | 描述应用程序上下文里全部的 Bean，以及它们的关系 |
-| GET | /conditions | 就是 1.0 的 /autoconfig ，提供一份自动配置生效的条件情况，记录哪些自动配置条件通过了，哪些没通过 |
-| GET | /configprops | 描述配置属性(包含默认值)如何注入Bean |
-| GET | /env | 获取全部环境属性 |
-| GET | /env/{name} | 根据名称获取特定的环境属性值 |
-| GET | /flyway | 提供一份 Flyway 数据库迁移信息 |
-| GET | /liquidbase | 显示Liquibase 数据库迁移的纤细信息 |
-| GET | /health | 报告应用程序的健康指标，这些值由 HealthIndicator 的实现类提供 |
-| GET | /heapdump | dump 一份应用的 JVM 堆信息 |
-| GET | /httptrace | 显示HTTP足迹，最近100个HTTP request/repsponse |
-| GET | /info | 获取应用程序的定制信息，这些信息由info打头的属性提供 |
-| GET | /logfile  | 返回log file中的内容(如果 logging.file 或者 logging.path 被设置) |
-| GET | /loggers  | 显示和修改配置的loggers |
-| GET | /metrics | 报告各种应用程序度量信息，比如内存用量和HTTP请求计数 |
-| GET | /metrics/{name} | 报告指定名称的应用程序度量值 |
-| GET | /scheduledtasks | 展示应用中的定时任务信息 |
-| GET | /sessions  | 如果我们使用了 Spring Session 展示应用中的 HTTP sessions 信息 |
-| POST| /shutdown | 关闭应用程序，要求endpoints.shutdown.enabled设置为true |
-| GET | /mappings | 描述全部的 URI路径，以及它们和控制器(包含Actuator端点)的映射关系 |
-| GET | /threaddump | 获取线程活动的快照 |
+| HTTP 方法 | 路径              | 描述                                                        |
+|---------|-----------------|-----------------------------------------------------------|
+| GET     | /auditevents    | 显示应用暴露的审计事件 (比如认证进入、订单失败)                                 |
+| GET     | /beans          | 描述应用程序上下文里全部的 Bean，以及它们的关系                                |
+| GET     | /conditions     | 就是 1.0 的 /autoconfig ，提供一份自动配置生效的条件情况，记录哪些自动配置条件通过了，哪些没通过 |
+| GET     | /configprops    | 描述配置属性(包含默认值)如何注入Bean                                     |
+| GET     | /env            | 获取全部环境属性                                                  |
+| GET     | /env/{name}     | 根据名称获取特定的环境属性值                                            |
+| GET     | /flyway         | 提供一份 Flyway 数据库迁移信息                                       |
+| GET     | /liquidbase     | 显示Liquibase 数据库迁移的纤细信息                                    |
+| GET     | /health         | 报告应用程序的健康指标，这些值由 HealthIndicator 的实现类提供                   |
+| GET     | /heapdump       | dump 一份应用的 JVM 堆信息                                        |
+| GET     | /httptrace      | 显示HTTP足迹，最近100个HTTP request/repsponse                     |
+| GET     | /info           | 获取应用程序的定制信息，这些信息由info打头的属性提供                              |
+| GET     | /logfile        | 返回log file中的内容(如果 logging.file 或者 logging.path 被设置)       |
+| GET     | /loggers        | 显示和修改配置的loggers                                           |
+| GET     | /metrics        | 报告各种应用程序度量信息，比如内存用量和HTTP请求计数                              |
+| GET     | /metrics/{name} | 报告指定名称的应用程序度量值                                            |
+| GET     | /scheduledtasks | 展示应用中的定时任务信息                                              |
+| GET     | /sessions       | 如果我们使用了 Spring Session 展示应用中的 HTTP sessions 信息            |
+| POST    | /shutdown       | 关闭应用程序，要求endpoints.shutdown.enabled设置为true                |
+| GET     | /mappings       | 描述全部的 URI路径，以及它们和控制器(包含Actuator端点)的映射关系                   |
+| GET     | /threaddump     | 获取线程活动的快照                                                 |
 
-### 1.2 快速上手 
+### 1.2 快速上手
 
 **项目依赖**
 
@@ -113,7 +116,7 @@ management.endpoints.web.base-path=/manage
 
 Actuator 几乎监控了应用涉及的方方面面，我们重点讲述一些经常在项目中常用的命令。
 
-####  health
+#### health
 
 health 主要用来检查应用的运行状态，这是我们使用最高频的一个监控点。通常使用此接口提醒我们应用实例的运行状态，以及应用不”健康“的原因，比如数据库连接、磁盘空间不够等。
 
@@ -133,9 +136,12 @@ health 主要用来检查应用的运行状态，这是我们使用最高频的�
 - 4 将所有收集到的状态码按照 1 中的顺序排序。
 - 5 返回有序状态码序列中的第一个状态码，作为整个 Spring Boot 应用的状态。
 
-health  通过合并几个健康指数检查应用的健康情况。Spring Boot Actuator 有几个预定义的健康指标比如`DataSourceHealthIndicator`, `DiskSpaceHealthIndicator`, `MongoHealthIndicator`, `RedisHealthIndicator`等，它使用这些健康指标作为健康检查的一部分。
+health 通过合并几个健康指数检查应用的健康情况。Spring Boot Actuator
+有几个预定义的健康指标比如`DataSourceHealthIndicator`, `DiskSpaceHealthIndicator`, `MongoHealthIndicator`, `RedisHealthIndicator`
+等，它使用这些健康指标作为健康检查的一部分。
 
-举个例子，如果你的应用使用 Redis，`RedisHealthindicator` 将被当作检查的一部分；如果使用 MongoDB，那么`MongoHealthIndicator` 将被当作检查的一部分。
+举个例子，如果你的应用使用 Redis，`RedisHealthindicator` 将被当作检查的一部分；如果使用 MongoDB，那么`MongoHealthIndicator`
+将被当作检查的一部分。
 
 可以在配置文件中关闭特定的健康检查指标，比如关闭 redis 的健康检查：
 
@@ -167,12 +173,11 @@ info.app.test= test
 }
 ```
 
-####  beans
+#### beans
 
 根据示例就可以看出，展示了 bean 的别名、类型、是否单例、类的地址、依赖等信息。
 
 启动示例项目，访问：`http://localhost:8080/actuator/beans`返回部分信息如下：
-
 
 ```
 [
@@ -210,7 +215,8 @@ info.app.test= test
 
 #### conditions
 
-Spring Boot 的自动配置功能非常便利，但有时候也意味着出问题比较难找出具体的原因。使用 conditions 可以在应用运行时查看代码了某个配置在什么条件下生效，或者某个自动配置为什么没有生效。
+Spring Boot 的自动配置功能非常便利，但有时候也意味着出问题比较难找出具体的原因。使用 conditions
+可以在应用运行时查看代码了某个配置在什么条件下生效，或者某个自动配置为什么没有生效。
 
 启动示例项目，访问：`http://localhost:8080/actuator/conditions`返回部分信息如下：
 
@@ -248,9 +254,10 @@ Spring Boot 的自动配置功能非常便利，但有时候也意味着出问�
 
 返回一个 GZip 压缩的 JVM 堆 dump
 
-启动示例项目，访问：`http://localhost:8080/actuator/heapdump`会自动生成一个 Jvm 的堆文件 heapdump，我们可以使用 JDK 自带的 Jvm 监控工具 VisualVM 打开此文件查看内存快照。类似如下图：
+启动示例项目，访问：`http://localhost:8080/actuator/heapdump`会自动生成一个 Jvm 的堆文件 heapdump，我们可以使用 JDK 自带的
+Jvm 监控工具 VisualVM 打开此文件查看内存快照。类似如下图：
 
-![](http://favorites.ren/assets/images/2018/springboot/heapdump.png) 
+![](http://favorites.ren/assets/images/2018/springboot/heapdump.png)
 
 #### shutdown
 
@@ -270,10 +277,9 @@ curl -X POST "http://localhost:8080/actuator/shutdown"
 }
 ```
 
-
 此时你会发现应用已经被关闭。
 
-####  mappings
+#### mappings
 
 描述全部的 URI 路径，以及它们和控制器的映射关系
 
@@ -295,7 +301,7 @@ curl -X POST "http://localhost:8080/actuator/shutdown"
 }
 ```
 
-####  threaddump
+#### threaddump
 
 /threaddump 接口会生成当前线程活动的快照。这个功能非常好，方便我们在日常定位问题的时候查看线程的情况。
 主要展示了线程名、线程ID、线程的状态、是否等待锁资源等信息。
@@ -346,16 +352,20 @@ curl -X POST "http://localhost:8080/actuator/shutdown"
 
 生产出现问题的时候，可以通过应用的线程快照来检测应用正在执行的任务。
 
-##  二、spring-boot-admin 监控
-Spring Boot Actuator 提供了对单个 Spring Boot 的监控，信息包含：应用状态、内存、线程、堆栈等等，比较全面的监控了 Spring Boot 应用的整个生命周期。
+## 二、spring-boot-admin 监控
 
-但是这样监控也有一些问题：  
+Spring Boot Actuator 提供了对单个 Spring Boot 的监控，信息包含：应用状态、内存、线程、堆栈等等，比较全面的监控了 Spring Boot
+应用的整个生命周期。
+
+但是这样监控也有一些问题：
+
 - 第一，所有的监控都需要调用固定的接口来查看，如果全面查看应用状态需要调用很多接口，并且接口返回的 Json 信息不方便运营人员理解；
 - 第二，如果 Spring Boot 应用集群非常大，每个应用都需要调用不同的接口来查看监控信息，操作非常繁琐低效。
 
 在这样的背景下，就诞生了另外一个开源软件：Spring Boot Admin。
 
-Spring Boot Admin 是一个管理和监控 Spring Boot 应用程序的开源软件。每个应用都认为是一个客户端，通过 HTTP 或者使用 Eureka 注册到 admin server 中进行展示，Spring Boot Admin UI 部分使用 VueJs 将数据展示在前端。
+Spring Boot Admin 是一个管理和监控 Spring Boot 应用程序的开源软件。每个应用都认为是一个客户端，通过 HTTP 或者使用 Eureka
+注册到 admin server 中进行展示，Spring Boot Admin UI 部分使用 VueJs 将数据展示在前端。
 
 ## 三、监控单体应用
 

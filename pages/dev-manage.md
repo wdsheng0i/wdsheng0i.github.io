@@ -1,10 +1,10 @@
 ---
 layout: page
-title:  研发管理
+title: 研发管理
 titlebar: dev-manage
 subtitle: 项目管理 &nbsp;&nbsp; 产品管理 &nbsp;&nbsp; 研发流程管理...
 menu: dev-manage
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /dev-manage
 ---
 
@@ -43,4 +43,5 @@ permalink: /dev-manage
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

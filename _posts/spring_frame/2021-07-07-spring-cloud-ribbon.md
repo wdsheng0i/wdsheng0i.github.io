@@ -2,73 +2,88 @@
 layout: post
 title: 服务负载均衡：Ribbon
 category: springcloud
-tags: [springcloud]
+tags: [ springcloud ]
 ---
 
 服务负载均衡：Ribbon
 
-## 参考资料  
+## 参考资料
 
 ## 一、负载均衡（Load balancing）简介
-是一种计算机网络技术，用来在多个计算机（计算机集群）、网络连接、CPU、磁盘驱动器或其他资源中分配负载，以达到最佳化资源使用、最大化吞吐率、最小化响应时间、同时避免过载的目的。  
+
+是一种计算机网络技术，用来在多个计算机（计算机集群）、网络连接、CPU、磁盘驱动器或其他资源中分配负载，以达到最佳化资源使用、最大化吞吐率、最小化响应时间、同时避免过载的目的。
 
 使用带有负载平衡的多个服务器组件，取代单一的组件，可以通过冗余提高可靠性。负载平衡服务通常是由专用软件和硬件来完成  
-![](https://www.runoob.com/wp-content/uploads/2018/08/398358-20160219104130363-660910928.jpg)  
+![](https://www.runoob.com/wp-content/uploads/2018/08/398358-20160219104130363-660910928.jpg)
 
 ## 二、负载均衡使用场景
+
 - 1.单一服务器down机：单点故障、服务无法访问
 - 2.客户端访问量大: 服务器压力大，处理响应慢，过载
 
 ## 三、负载均衡实现方式
+
 - 1).硬件负载均衡
-硬件负载均衡解决方案是直接在服务器和外部网络间安装负载均衡设备，这种设备我们通常称之为负载均衡器，由于专门的设 备完成专门的任务，独立于操作系统，整体性能得到大量提高，加上多样化的负载均衡策略，智能化的流量管理，可达到最佳的负载均衡需求。
+  硬件负载均衡解决方案是直接在服务器和外部网络间安装负载均衡设备，这种设备我们通常称之为负载均衡器，由于专门的设
+  备完成专门的任务，独立于操作系统，整体性能得到大量提高，加上多样化的负载均衡策略，智能化的流量管理，可达到最佳的负载均衡需求。
     - F5 BIG-IP负载均衡器（LTM）
     - 思科
     - Radware的AppDirector系列
     - 梭子鱼负载均衡
 - 2).软件负载均衡
-软件负载均衡解决方案是指在一台或多台服务器相应的操作系统上安装一个或多个附加软件来实现负载均衡，它的优点是基于特定环境，配置简单，使用灵活，成本低廉，可以满足一般的负载均衡需求。
+  软件负载均衡解决方案是指在一台或多台服务器相应的操作系统上安装一个或多个附加软件来实现负载均衡，它的优点是基于特定环境，配置简单，使用灵活，成本低廉，可以满足一般的负载均衡需求。
     - LVS（Linux virture server）
     - HAProxy
     - Nginx
     - Ribbon
 
 ## 四、Nginx负载均衡的集中方式介绍
+
 ### 轮询
+
 是Nginx负载默认的方式，顾名思义，所有请求都按照时间顺序分配到不同的服务上，如果服务Down掉，可以自动剔除
 
 ### 权重weight
+
 指定每个服务的权重比例，weight和访问比率成正比，通常用于后端服务机器性能不统一，将性能好的分配权重高来发挥服务器最大性能
 
 ### iphash
+
 每个请求都根据访问ip的hash结果分配，经过这样的处理，每个访客固定访问一个后端服务，如下配置（ip_hash可以和weight配合使用）
 
 ### url_hash（第三方）
+
 按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效
 
 ### 最少连接 least_conn
+
 将请求分配到连接数最少的服务上
 
 ### 响应时间fair
+
 按后端服务器的响应时间来分配请求，响应时间短的优先分配。
 
-## 五、正-[反向代理（Reverse Proxy)](https://www.zhihu.com/question/24723688)  
+## 五、正-[反向代理（Reverse Proxy)](https://www.zhihu.com/question/24723688)
+
 ### 正向代理（对服务器来讲）：
+
 服务器不知道请求来自哪个客户端，客户端请求通过代理服务器转发给对应服务器  
 如：客户端要访问Google，但是不直接去访问，而且让一个代理服务器去访问Google，然后代理服务器再将访问到的信息返回给客户端。这里的代理服务器所实现的功能就叫做正向代理。    
-![](https://wdsheng0i.github.io/assets/images/2021/lb/cp.png)      
+![](https://wdsheng0i.github.io/assets/images/2021/lb/cp.png)
 
-### 反向代理（对客户端来讲）（Reverse Proxy）  
+### 反向代理（对客户端来讲）（Reverse Proxy）
+
 指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。    
-![](https://wdsheng0i.github.io/assets/images/2021/lb/fp.png)        
+![](https://wdsheng0i.github.io/assets/images/2021/lb/fp.png)
 
 **反向代理的作用**
+
 - 保护网站安全：任何来自Internet的请求都必须先经过代理服务器；  
-![](https://wdsheng0i.github.io/assets/images/2021/lb/sec.jpeg)  
+  ![](https://wdsheng0i.github.io/assets/images/2021/lb/sec.jpeg)
 - 通过配置缓存功能加速Web请求：可以缓存真实Web服务器上的某些静态资源，减轻真实Web服务器的负载压力；  
-![](https://wdsheng0i.github.io/assets/images/2021/lb/hc.jpeg)  
+  ![](https://wdsheng0i.github.io/assets/images/2021/lb/hc.jpeg)
 - 实现负载均衡：充当负载均衡服务器均衡地分发请求，平衡集群中各个服务器的负载压力；  
-![](https://wdsheng0i.github.io/assets/images/2021/lb/lb.jpeg)  
+  ![](https://wdsheng0i.github.io/assets/images/2021/lb/lb.jpeg)
 
 ## 六、Ribbon负载均衡
 

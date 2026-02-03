@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 操作系统 
+title: 操作系统
 titlebar: operate-system
 subtitle: Linux &nbsp;&nbsp; windows &nbsp;&nbsp; CPU &nbsp;&nbsp; 内存 &nbsp;&nbsp; 硬盘 &nbsp;&nbsp; 进程 ...
 menu: operate-system
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /operate-system
 ---
 
@@ -43,4 +43,5 @@ permalink: /operate-system
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

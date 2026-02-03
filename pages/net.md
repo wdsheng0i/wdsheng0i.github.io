@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 网络 
+title: 网络
 titlebar: net
 subtitle: HTTP &nbsp;&nbsp; RMI &nbsp;&nbsp; Socket &nbsp;&nbsp; 远程连接 &nbsp;&nbsp; 流媒体协议 &nbsp;&nbsp;网络协议OSI &nbsp;&nbsp; TCP&UDP ...
 menu: net
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /net
 ---
 
@@ -43,4 +43,5 @@ permalink: /net
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

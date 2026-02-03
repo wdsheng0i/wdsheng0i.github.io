@@ -2,7 +2,7 @@
 layout: post
 title: 服务流量防控-sentinel
 category: springcloud
-tags: [springcloud]
+tags: [ springcloud ]
 ---
 
 服务流量防控-sentinel哨兵

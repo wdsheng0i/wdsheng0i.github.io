@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Java 基础 
+title: Java 基础
 titlebar: java
 subtitle: jdk8 &nbsp;&nbsp; 集合 &nbsp;&nbsp; 泛型 &nbsp;&nbsp; 反射  &nbsp;&nbsp; IO/NIO &nbsp;&nbsp; 网络编程 &nbsp;&nbsp; 异常  &nbsp;&nbsp; 调试
 menu: java
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /java
 ---
 
@@ -43,4 +43,5 @@ permalink: /java
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

@@ -2,10 +2,11 @@
 layout: post
 title: 大数据之CDH安装与部署
 category: acide
-tags: [acide]
+tags: [ acide ]
 ---
 
 ## 参考资料
+
 Cloudera Hadoop: 大数据之CDH安装与部署
 
 - [官网文档](https://docs.cloudera.com/documentation/enterprise/6/6.0/topics/cdh_intro.html)
@@ -15,9 +16,10 @@ Cloudera Hadoop: 大数据之CDH安装与部署
 - 《Cloudera Hadoop大数据平台实战指南》_宋立桓
 - 实战指南配套： https://pan.baidu.com/s/1-P7Go5gdJLim33_Iju1rfg#list/path=%2F    d1tk
 
-https://archive.cloudera.com/cm6/ 
+https://archive.cloudera.com/cm6/
 
-CDH优点：  
+CDH优点：
+
 - 统一化的可视化界面、服务主机和集群实时监控
 - 自动部署和配置，大数据组件（hadoop、hive、impala...）安装调优便捷
 - 0停机维护（免费版本不具有弹性升级）
@@ -25,20 +27,22 @@ CDH优点：
 - 多用户管理
 
 CDH应用场景：（节点少，服务器紧张，且使用大数据组件少 建议直接选择开源版本使用）
+
 - 节点大于5个
 - 服务器资源不紧张
 - 免费版本不具有弹性升级，所以版本要求稳定
 - 减轻运维工作量
 
-## 1.基础环境准备（3台主机都做好基础环境设置）  
+## 1.基础环境准备（3台主机都做好基础环境设置）
 
-| ip 	|名称	|内存大小|  安装组件|
-| ---- | ---- | ---- | ---- |
-|192.168.145.128	|cdh1	|16G|  server + agent |
-|192.168.145.129	|cdh2	|16G|  agent |
-|192.168.145.130	|cdh3	|16G|  agent + mysql|
+| ip 	             | 名称	   | 内存大小 | 安装组件           |
+|------------------|-------|------|----------------|
+| 192.168.145.128	 | cdh1	 | 16G  | server + agent |
+| 192.168.145.129	 | cdh2	 | 16G  | agent          |
+| 192.168.145.130	 | cdh3	 | 16G  | agent + mysql  |
 
-### ip设置    
+### ip设置
+
 ```
 //配置静态（固定）ip
 1.虚拟机网卡设置：NAT
@@ -54,14 +58,16 @@ DNS1=192.168.145.2
 3.重启网卡服务：service network restart
 ```
 
-### 主机名hostname设置（临时+永久）    
+### 主机名hostname设置（临时+永久）
+
 ```
 [root@chd1 hadoop]# hostname chd1
 [root@chd1 hadoop]# vi /etc/hostname
 chd1 
 ```
 
-### hosts文件修改（ip和主机名的映射关系,3台主机都要添加）    
+### hosts文件修改（ip和主机名的映射关系,3台主机都要添加）
+
 ```
 [root@chd1 hadoop]# vi /etc/hosts
 ip1 hostname1
@@ -69,13 +75,15 @@ ip2 hostname2
 ip3 hostname3
 ```
 
-### 关闭防火墙（临时+永久）  
+### 关闭防火墙（临时+永久）
+
 ```
 关闭防火墙 systemctl stop firewalld 
 关闭开机启动项：systemctl disable firewalld
 ```
 
-### ssh免密登录（3台主机互相做免密）    
+### ssh免密登录（3台主机互相做免密）
+
 ```
 [root@chd1 hadoop]# ssh-keygen -t rsa //一路回车
 [root@chd1 hadoop]# cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
@@ -88,7 +96,8 @@ $ ssh-copy-id -i chd2
 $ ssh-copy-id -i chd3
 ```
 
-### jdk安装:  
+### jdk安装:
+
 ```
 //1.下载：https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html
 上传jdk-8u171-linux-x64.tar.gz至目录/opt
@@ -108,6 +117,7 @@ source /etc/profile
 ``` 
 
 ### 克隆出129、130 （非克隆虚拟机不需要这一步）
+
 ```
 1.vm128-右键-管理-克隆-当前状态-创建完整克隆
 
@@ -125,6 +135,7 @@ IPADDR=192.168.145.130
 ``` 
 
 ### 集群节点之间时间同步
+
 ```
 yum install -y ntpdate
 ntpdate -u ntp.sjtu.edu.cn
@@ -135,18 +146,21 @@ vi /etc/crontab
 ```
 
 ### SELINUX 关闭
+
 ```
 vim /etc/selinux/config
 SELINUX=disabled (修改)
 ```
 
 ### 卸载mariadb
+
 ```
 rpm -qa|grep mariadb
 yum -y remove mariadb-libs
 ```
 
 ### 修改系统参数
+
 ```
 sysctl vm.swappiness=10
 echo 'vm.swappiness=10' >> /etc/sysctl.conf
@@ -157,6 +171,7 @@ echo 'echo never > /sys/kernel/mm/transparent_hugepage/enabled'  >> /etc/rc.loca
 ```
 
 ### 安装httpd
+
 ```
 yum -y install httpd
 service httpd start 
@@ -166,11 +181,13 @@ service  httpd status
 ```
 
 ### 安装第三方依赖包
+
 ```
 yum -y install chkconfig 
 ```
 
 ## 2.mysql安装(数据库只在cdh3 上面进行安装)
+
 ```
 官网下载：https://dev.mysql.com/downloads/mysql/  
 1.将下载好的mysql-8.0.17-linux-glibc2.12-x86_64.tar.xz上传到usr/local/mysql目录下(如果没有该目录可以依次建文件夹)
@@ -250,13 +267,15 @@ flush privileges;
 ```
 
 ## 3.CDH安装
+
 Cloudera Manger下载地址为： https://archive.cloudera.com/cm6/6.2.0/redhat7/yum/RPMS/x86_64/  
-cdh6下载：https://archive.cloudera.com/cdh6/6.2.0/parcels/   
+cdh6下载：https://archive.cloudera.com/cdh6/6.2.0/parcels/
 
 上述文件整理资料百度云下载地址为：    
-链接: https://pan.baidu.com/s/1Dm5Elf9uQqn14BUbgU3AFQ 提取码: mws3 
+链接: https://pan.baidu.com/s/1Dm5Elf9uQqn14BUbgU3AFQ 提取码: mws3
 
 ### mysql：创建cloudera manager需要的数据库
+
 ```
 create database cmf default character set='utf8';
 create database amon default character set='utf8';
@@ -266,25 +285,31 @@ create database hue default character set='utf8';
 ```
 
 ### 上传mysql-connector-java（三台主机都执行）
+
 ```
 mkdir /usr/share/java
 mysql-connector-java.jar上传到 /usr/share/java 目录下
 ``` 
 
 ### 安装Cloudera Manager
+
 全部节点都安装daemons和agent
+
 ``` 
 yum localinstall -y cloudera-manager-daemons-6.2.0-968826.el7.x86_64.rpm 
 yum localinstall -y cloudera-manager-agent-6.2.0-968826.el7.x86_64.rpm 
 ```
 
-cdh1 节点  安装server 
+cdh1 节点 安装server
+
 ```
 yum localinstall -y cloudera-manager-server-6.2.0-968826.el7.x86_64.rpm
 ```
 
 ### CDH6.2.0安装/启动
-1.cdh1上传   
+
+1.cdh1上传
+
 ```
 CDH-6.2.0-1.cdh6.2.0.p0.967373-el7.parcel*    到目录 /opt/cloudera/parcel-repo/ 下  
 PHOENIX-5.0.0-cdh6.2.0.p0.1308267-el7.parcel* 到目录 /opt/cloudera/parcel-repo/ 下  
@@ -292,7 +317,8 @@ manifest.json                                 到目录 /opt/cloudera/parcel-rep
 PHOENIX-1.0.jar                               到目录 /opt/cloudera/csd/ 下
 ```  
 
-2.校验：  加密值一致即包下载完整    
+2.校验： 加密值一致即包下载完整
+
 ``` 
 //执行命令，对比加密值
 sha1sum CDH-6.2.0-1.cdh6.2.0.p0.967373-el7.parcel
@@ -303,6 +329,7 @@ cat PHOENIX-5.0.0-cdh6.2.0.p0.1308267-el7.parcel.sha
 ``` 
 
 3.修改server配置文件（cdh1 server节点上修改server）
+
 ``` 
 vi /etc/cloudera‐scm‐server/db.properties
 
@@ -314,12 +341,14 @@ com.cloudera.cmf.db.setupType=EXTERNAL
 ```
 
 4.修改agent配置文件（所有节点）
+
 ```  
 vi /etc/cloudera-scm-agent/config.ini
 server_host=cdh1
 ```
 
 5.启动
+
 ``` 
 #在cdh1 上启动server
 systemctl start cloudera-scm-server
@@ -334,6 +363,7 @@ systemctl start cloudera-scm-agent
 ```
 
 问题：
+
 ``` 
 启动失败：https://blog.csdn.net/a544258023/article/details/107856387
 查看服务失败信息：service cloudera-scm-server status
@@ -344,37 +374,39 @@ ln -s /opt/module/jdk1.8.0_212 /usr/java/default
 ```
 
 ## 4.安装大数据组件
+
 Cloudera Manager web: http://cdh1:7180/  
-默认超管：admin/admin，超管登陆入之后可以根据需要新建"仅查看权限"的账号  
+默认超管：admin/admin，超管登陆入之后可以根据需要新建"仅查看权限"的账号
 
-### 通过Cloudera Manager安装各种大数据组件  
+### 通过Cloudera Manager安装各种大数据组件
+
 组件较多，不在赘述，具体参考  [CDH6.2.0搭建（史上最全的安装教程）](https://blog.csdn.net/weixin_38201936/article/details/106006335)  
-各组件安装步骤基本相同  
+各组件安装步骤基本相同
 
-|服务类型|	说明|
-| ---- | ---- |
-|ADLS Connector	  |The ADLS Connector service provides key management for accessing ADLS Gen1 accounts and ADLS Gen2 containers from CDH services.|
-|Accumulo	      |The Apache Accumulo sorted, distributed key/value store is a robust, scalable, high performance data storage and retrieval system. This service only works with releases meant to run on top of CDH6.|
-|Flume	          |Flume 从几乎所有来源收集数据并将这些数据聚合到永久性存储（如 HDFS）中。|
-|HBase	          |Apache HBase 提供对大型数据集的随机、实时的读/写访问权限（需要 HDFS 和 ZooKeeper）。|
-|HDFS	          |Apache Hadoop 分布式文件系统 (HDFS) 是 Hadoop 应用程序使用的主要存储系统。HDFS 创建多个数据块副本并将它们分布在整个群集的计算主机上，以启用可靠且极其快速的计算功能。|
-|Hive	          |Hive 是一种数据仓库系统，提供名为 HiveQL 的 SQL 类语言。|
-|Hue	          |Hue 是与包括 Apache Hadoop 的 Cloudera Distribution 配合使用的图形用户界面(需要 HDFS、MapReduce 和 Hive)。|
-|Impala	          |Impala 为存储在 HDFS 和 HBase 中的数据提供了一个实时 SQL 查询接口。Impala 需要 Hive 服务，并与 Hue 共享 Hive Metastore。|
-|Isilon	          |EMC Isilon is a distributed filesystem.|
-|Java KeyStore KMS	|The Hadoop Key Management Service with file-based Java KeyStore. Maintains a single copy of keys, using simple password-based protection. Requires CDH 6.0+. Not recommended for production use.|
-|Kafka	  			|Apache Kafka is publish-subscribe messaging rethought as a distributed commit log.|
-|Key-Value Store Indexer	|键/值 Store Indexer 侦听 HBase 中所含表内的数据变化，并使用 Solr 为其创建索引。|
-|Kudu				|Kudu is a true column store for the Hadoop ecosystem.|
-|Oozie				|Oozie 是群集中管理数据处理作业的工作流协调服务。|
-|Phoenix			|Apache Phoenix is an open source, massively parallel, relational database engine supporting OLTP for Hadoop using Apache HBase as its backing store.
-|S3 Connector	    |The S3 Connector Service securely provides a single set of AWS credentials to Impala and Hue. This enables Hue administrators to browse the S3 filesystem and define Impala tables backed by S3 data authorized to that AWS identity, and also enables Impala users to query S3-backed tables without directly providing AWS credentials, subject to having the proper permissions defined via Sentry. The S3 Connector only supports the S3A protocol.|
-|Sentry				|Sentry 	服务存储身份验证政策元数据并为客户端提供对该元数据的并发安全访问。|
-|Solr				|Solr 是一个分布式服务，用于编制存储在 HDFS 中的数据的索引并搜索这些数据。|
-|Spark				|Apache Spark is an open source cluster computing system. This service runs Spark as an application on YARN.|
-|Sqoop 1 Client		|Configuration and connector management for Sqoop 1.|
-| YARN (MR2 Included)  		    	|	Apache Hadoop MapReduce 2.0 (MRv2) 或 YARN 是支持 MapReduce 应用程序的数据计算框架（需要 HDFS）。|
-|ZooKeeper			|Apache ZooKeeper 是用于维护和同步配置数据的集中服务。|
+| 服务类型                         | 	说明                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ADLS Connector	              | The ADLS Connector service provides key management for accessing ADLS Gen1 accounts and ADLS Gen2 containers from CDH services.                                                                                                                                                                                                                                                                                                                         |
+| Accumulo	                    | The Apache Accumulo sorted, distributed key/value store is a robust, scalable, high performance data storage and retrieval system. This service only works with releases meant to run on top of CDH6.                                                                                                                                                                                                                                                   |
+| Flume	                       | Flume 从几乎所有来源收集数据并将这些数据聚合到永久性存储（如 HDFS）中。                                                                                                                                                                                                                                                                                                                                                                                                               |
+| HBase	                       | Apache HBase 提供对大型数据集的随机、实时的读/写访问权限（需要 HDFS 和 ZooKeeper）。                                                                                                                                                                                                                                                                                                                                                                                               |
+| HDFS	                        | Apache Hadoop 分布式文件系统 (HDFS) 是 Hadoop 应用程序使用的主要存储系统。HDFS 创建多个数据块副本并将它们分布在整个群集的计算主机上，以启用可靠且极其快速的计算功能。                                                                                                                                                                                                                                                                                                                                                    |
+| Hive	                        | Hive 是一种数据仓库系统，提供名为 HiveQL 的 SQL 类语言。                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Hue	                         | Hue 是与包括 Apache Hadoop 的 Cloudera Distribution 配合使用的图形用户界面(需要 HDFS、MapReduce 和 Hive)。                                                                                                                                                                                                                                                                                                                                                                   |
+| Impala	                      | Impala 为存储在 HDFS 和 HBase 中的数据提供了一个实时 SQL 查询接口。Impala 需要 Hive 服务，并与 Hue 共享 Hive Metastore。                                                                                                                                                                                                                                                                                                                                                               |
+| Isilon	                      | EMC Isilon is a distributed filesystem.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Java KeyStore KMS	           | The Hadoop Key Management Service with file-based Java KeyStore. Maintains a single copy of keys, using simple password-based protection. Requires CDH 6.0+. Not recommended for production use.                                                                                                                                                                                                                                                        |
+| Kafka	  			                  | Apache Kafka is publish-subscribe messaging rethought as a distributed commit log.                                                                                                                                                                                                                                                                                                                                                                      |
+| Key-Value Store Indexer	     | 键/值 Store Indexer 侦听 HBase 中所含表内的数据变化，并使用 Solr 为其创建索引。                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Kudu				                     | Kudu is a true column store for the Hadoop ecosystem.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Oozie				                    | Oozie 是群集中管理数据处理作业的工作流协调服务。                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| Phoenix			                   | Apache Phoenix is an open source, massively parallel, relational database engine supporting OLTP for Hadoop using Apache HBase as its backing store.                                                                                                                                                                                                                                                                                                    
+| S3 Connector	                | The S3 Connector Service securely provides a single set of AWS credentials to Impala and Hue. This enables Hue administrators to browse the S3 filesystem and define Impala tables backed by S3 data authorized to that AWS identity, and also enables Impala users to query S3-backed tables without directly providing AWS credentials, subject to having the proper permissions defined via Sentry. The S3 Connector only supports the S3A protocol. |
+| Sentry				                   | Sentry 	服务存储身份验证政策元数据并为客户端提供对该元数据的并发安全访问。                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Solr				                     | Solr 是一个分布式服务，用于编制存储在 HDFS 中的数据的索引并搜索这些数据。                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Spark				                    | Apache Spark is an open source cluster computing system. This service runs Spark as an application on YARN.                                                                                                                                                                                                                                                                                                                                             |
+| Sqoop 1 Client		             | Configuration and connector management for Sqoop 1.                                                                                                                                                                                                                                                                                                                                                                                                     |
+| YARN (MR2 Included)  		    	 | 	Apache Hadoop MapReduce 2.0 (MRv2) 或 YARN 是支持 MapReduce 应用程序的数据计算框架（需要 HDFS）。                                                                                                                                                                                                                                                                                                                                                                          |
+| ZooKeeper			                 | Apache ZooKeeper 是用于维护和同步配置数据的集中服务。                                                                                                                                                                                                                                                                                                                                                                                                                     |
 
 
 

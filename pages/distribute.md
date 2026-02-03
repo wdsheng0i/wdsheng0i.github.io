@@ -1,10 +1,10 @@
 ---
 layout: page
-title: distribute 
+title: distribute
 titlebar: distribute
 subtitle: 分部式中间件...
 menu: distribute
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /distribute
 ---
 
@@ -43,4 +43,5 @@ permalink: /distribute
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

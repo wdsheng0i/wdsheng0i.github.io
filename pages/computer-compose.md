@@ -1,10 +1,10 @@
 ---
 layout: page
-title: 计算机组成原理 
+title: 计算机组成原理
 titlebar: computer-compose
-subtitle:  
+subtitle:
 menu: computer-compose
-css: ['blog-page.css']
+css: [ 'blog-page.css' ]
 permalink: /computer-compose
 ---
 
@@ -43,4 +43,5 @@ permalink: /computer-compose
         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
     });
+
 </script>

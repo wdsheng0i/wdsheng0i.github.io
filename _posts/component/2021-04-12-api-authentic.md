@@ -2,15 +2,17 @@
 layout: post
 title: 接口鉴权、参数校验、签名验证、防刷、幂等
 category: component
-tags: [component]
+tags: [ component ]
 ---
 
 接口鉴权
 
-## 参考资料 
+## 参考资料
 
 ## 一、token验证 + session超期验证
-拦截器统一拦截请求  
+
+拦截器统一拦截请求
+
 ```
 @Slf4j
 public class AuthInterceptor implements HandlerInterceptor {
@@ -37,8 +39,9 @@ public class AuthInterceptor implements HandlerInterceptor {
 ```
 
 ## 二、Permissions接口权限字验证
-用户-角色-权限字: 接口需要的权限字 
- 
+
+用户-角色-权限字: 接口需要的权限字
+
 ```
 1.@Permissions自定义注解
 /**
@@ -93,7 +96,9 @@ public Map userList(@RequestBody UserRequest requestParam){
 ```
 
 ## 三、validation请求参数校验
+
 javax.validation + @validated实现方式
+
 ```
 1.定义请求参数
 @Data
@@ -115,7 +120,9 @@ public Map userAdd(@Validated @RequestBody UserRequest addParam){
     ...
 }
 ```
+
 javax.validation + @validated + groups分组校验
+
 ```
 @Data
 public class UserRequest {
@@ -144,14 +151,15 @@ public Map userAdd(@Validated({UserRequest.add.class}) @RequestBody UserRequest 
 
 ## 四、signture无状态接口签名验证
 
-|     参数  |         值             |              说明              |
-|-----------|------------------------|--------------------------------|
-|appId	    |wdsswds12wds2dsads	     |渠道参数，每个接入渠道分配唯一|
-|appSecert	|wds1sewdssd1wds	     |渠道接入秘钥|
-|RSAPublic	|MIGwds0GCSqGWDS3DQEB…	 |RSA公钥，用于调用接口前，加密报文 |
-|RSAPrivate	|MIIwdsIBAWDSBgkqhkiGF…	 |RSA私钥，用于调用接口后，接收到返回的报文进行解密|
+| 参数          | 值                       | 说明                         |
+|-------------|-------------------------|----------------------------|
+| appId	      | wdsswds12wds2dsads	     | 渠道参数，每个接入渠道分配唯一            |
+| appSecert	  | wds1sewdssd1wds	        | 渠道接入秘钥                     |
+| RSAPublic	  | MIGwds0GCSqGWDS3DQEB…	  | RSA公钥，用于调用接口前，加密报文         |
+| RSAPrivate	 | MIIwdsIBAWDSBgkqhkiGF…	 | RSA私钥，用于调用接口后，接收到返回的报文进行解密 |
 
 4.1 输入格式规范：
+
 ```
 {
     "head": {
@@ -170,6 +178,7 @@ public Map userAdd(@Validated({UserRequest.add.class}) @RequestBody UserRequest 
 ```
 
 4.2 输出格式规范：
+
 ```
 {
     "head": {
@@ -188,31 +197,37 @@ public Map userAdd(@Validated({UserRequest.add.class}) @RequestBody UserRequest 
 ```
 
 4.3 signture签名过程
+
 - 对body参数排序，拼接密钥，摘要算法加密，转16进制 ==> 生成的值作签名值，为防止信息传输过程中篡改 校验使用
 - 请求者拿到响应后签名与原签名值比对
 
 ## 五、接口防刷
-[一个注解搞定接口防刷！还有谁不会？](https://mp.weixin.qq.com/s/KeWZmdMtUNLXd5Gb9GrITw)  
+
+[一个注解搞定接口防刷！还有谁不会？](https://mp.weixin.qq.com/s/KeWZmdMtUNLXd5Gb9GrITw)
 
 ## 六、SpringBoot[接口幂等性的实现](http://www.mydlq.club/article/94/)
+
 幂等（idempotent、idempotence）是一个数学与计算机学概念，常见于抽象代数中。   
 在编程中一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同。
 
 简单的说幂等性就是验证数据的一致性和事务的完整性。
 
 ### 6.1 什么情况下会出现幂等性的场景：
+
 - 用户重复提交
 - 网络重发
 - 消息重发
 - 系统间重试
 
 ### 6.2 [数据库操作幂等性分析：](http://www.kokojia.com/article/49852.html)
+
 - insert操作不满足幂等性，那么唯一索引可以是幂等问题的解法。数据库会帮助我们执行唯一性检查，相同数据不会重复落库。
 - update操作部分不满足幂等性，计算式update不具备幂等性，update goods set number=nember-1 where id=1
 - select操作满足幂等性
 - delete操作满足幂等性
 
 ### 6.3 幂等性解决方案
+
 - 唯一索引：数据库建立合适的字段唯一索引，重复insert时会校验
 - 悲观锁for update：数据锁定较长场景使用，select * from t_order where order_id = trade_no for update;
     - 当线程A执行for update，数据库会对当前记录加锁，其他线程执行到此行代码的时候，会等待线程A释放锁之后，才可以获取锁，继续后续操作。
